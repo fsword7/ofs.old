@@ -13,5 +13,8 @@ namespace ofs {
 	public:
 		Core();
 		~Core();
+
+		void onInit();
+		void onClean();
 	};
 }
