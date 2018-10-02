@@ -1,8 +1,10 @@
 set(ofs_cpp_SRCS
 	osd/sdl2/main.cpp
+	main/core.cpp
 )
 
 set(ofs_h_SRCS
+	main/core.h
 	main/main.h
 	main/math.h
 )
