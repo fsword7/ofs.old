@@ -9,8 +9,8 @@
 #include <iostream>
 
 #include <SDL2/SDL.h>
-//#include <vulkan/vulkan.h>
-#include <GL/GL.h>
+#include <vulkan/vulkan.h>
+//#include <GL/GL.h>
 //#include <GL/glew.h>
 
 #include "main/main.h"
@@ -32,9 +32,9 @@ void Core::onInit()
 	atexit(SDL_Quit);
 
 	// OpenGL window/full screen
-	SDL_CreateWindowAndRenderer(1600, 1200, SDL_WINDOW_OPENGL,
-			&dWindow, &dRenderer);
-	SDL_GetRendererInfo(dRenderer, &dRendererInfo);
+//	SDL_CreateWindowAndRenderer(1600, 1200, SDL_WINDOW_OPENGL,
+//			&dWindow, &dRenderer);
+//	SDL_GetRendererInfo(dRenderer, &dRendererInfo);
 
 
 

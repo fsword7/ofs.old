@@ -13,7 +13,7 @@ set(ofs_h_SRCS
 )
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
-include_directories(${SDL2_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIRS})
+include_directories(${SDL2_INCLUDE_DIRS} ${VULKAN_INCLUDE_DIRS})
 
 add_executable(ofs ${ofs_cpp_SRCS} ${ofs_h_SRCS})
-target_link_libraries(ofs ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES})
+target_link_libraries(ofs ${VULKAN_LIBRARIES} ${SDL2_LIBRARIES})
