@@ -1,5 +1,5 @@
 set(ofs_cpp_SRCS
-	osd/sdl2/main.cpp
+	osd/qt/qtmain.cpp
 	main/core.cpp
 	engine/universe/universe.cpp
 )
@@ -13,7 +13,10 @@ set(ofs_h_SRCS
 )
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
-include_directories(${SDL2_INCLUDE_DIRS} ${VULKAN_INCLUDE_DIRS})
+#include_directories(${SDL2_INCLUDE_DIRS} ${VULKAN_INCLUDE_DIRS})
+#include_directories(${QT_INCLUDES} ${OPENGL_INCLUDE_DIRS})
 
 add_executable(ofs ${ofs_cpp_SRCS} ${ofs_h_SRCS})
-target_link_libraries(ofs ${VULKAN_LIBRARIES} ${SDL2_LIBRARIES})
+#target_link_libraries(ofs ${VULKAN_LIBRARIES} ${SDL2_LIBRARIES})
+#target_link_libraries(ofs ${QT_LIBRARIES} ${OPENGL_LIBRARIES})
+target_link_libraries(ofs Qt5::Widgets)
