@@ -5,15 +5,15 @@
  *      Author: Tim Stark
  */
 
+#include <main/coreapp.h>
 #include "main/main.h"
-#include "main/core.h"
 
 using namespace ofs;
 
-Core::Core()
+CoreApplication::CoreApplication()
 {
 }
 
-Core::~Core()
+CoreApplication::~CoreApplication()
 {
 }

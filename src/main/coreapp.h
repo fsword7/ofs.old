@@ -8,13 +8,13 @@
 #pragma once
 
 namespace ofs {
-	class Core
+	class CoreApplication
 	{
 	public:
-		Core();
-		~Core();
+		CoreApplication();
+		~CoreApplication();
 
-		void onInit();
-		void onClean();
+		void init();
+		void clean();
 	};
 }
