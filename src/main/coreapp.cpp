@@ -10,10 +10,10 @@
 
 using namespace ofs;
 
-CoreApplication::CoreApplication()
+CoreApp::CoreApp()
 {
 }
 
-CoreApplication::~CoreApplication()
+CoreApp::~CoreApp()
 {
 }

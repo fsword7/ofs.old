@@ -1,7 +1,7 @@
 /*
- * qtmain.cpp
+ * qtwinapp.cpp
  *
- *  Created on: Oct 6, 2018
+ *  Created on: Oct 8, 2018
  *      Author: Tim Stark
  */
 
@@ -17,14 +17,20 @@
 using namespace qtofs;
 using namespace ofs;
 
-int main(int argc, char **argv)
+ofsWindowApp::ofsWindowApp(QWidget *parent)
+: QMainWindow(parent),
+  appCore(nullptr)
 {
-	QApplication app(argc, argv);
-	ofsWindowApp window;
 
-	window.init();
-	window.show();
+}
 
-	return app.exec();
+ofsWindowApp::~ofsWindowApp()
+{
+}
+
+void ofsWindowApp::init()
+{
+
+	appCore = new ofsCoreApp();
 }
 
