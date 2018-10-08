@@ -17,3 +17,15 @@ CoreApp::CoreApp()
 CoreApp::~CoreApp()
 {
 }
+
+void CoreApp::initRenderer()
+{
+}
+
+void CoreApp::paint()
+{
+}
+
+void CoreApp::resize(int w, int h)
+{
+}

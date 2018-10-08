@@ -14,6 +14,10 @@ namespace qtofs {
 		ofsWidget(QWidget *parent, ofsCoreApp *core);
 		~ofsWidget();
 
+		void initializeGL();
+		void paintGL();
+		void resizeGL(int w, int h);
+
 	private:
 		ofsCoreApp *appCore;
 	};

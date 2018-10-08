@@ -25,3 +25,18 @@ ofsWidget::ofsWidget(QWidget *parent, ofsCoreApp *core)
 ofsWidget::~ofsWidget()
 {
 }
+
+void ofsWidget::initializeGL()
+{
+	appCore->initRenderer();
+}
+
+void ofsWidget::paintGL()
+{
+	appCore->paint();
+}
+
+void ofsWidget::resizeGL(int w, int h)
+{
+	appCore->resize(w, h);
+}
