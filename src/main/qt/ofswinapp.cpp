@@ -20,6 +20,9 @@
 using namespace qtofs;
 using namespace ofs;
 
+const QSize defaultSize(1280, 720);
+const QPoint defaultPosition(20, 20);
+
 ofsWindowApp::ofsWindowApp(QWidget *parent)
 : QMainWindow(parent),
   appCore(nullptr),
@@ -42,6 +45,8 @@ void ofsWindowApp::init()
 
 	setCentralWidget(widget);
 	setWindowTitle(APP_FULL_NAME);
+
+	resize(defaultSize);
 
 }
 
