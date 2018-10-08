@@ -18,5 +18,7 @@ namespace qtofs {
 
 	private:
 		ofsCoreApp *appCore;
+		ofsWidget  *widget;
+
 	};
 }

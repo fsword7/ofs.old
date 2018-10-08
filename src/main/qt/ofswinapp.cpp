@@ -5,21 +5,25 @@
  *      Author: Tim Stark
  */
 
+
 #include <QApplication>
 #include <QMainWindow>
 #include <QWidget>
+#include <QOpenGLWidget>
 
 #include "main/main.h"
 #include "main/coreapp.h"
 #include "main/qt/ofscoreapp.h"
-#include "main/qt/qtwinapp.h"
+#include "main/qt/ofswidget.h"
+#include "main/qt/ofswinapp.h"
 
 using namespace qtofs;
 using namespace ofs;
 
 ofsWindowApp::ofsWindowApp(QWidget *parent)
 : QMainWindow(parent),
-  appCore(nullptr)
+  appCore(nullptr),
+  widget(nullptr)
 {
 
 }
@@ -32,5 +36,12 @@ void ofsWindowApp::init()
 {
 
 	appCore = new ofsCoreApp();
+
+	widget = new ofsWidget(nullptr, appCore);
+	widget->makeCurrent();
+
+	setCentralWidget(widget);
+	setWindowTitle(APP_FULL_NAME);
+
 }
 

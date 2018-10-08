@@ -1,14 +1,16 @@
 set(ofs_cpp_SRCS
 	main/qt/qtmain.cpp
-	main/qt/qtwinapp.cpp
+	main/qt/ofswinapp.cpp
 	main/qt/ofscoreapp.cpp
+	main/qt/ofswidget.cpp
 	main/coreapp.cpp
 	engine/universe/universe.cpp
 )
 
 set(ofs_h_SRCS
-	main/qt/qtwinapp.h
+	main/qt/ofswinapp.h
 	main/qt/ofscoreapp.h
+	main/qt/ofswidget.h
 	main/coreapp.h
 	main/main.h
 	main/math.h
