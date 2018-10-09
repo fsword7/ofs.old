@@ -4,8 +4,7 @@ set(ofs_cpp_SRCS
 	main/qt/ofscoreapp.cpp
 	main/qt/ofswidget.cpp
 	main/coreapp.cpp
-	engine/render/gl/client.cpp
-	engine/render/render.cpp
+	engine/render/glrender.cpp
 	engine/universe/universe.cpp
 )
 
@@ -16,7 +15,6 @@ set(ofs_h_SRCS
 	main/coreapp.h
 	main/main.h
 	main/math.h
-	engine/render/gl/client.h
 	engine/render/render.h
 	engine/universe/astro.h
 	engine/universe/universe.h

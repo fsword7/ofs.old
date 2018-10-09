@@ -1,19 +1,17 @@
 /*
- * client.cpp
+ * engine.cpp
  *
  *  Created on: Oct 9, 2018
  *      Author: Tim Stark
  */
 
 #include "main/main.h"
-#include "engine/render/gl/client.h"
+#include "engine/engine.h"
 
-Client::Client()
+Engine::Engine()
 {
 }
 
-Client::~Client()
+Engine::~Engine()
 {
 }
-
-

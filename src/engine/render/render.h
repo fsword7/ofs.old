@@ -7,9 +7,27 @@
 
 #pragma once
 
+#include "GL/glew.h"
+
 class Renderer {
+public:
 	Renderer();
 	~Renderer();
 
-	void init();
+	virtual void init(int w, int h) = 0;
+	virtual void resize(int w, int h) = 0;
+	virtual void paint() = 0;
+
+protected:
+
+};
+
+class glRenderer : public Renderer {
+public:
+	glRenderer();
+	~glRenderer();
+
+	void init(int w, int h);
+	void resize(int w, int h);
+	void paint();
 };

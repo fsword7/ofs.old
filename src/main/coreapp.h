@@ -7,6 +7,8 @@
 
 #pragma once
 
+class Renderer;
+
 namespace ofs {
 	class CoreApp
 	{
@@ -23,5 +25,8 @@ namespace ofs {
 		void tick();
 		void paint();
 		void resize(int w, int h);
+
+	private:
+		Renderer *render;
 	};
 }
