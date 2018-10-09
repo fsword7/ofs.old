@@ -18,6 +18,9 @@ namespace ofs {
 		void clean();
 
 		void initRenderer();
+		void initEngine();
+
+		void tick();
 		void paint();
 		void resize(int w, int h);
 	};

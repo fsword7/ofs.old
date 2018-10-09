@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <QOpenGLWidget>
+
 namespace qtofs {
 	class ofsWidget : public QOpenGLWidget
 	{

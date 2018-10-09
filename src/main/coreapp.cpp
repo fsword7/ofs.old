@@ -22,6 +22,14 @@ void CoreApp::initRenderer()
 {
 }
 
+void CoreApp::initEngine()
+{
+}
+
+void CoreApp::tick()
+{
+}
+
 void CoreApp::paint()
 {
 }

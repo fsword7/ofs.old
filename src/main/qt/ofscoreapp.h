@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "main/coreapp.h"
+
 namespace qtofs {
 	class ofsCoreApp : public ofs::CoreApp
 	{

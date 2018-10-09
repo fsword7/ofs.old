@@ -4,6 +4,7 @@ set(ofs_cpp_SRCS
 	main/qt/ofscoreapp.cpp
 	main/qt/ofswidget.cpp
 	main/coreapp.cpp
+	engine/render/gl/client.cpp
 	engine/render/render.cpp
 	engine/universe/universe.cpp
 )
@@ -15,17 +16,15 @@ set(ofs_h_SRCS
 	main/coreapp.h
 	main/main.h
 	main/math.h
+	engine/render/gl/client.h
 	engine/render/render.h
 	engine/universe/astro.h
 	engine/universe/universe.h
 )
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
-#include_directories(${SDL2_INCLUDE_DIRS} ${VULKAN_INCLUDE_DIRS})
 include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_INCLUDE_DIRS})
 
 add_executable(ofs ${ofs_cpp_SRCS} ${ofs_h_SRCS})
 qt5_use_modules(ofs Widgets OpenGL)
-#target_link_libraries(ofs ${VULKAN_LIBRARIES} ${SDL2_LIBRARIES})
-#target_link_libraries(ofs ${QT_LIBRARIES} ${OPENGL_LIBRARIES})
 target_link_libraries(ofs ${QT_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})

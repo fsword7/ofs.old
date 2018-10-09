@@ -7,14 +7,25 @@
 
 #pragma once
 
+#include <QMainWindow>
+#include <QWidget>
+
+#include "main/qt/ofscoreapp.h"
+#include "main/qt/ofswidget.h"
+
 namespace qtofs {
 	class ofsWindowApp : public QMainWindow
 	{
+		Q_OBJECT
+
 	public:
 		ofsWindowApp(QWidget *parent = nullptr);
 		~ofsWindowApp();
 
 		void init();
+
+	public slots:
+		void tick();
 
 	private:
 		ofsCoreApp *appCore;

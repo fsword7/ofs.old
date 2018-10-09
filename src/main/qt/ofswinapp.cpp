@@ -7,14 +7,12 @@
 
 #include <iostream>
 
-//#include <GL/gl.h>
-//#include <GL/glew.h>
-
 #include <QApplication>
 #include <QMainWindow>
 #include <QWidget>
 #include <QOpenGLWidget>
 #include <QMessageBox>
+#include <QTimer>
 
 #include "main/main.h"
 #include "main/coreapp.h"
@@ -45,9 +43,7 @@ void ofsWindowApp::init()
 
 	appCore = new ofsCoreApp();
 
-//	QGLFormat format;
-//	format.setVersion(4, 5);
-//	format.setDoubleBuffer(true);
+	appCore->initEngine();
 
 	widget = new ofsWidget(nullptr, appCore);
 	widget->makeCurrent();
@@ -57,5 +53,14 @@ void ofsWindowApp::init()
 
 	resize(defaultSize);
 
+	// Start event loop
+	QTimer *timer = new QTimer(dynamic_cast<QObject *>(this));
+	QObject::connect(timer, SIGNAL(timeout()), SLOT(tick()));
+	timer->start(0);
 }
 
+void ofsWindowApp::tick()
+{
+	appCore->tick();
+	widget->update();
+}

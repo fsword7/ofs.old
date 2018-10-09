@@ -18,4 +18,5 @@ Renderer::~Renderer()
 
 void Renderer::init()
 {
+
 }

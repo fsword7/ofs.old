@@ -5,7 +5,6 @@
  *      Author: Tim Stark
  */
 
-
 #include <QApplication>
 #include <QMainWindow>
 #include <QWidget>
