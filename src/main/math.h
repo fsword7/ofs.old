@@ -8,4 +8,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
+typedef glm::dvec3 vec3d_t;
+typedef glm::dquat quatd_t;
