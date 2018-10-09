@@ -5,11 +5,16 @@
  *      Author: Tim Stark
  */
 
+#include <iostream>
+
+//#include <GL/gl.h>
+//#include <GL/glew.h>
 
 #include <QApplication>
 #include <QMainWindow>
 #include <QWidget>
 #include <QOpenGLWidget>
+#include <QMessageBox>
 
 #include "main/main.h"
 #include "main/coreapp.h"
@@ -39,6 +44,10 @@ void ofsWindowApp::init()
 {
 
 	appCore = new ofsCoreApp();
+
+//	QGLFormat format;
+//	format.setVersion(4, 5);
+//	format.setDoubleBuffer(true);
 
 	widget = new ofsWidget(nullptr, appCore);
 	widget->makeCurrent();
