@@ -28,5 +28,7 @@ namespace ofs {
 
 	private:
 		Renderer *render;
+
+		int width, height;
 	};
 }

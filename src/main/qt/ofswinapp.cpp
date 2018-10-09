@@ -5,8 +5,6 @@
  *      Author: Tim Stark
  */
 
-#include <iostream>
-
 #include <QApplication>
 #include <QMainWindow>
 #include <QWidget>
@@ -23,7 +21,7 @@
 using namespace qtofs;
 using namespace ofs;
 
-const QSize defaultSize(1280, 720);
+const QSize defaultSize(OFS_DEFAULT_WIDTH, OFS_DEFAULT_HEIGHT);
 const QPoint defaultPosition(20, 20);
 
 ofsWindowApp::ofsWindowApp(QWidget *parent)

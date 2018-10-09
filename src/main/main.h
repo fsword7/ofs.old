@@ -9,3 +9,9 @@
 
 #define APP_FULL_NAME	"Orbital Flight Simulator"
 #define APP_SHORT_NAME	"OFS"
+
+// Default window scene size
+#define OFS_DEFAULT_WIDTH	1280
+#define OFS_DEFAULT_HEIGHT	720
+
+#include <iostream>

@@ -35,10 +35,12 @@ void glRenderer::init(int w, int h)
 
 void glRenderer::resize(int w, int h)
 {
-
+	glViewport(0, 0, w, h);
+	width  = w;
+	height = h;
 }
 
 void glRenderer::paint()
 {
-	glClearColor(1.0, 0.0, 0.0, 0.0);
+//	glClearColor(1.0, 0.0, 0.0, 0.0);
 }

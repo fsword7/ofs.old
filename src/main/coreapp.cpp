@@ -12,7 +12,9 @@
 using namespace ofs;
 
 CoreApp::CoreApp()
-: render(nullptr)
+: render(nullptr),
+  width(OFS_DEFAULT_WIDTH),
+  height(OFS_DEFAULT_HEIGHT)
 {
 }
 
@@ -25,7 +27,7 @@ void CoreApp::initRenderer()
 	// Initialize OpenGL-based Renderer
 	render = new glRenderer();
 
-	render->init(0, 0);
+	render->init(width, height);
 }
 
 void CoreApp::initEngine()
@@ -44,6 +46,8 @@ void CoreApp::paint()
 
 void CoreApp::resize(int w, int h)
 {
+	width = w;
+	height = h;
 	if (render != nullptr)
 		render->resize(w, h);
 }

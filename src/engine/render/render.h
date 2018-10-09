@@ -19,7 +19,7 @@ public:
 	virtual void paint() = 0;
 
 protected:
-
+	int width, height;
 };
 
 class glRenderer : public Renderer {
