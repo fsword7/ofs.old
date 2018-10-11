@@ -7,7 +7,10 @@
 
 #pragma once
 
+class Engine;
+class Universe;
 class Renderer;
+class Player;
 
 namespace ofs {
 	class CoreApp
@@ -27,6 +30,9 @@ namespace ofs {
 		void resize(int w, int h);
 
 	private:
+		Player   *player;
+		Engine   *engine;
+		Universe *universe;
 		Renderer *render;
 
 		int width, height;

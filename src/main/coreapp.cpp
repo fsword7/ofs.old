@@ -6,13 +6,20 @@
  */
 
 #include "main/main.h"
+#include "main/math.h"
 #include "main/coreapp.h"
 #include "engine/render/render.h"
+#include "engine/engine.h"
+#include "engine/player.h"
+#include "engine/universe/universe.h"
 
 using namespace ofs;
 
 CoreApp::CoreApp()
-: render(nullptr),
+: player(nullptr),
+  engine(nullptr),
+  universe(nullptr),
+  render(nullptr),
   width(OFS_DEFAULT_WIDTH),
   height(OFS_DEFAULT_HEIGHT)
 {
@@ -20,6 +27,15 @@ CoreApp::CoreApp()
 
 CoreApp::~CoreApp()
 {
+	if (render != nullptr)
+		delete render;
+	if (universe != nullptr)
+		delete universe;
+	if (engine != nullptr)
+		delete engine;
+	if (player != nullptr)
+		delete player;
+
 }
 
 void CoreApp::initRenderer()
@@ -32,6 +48,10 @@ void CoreApp::initRenderer()
 
 void CoreApp::initEngine()
 {
+
+	player = new Player();
+	universe = new Universe();
+	engine = new Engine(universe);
 }
 
 void CoreApp::tick()
@@ -40,8 +60,8 @@ void CoreApp::tick()
 
 void CoreApp::paint()
 {
-	if (render != nullptr)
-		render->paint();
+	if (render != nullptr && player != nullptr && universe != nullptr)
+		render->paint(*player, *universe);
 }
 
 void CoreApp::resize(int w, int h)

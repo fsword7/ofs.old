@@ -7,11 +7,15 @@
 
 #pragma once
 
+class Universe;
+
 class Engine
 {
 public:
-	Engine();
+	Engine(Universe *universe);
 	~Engine();
 
+private:
+	Universe *universe;
 
 };

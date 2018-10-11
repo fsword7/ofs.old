@@ -6,9 +6,11 @@
  */
 
 #include "main/main.h"
+#include "main/math.h"
 #include "engine/engine.h"
 
-Engine::Engine()
+Engine::Engine(Universe *_univ)
+: universe(_univ)
 {
 }
 

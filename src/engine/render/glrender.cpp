@@ -6,9 +6,13 @@
  */
 
 #include "main/main.h"
+#include "main/math.h"
 #include "engine/render/render.h"
+#include "engine/player.h"
+#include "engine/universe/universe.h"
 
 Renderer::Renderer()
+: width(1), height(1)
 {
 }
 
@@ -40,7 +44,7 @@ void glRenderer::resize(int w, int h)
 	height = h;
 }
 
-void glRenderer::paint()
+void glRenderer::paint(const Player &player, const Universe &universe)
 {
 //	glClearColor(1.0, 0.0, 0.0, 0.0);
 }

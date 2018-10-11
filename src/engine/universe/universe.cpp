@@ -6,6 +6,7 @@
  */
 
 #include "main/main.h"
+#include "main/math.h"
 #include "engine/universe/universe.h"
 
 Universe::Universe()
