@@ -44,7 +44,16 @@ void glRenderer::resize(int w, int h)
 	height = h;
 }
 
-void glRenderer::paint(const Player &player, const Universe &universe)
+void glRenderer::paint(Player &player, Universe &universe)
 {
+	Camera *cam;
+	vec3d_t cpos;
+	quatd_t crot;
+
+	// get main camera from player for position and orientation.
+	cam  = player.getCamera(0);
+	cpos = cam->getPosition();
+	crot = cam->getRotation();
+
 //	glClearColor(1.0, 0.0, 0.0, 0.0);
 }

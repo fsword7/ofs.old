@@ -12,7 +12,7 @@
 Camera::Camera()
 : position(0, 0, 0),
   rotation(1, 0, 0, 0),
-  fov(0)
+  fov(toRadian(OFS_DEFAULT_FOV))
 {
 }
 
@@ -36,13 +36,24 @@ Player::Player()
 : position(0, 0, 0),
   rotation(1, 0, 0, 0),
   realTime(0),
-  simTime(0)
+  simTime(0),
+  camera(1)
 {
 	camera[0] = new Camera();
 }
 
 Player::~Player()
 {
+	for (auto &old : camera)
+		delete old;
+	camera.clear();
+}
+
+Camera *Player::getCamera(int idx) const
+{
+	if (idx < camera.size())
+		return camera[idx];
+	return nullptr;
 }
 
 void Player::update(double dt, double scale)

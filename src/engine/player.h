@@ -35,6 +35,8 @@ public:
 	inline vec3d_t getPosition() { return position; }
 	inline quatd_t getRotation() { return rotation; }
 
+	Camera *getCamera(int idx) const;
+
 private:
 	vec3d_t	position;
 	quatd_t	rotation;
