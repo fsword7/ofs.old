@@ -49,11 +49,13 @@ void glRenderer::paint(Player &player, Universe &universe)
 	Camera *cam;
 	vec3d_t cpos;
 	quatd_t crot;
+	float   cfov;
 
 	// get main camera from player for position and orientation.
 	cam  = player.getCamera(0);
 	cpos = cam->getPosition();
 	crot = cam->getRotation();
+	cfov = cam->getFOV();
 
 //	glClearColor(1.0, 0.0, 0.0, 0.0);
 }
