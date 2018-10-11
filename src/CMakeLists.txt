@@ -8,6 +8,7 @@ set(ofs_cpp_SRCS
 	engine/engine.cpp
 	engine/player.cpp
 	engine/render/glrender.cpp
+	engine/render/glshader.cpp
 	engine/universe/universe.cpp
 )
 
@@ -22,6 +23,7 @@ set(ofs_h_SRCS
 	engine/engine.h
 	engine/player.h
 	engine/render/render.h
+	engine/render/shader.h
 	engine/universe/astro.h
 	engine/universe/universe.h
 )
