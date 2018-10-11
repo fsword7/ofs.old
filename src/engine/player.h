@@ -44,5 +44,5 @@ private:
 	double  realTime;
 	double  simTime;
 
-	std::vector<Camera *> camera;
+	vector<Camera *> camera;
 };

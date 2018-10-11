@@ -46,12 +46,12 @@ void ofsWidget::initializeGL()
 {
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {
-		std::cerr << "GLEW Error: " << glewGetErrorString(err) << std::endl;
+		cerr << "GLEW Error: " << glewGetErrorString(err) << endl;
 		QMessageBox::critical(nullptr, APP_SHORT_NAME,
 			QString("Can't initialize OpenGL extensions\n"));
 		exit(1);
 	} else
-		std::cout << "Using GLEW Version: " << glewGetString(GLEW_VERSION) << std::endl;
+		cout << "Using GLEW Version: " << glewGetString(GLEW_VERSION) << endl;
 
 	appCore->initRenderer();
 }
