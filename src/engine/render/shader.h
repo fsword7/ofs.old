@@ -73,6 +73,9 @@ public:
 
 	void attach(const glShader &shader);
 	ShaderStatus link();
+
+	const string getLogInfo();
+
 	void use();
 
 private:

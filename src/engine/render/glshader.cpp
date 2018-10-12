@@ -55,6 +55,7 @@ ShaderStatus glShader::create(ShaderType type,
 	status = newShader->compile(source);
 	if (status != ShaderStatus::Successful) {
 		log = newShader->getLogInfo();
+		cerr << "\nCompiling shader program error:\n" << endl;
 		cerr << log << endl;
 
 		delete newShader;
@@ -123,10 +124,12 @@ Program::~Program()
 glProgram::glProgram(GLuint _id)
 : id(_id)
 {
+	id = glCreateProgram();
 }
 
 glProgram::~glProgram()
 {
+	glDeleteProgram(id);
 }
 
 void glProgram::attach(const glShader &shader)
@@ -136,10 +139,41 @@ void glProgram::attach(const glShader &shader)
 
 ShaderStatus glProgram::link()
 {
+	GLint  status;
+	string log;
 
 	glLinkProgram(id);
 
+	glGetProgramiv(id, GL_LINK_STATUS, &status);
+	if (status == GL_FALSE) {
+		log = getLogInfo();
+		cerr << "\nLinking shader program error:\n" << endl;
+		cerr << log << endl;
+
+		return ShaderStatus::LinkError;
+	}
+
 	return ShaderStatus::Successful;
+}
+
+const string glProgram::getLogInfo()
+{
+	GLint   lsize = 0;
+	GLsizei size  = 0;
+
+	glGetProgramiv(id, GL_INFO_LOG_LENGTH, &lsize);
+	if (lsize <= 0)
+		return string();
+
+	char *clog = new char[lsize];
+	if (clog == nullptr)
+		return string();
+
+	glGetProgramInfoLog(id, lsize, &size, clog);
+	string slog(clog, size);
+	delete [] clog;
+
+	return slog;
 }
 
 void glProgram::use()
