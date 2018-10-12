@@ -7,6 +7,12 @@
 
 #pragma once
 
+enum ShaderType {
+	Unknown = 0,
+	VertexProcessor,
+	FragmentProcessor
+};
+
 enum ShaderStatus {
 	Successful,
 	CompileError,
@@ -19,22 +25,55 @@ class Shader
 {
 public:
 
-	Shader();
+	Shader(ShaderType type);
 	virtual ~Shader();
+
+	inline ShaderType getType() const { return type; }
 
 	virtual ShaderStatus compile(const vector<string>& source) = 0;
 
+private:
+	ShaderType type;
 };
+
+class Program
+{
+public:
+	Program();
+	~Program();
+};
+
 
 class glShader : public Shader
 {
 public:
-	glShader(GLuint id);
+	glShader(ShaderType type);
 	~glShader();
 
 	inline GLuint getID() const { return id; }
 
 	ShaderStatus compile(const vector<string>& source);
+
+	const string getLogInfo();
+
+	static ShaderStatus create(ShaderType type,
+		const vector<string>& source, glShader **shader);
+
+private:
+	GLuint id;
+};
+
+class glProgram : public Program
+{
+public:
+	glProgram(GLuint id);
+	~glProgram();
+
+	inline GLuint getID() const { return id; }
+
+	void attach(const glShader &shader);
+	ShaderStatus link();
+	void use();
 
 private:
 	GLuint id;

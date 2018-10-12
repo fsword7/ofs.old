@@ -9,7 +9,8 @@
 #include "engine/render/render.h"
 #include "engine/render/shader.h"
 
-Shader::Shader()
+Shader::Shader(ShaderType _type)
+: type(_type)
 {
 }
 
@@ -19,14 +20,51 @@ Shader::~Shader()
 
 // ******************************
 
-glShader::glShader(GLuint _id)
-: id(_id)
+glShader::glShader(ShaderType type)
+: Shader(type)
 {
+	GLenum idType;
+
+	switch (type) {
+	case VertexProcessor:
+		idType = GL_VERTEX_SHADER;
+		break;
+	case FragmentProcessor:
+		idType = GL_FRAGMENT_SHADER;
+		break;
+	}
+
+	id = glCreateShader(idType);
 }
 
 glShader::~glShader()
 {
+	glDeleteShader(id);
 }
+
+ShaderStatus glShader::create(ShaderType type,
+	const vector<string>& source, glShader **shader)
+{
+	glShader *newShader = new glShader(type);
+	ShaderStatus status;
+	string log;
+
+	if (newShader == nullptr)
+		return ShaderStatus::OutOfMemory;
+
+	status = newShader->compile(source);
+	if (status != ShaderStatus::Successful) {
+		log = newShader->getLogInfo();
+		cerr << log << endl;
+
+		delete newShader;
+		return status;
+	}
+
+	*shader = newShader;
+	return ShaderStatus::Successful;
+}
+
 
 ShaderStatus glShader::compile(const vector<string>& source)
 {
@@ -48,4 +86,63 @@ ShaderStatus glShader::compile(const vector<string>& source)
 	if (status == GL_FALSE)
 		return ShaderStatus::CompileError;
 	return ShaderStatus::Successful;
+}
+
+const string glShader::getLogInfo()
+{
+	GLint   lsize = 0;
+	GLsizei size  = 0;
+
+	glGetShaderiv(id, GL_INFO_LOG_LENGTH, &lsize);
+	if (lsize <= 0)
+		return string();
+
+	char *clog = new char[lsize];
+	if (clog == nullptr)
+		return string();
+
+	glGetShaderInfoLog(id, lsize, &size, clog);
+	string slog(clog, size);
+	delete [] clog;
+
+	return slog;
+}
+
+// ***********************************
+
+Program::Program()
+{
+}
+
+Program::~Program()
+{
+}
+
+// ***********************************
+
+glProgram::glProgram(GLuint _id)
+: id(_id)
+{
+}
+
+glProgram::~glProgram()
+{
+}
+
+void glProgram::attach(const glShader &shader)
+{
+	glAttachShader(id, shader.getID());
+}
+
+ShaderStatus glProgram::link()
+{
+
+	glLinkProgram(id);
+
+	return ShaderStatus::Successful;
+}
+
+void glProgram::use()
+{
+	glUseProgram(id);
 }
