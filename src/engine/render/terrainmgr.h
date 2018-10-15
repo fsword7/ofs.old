@@ -8,13 +8,13 @@
 #pragma once
 
 class Tile {
-	Tile();
+	Tile(int lod, int ilat, int ilng);
 	~Tile();
 
 private:
-	int ilat, ilng;
-	int nlat, nlng;
 	int lod;
+	int ilat, ilng;
+
 };
 
 class TerrainManager {
@@ -23,5 +23,5 @@ public:
 	~TerrainManager();
 
 private:
-
+//	Tile *tree[2]; // Western/Eastern hemisphere
 };

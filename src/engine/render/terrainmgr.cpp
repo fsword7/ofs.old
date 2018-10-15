@@ -9,7 +9,8 @@
 #include "main/math.h"
 #include "engine/render/terrainmgr.h"
 
-Tile::Tile()
+Tile::Tile(int _lod, int _ilat, int _ilng)
+: lod(_lod), ilat(_ilat), ilng(_ilng)
 {
 
 }

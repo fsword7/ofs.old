@@ -7,11 +7,13 @@ set(ofs_cpp_SRCS
 	engine/object.cpp
 	engine/engine.cpp
 	engine/player.cpp
+	engine/render/terrainmgr.cpp
+	engine/render/vobject.cpp
+	engine/render/vplanet.cpp
 	engine/render/gl/mesh.cpp
 	engine/render/gl/render.cpp
 	engine/render/gl/shader.cpp
 	engine/render/gl/shadermgr.cpp
-	engine/render/terrainmgr.cpp
 	engine/universe/universe.cpp
 )
 
@@ -28,6 +30,7 @@ set(ofs_h_SRCS
 	engine/render/render.h
 	engine/render/shader.h
 	engine/render/terrainmgr.h
+	engine/render/vobject.h
 	engine/render/gl/mesh.h
 	engine/render/gl/shadermgr.h
 	engine/universe/astro.h
