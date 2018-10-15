@@ -9,7 +9,7 @@
 
 class Engine;
 class Universe;
-class Renderer;
+class Scene;
 class Player;
 
 namespace ofs {
@@ -33,7 +33,7 @@ namespace ofs {
 		Player   *player;
 		Engine   *engine;
 		Universe *universe;
-		Renderer *render;
+		Scene    *scene;
 
 		int width, height;
 	};

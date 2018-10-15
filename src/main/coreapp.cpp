@@ -8,10 +8,10 @@
 #include "main/main.h"
 #include "main/math.h"
 #include "main/coreapp.h"
-#include "engine/render/render.h"
 #include "engine/engine.h"
 #include "engine/player.h"
 #include "engine/universe/universe.h"
+#include "engine/render/scene.h"
 
 using namespace ofs;
 
@@ -19,7 +19,7 @@ CoreApp::CoreApp()
 : player(nullptr),
   engine(nullptr),
   universe(nullptr),
-  render(nullptr),
+  scene(nullptr),
   width(OFS_DEFAULT_WIDTH),
   height(OFS_DEFAULT_HEIGHT)
 {
@@ -27,8 +27,8 @@ CoreApp::CoreApp()
 
 CoreApp::~CoreApp()
 {
-	if (render != nullptr)
-		delete render;
+	if (scene != nullptr)
+		delete scene;
 	if (universe != nullptr)
 		delete universe;
 	if (engine != nullptr)
@@ -41,9 +41,9 @@ CoreApp::~CoreApp()
 void CoreApp::initRenderer()
 {
 	// Initialize OpenGL-based Renderer
-	render = new glRenderer();
+	scene = new glScene();
 
-	render->init(width, height);
+	scene->init(width, height);
 }
 
 void CoreApp::initEngine()
@@ -60,14 +60,14 @@ void CoreApp::tick()
 
 void CoreApp::paint()
 {
-	if (render != nullptr && player != nullptr && universe != nullptr)
-		render->paint(*player, *universe);
+	if (scene != nullptr && player != nullptr && universe != nullptr)
+		scene->paint(*player, *universe);
 }
 
 void CoreApp::resize(int w, int h)
 {
 	width = w;
 	height = h;
-	if (render != nullptr)
-		render->resize(w, h);
+	if (scene != nullptr)
+		scene->resize(w, h);
 }

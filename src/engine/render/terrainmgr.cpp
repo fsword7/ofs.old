@@ -20,7 +20,8 @@ Tile::~Tile()
 }
 
 
-TerrainManager::TerrainManager()
+TerrainManager::TerrainManager(vPlanet *_vobj)
+: vobj(_vobj)
 {
 }
 

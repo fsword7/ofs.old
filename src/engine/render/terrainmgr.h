@@ -7,6 +7,8 @@
 
 #pragma once
 
+class vPlanet;
+
 class Tile {
 	Tile(int lod, int ilat, int ilng);
 	~Tile();
@@ -19,9 +21,11 @@ private:
 
 class TerrainManager {
 public:
-	TerrainManager();
+	TerrainManager(vPlanet *vobj);
 	~TerrainManager();
 
 private:
+	vPlanet *vobj;
+
 //	Tile *tree[2]; // Western/Eastern hemisphere
 };

@@ -8,14 +8,19 @@
 #pragma once
 
 class Object;
+class TerrainManager;
+class Scene;
 
 class vObject {
 public:
-	vObject(Object *obj);
-	~vObject();
+	vObject(const Object *obj, const Scene *scene);
+	virtual ~vObject();
+
+	virtual void paint() = 0;
 
 protected:
 	const Object *obj;
+	const Scene  *scene;
 
 private:
 
@@ -32,7 +37,11 @@ private:
 class vPlanet : public vObject
 {
 public:
-	vPlanet(Object *obj);
+	vPlanet(const Object *obj, const Scene *scene);
 	~vPlanet();
 
+	void paint();
+
+private:
+	TerrainManager *terrain;
 };

@@ -1,5 +1,5 @@
 /*
- * render.cpp
+ * scene.cpp
  *
  *  Created on: Oct 8, 2018
  *      Author: Tim Stark
@@ -7,44 +7,48 @@
 
 #include "main/main.h"
 #include "main/math.h"
-#include "engine/render/render.h"
 #include "engine/player.h"
 #include "engine/universe/universe.h"
+#include "engine/render/scene.h"
+#include "engine/render/vobject.h"
 
-Renderer::Renderer()
+Scene::Scene()
 : width(1), height(1)
 {
 }
 
-Renderer::~Renderer()
+Scene::~Scene()
 {
 }
 
-glRenderer::glRenderer()
-: Renderer()
+glScene::glScene()
+: Scene(), vobj(nullptr)
 {
 }
 
-glRenderer::~glRenderer()
+glScene::~glScene()
 {
 }
 
-void glRenderer::init(int w, int h)
+void glScene::init(int w, int h)
 {
 
 	glLoadIdentity();
 
 	resize(w, h);
+
+	// Test for rendering sphere - be removed later
+	vobj = new vPlanet(nullptr, this);
 }
 
-void glRenderer::resize(int w, int h)
+void glScene::resize(int w, int h)
 {
 	glViewport(0, 0, w, h);
 	width  = w;
 	height = h;
 }
 
-void glRenderer::paint(Player &player, Universe &universe)
+void glScene::paint(Player &player, Universe &universe)
 {
 	Camera *cam;
 	vec3d_t cpos;
@@ -58,4 +62,6 @@ void glRenderer::paint(Player &player, Universe &universe)
 	cfov = cam->getFOV();
 
 //	glClearColor(1.0, 0.0, 0.0, 0.0);
+
+	vobj->paint();
 }

@@ -11,7 +11,7 @@ set(ofs_cpp_SRCS
 	engine/render/vobject.cpp
 	engine/render/vplanet.cpp
 	engine/render/gl/mesh.cpp
-	engine/render/gl/render.cpp
+	engine/render/gl/scene.cpp
 	engine/render/gl/shader.cpp
 	engine/render/gl/shadermgr.cpp
 	engine/universe/universe.cpp
@@ -27,7 +27,7 @@ set(ofs_h_SRCS
 	engine/object.h
 	engine/engine.h
 	engine/player.h
-	engine/render/render.h
+	engine/render/scene.h
 	engine/render/shader.h
 	engine/render/terrainmgr.h
 	engine/render/vobject.h

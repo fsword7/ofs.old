@@ -10,8 +10,8 @@
 #include "engine/object.h"
 #include "engine/render/vobject.h"
 
-vObject::vObject(Object *_obj)
-: obj(_obj)
+vObject::vObject(const Object *_obj, const Scene *_scene)
+: obj(_obj), scene(_scene)
 {
 }
 
