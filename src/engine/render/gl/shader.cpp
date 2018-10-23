@@ -26,10 +26,10 @@ glShader::glShader(ShaderType type)
 	GLenum idType;
 
 	switch (type) {
-	case VertexProcessor:
+	case shrVertexProcessor:
 		idType = GL_VERTEX_SHADER;
 		break;
-	case FragmentProcessor:
+	case shrFragmentProcessor:
 		idType = GL_FRAGMENT_SHADER;
 		break;
 	}
@@ -50,10 +50,10 @@ ShaderStatus glShader::create(ShaderType type,
 	string log;
 
 	if (newShader == nullptr)
-		return ShaderStatus::OutOfMemory;
+		return ShaderStatus::shrOutOfMemory;
 
 	status = newShader->compile(source);
-	if (status != ShaderStatus::Successful) {
+	if (status != ShaderStatus::shrSuccessful) {
 		log = newShader->getLogInfo();
 		cerr << "\nCompiling shader program error:\n" << endl;
 		cerr << log << endl;
@@ -63,7 +63,7 @@ ShaderStatus glShader::create(ShaderType type,
 	}
 
 	*shader = newShader;
-	return ShaderStatus::Successful;
+	return ShaderStatus::shrSuccessful;
 }
 
 
@@ -72,7 +72,7 @@ ShaderStatus glShader::compile(const vector<string>& source)
 	GLint status;
 
 	if (source.empty())
-		return ShaderStatus::EmptyProgram;
+		return ShaderStatus::shrEmptyProgram;
 
 	const char **src = new const char*[source.size()];
 	for (unsigned int idx = 0; idx < source.size(); idx++)
@@ -85,8 +85,8 @@ ShaderStatus glShader::compile(const vector<string>& source)
 
 	glGetShaderiv(id, GL_COMPILE_STATUS, &status);
 	if (status == GL_FALSE)
-		return ShaderStatus::CompileError;
-	return ShaderStatus::Successful;
+		return ShaderStatus::shrCompileError;
+	return ShaderStatus::shrSuccessful;
 }
 
 const string glShader::getLogInfo()
@@ -150,10 +150,10 @@ ShaderStatus glProgram::link()
 		cerr << "\nLinking shader program error:\n" << endl;
 		cerr << log << endl;
 
-		return ShaderStatus::LinkError;
+		return ShaderStatus::shrLinkError;
 	}
 
-	return ShaderStatus::Successful;
+	return ShaderStatus::shrSuccessful;
 }
 
 const string glProgram::getLogInfo()

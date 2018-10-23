@@ -8,17 +8,17 @@
 #pragma once
 
 enum ShaderType {
-	Unknown = 0,
-	VertexProcessor,
-	FragmentProcessor
+	shrUnknown = 0,
+	shrVertexProcessor,
+	shrFragmentProcessor
 };
 
 enum ShaderStatus {
-	Successful,
-	CompileError,
-	LinkError,
-	OutOfMemory,
-	EmptyProgram
+	shrSuccessful,
+	shrCompileError,
+	shrLinkError,
+	shrOutOfMemory,
+	shrEmptyProgram
 };
 
 class Shader
