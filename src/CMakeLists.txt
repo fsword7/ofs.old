@@ -15,6 +15,7 @@ set(ofs_cpp_SRCS
 	engine/render/gl/shader.cpp
 	engine/render/gl/shadermgr.cpp
 	engine/universe/universe.cpp
+	engine/universe/body.cpp
 )
 
 set(ofs_h_SRCS
@@ -35,6 +36,8 @@ set(ofs_h_SRCS
 	engine/render/gl/shadermgr.h
 	engine/universe/astro.h
 	engine/universe/universe.h
+	engine/universe/body.h
+	util/tree.h
 )
 
 include_directories(${PROJECT_SOURCE_DIR}/src)

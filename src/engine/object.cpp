@@ -9,16 +9,20 @@
 #include "main/math.h"
 #include "engine/object.h"
 
-Object::Object(std::string name)
-: names(1)
+Object::Object(string name, ObjectType type)
+: objType(type), objNames(1)
 {
-	names[0] = name;
+	objNames[0] = name;
 }
 
 Object::~Object()
 {
-	names.clear();
+	objNames.clear();
 }
 
-
-
+string Object::name(int idx)
+{
+	if (idx >= objNames.size())
+		return "";
+	return objNames[idx];
+}

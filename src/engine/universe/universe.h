@@ -7,8 +7,15 @@
 
 #pragma once
 
+class CelestialBody;
+
 class Universe {
 public:
 	Universe();
 	~Universe();
+
+	void init();
+
+private:
+	CelestialBody *earth;
 };

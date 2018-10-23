@@ -7,13 +7,14 @@
 
 #include "main/main.h"
 #include "main/math.h"
-#include "main/coreapp.h"
 #include "engine/engine.h"
 #include "engine/player.h"
 #include "engine/universe/universe.h"
 #include "engine/render/scene.h"
+#include "main/coreapp.h"
 
 using namespace ofs;
+//using namespace ofsu;
 
 CoreApp::CoreApp()
 : player(nullptr),

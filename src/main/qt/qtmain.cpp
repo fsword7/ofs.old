@@ -11,10 +11,10 @@
 #include <QOpenGLWidget>
 
 #include "main/main.h"
-#include "main/coreapp.h"
 #include "main/qt/ofscoreapp.h"
 #include "main/qt/ofswidget.h"
 #include "main/qt/ofswinapp.h"
+#include "main/coreapp.h"
 
 using namespace qtofs;
 using namespace ofs;
