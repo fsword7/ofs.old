@@ -8,22 +8,28 @@
 #pragma once
 
 class Object;
+class Player;
 class TerrainManager;
 class Scene;
 
 class vObject {
 public:
-	vObject(const Object *obj, const Scene *scene);
+	vObject(Object *obj, Scene *scene);
 	virtual ~vObject();
+
+	void update(Player &player);
 
 	virtual void paint() = 0;
 
 protected:
-	const Object *obj;
-	const Scene  *scene;
+	Object *obj;
+	Scene  *scene;
 
 	bool	visible;	// visible object within camera view
-	double	radiua;		// object radius
+	bool	point;		//   as point
+
+	double	radius;		// object radius
+	vec3d_t opos;		// object position
 	vec3d_t	cpos;		// camera position from object relative
 	double	cdist;		// camera distance from object center
 
@@ -42,7 +48,7 @@ private:
 class vPlanet : public vObject
 {
 public:
-	vPlanet(const Object *obj, const Scene *scene);
+	vPlanet(Object *obj, Scene *scene);
 	~vPlanet();
 
 	void paint();

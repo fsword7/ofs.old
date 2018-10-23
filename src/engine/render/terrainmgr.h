@@ -7,9 +7,13 @@
 
 #pragma once
 
+#include "util/tree.h"
+
 class vPlanet;
 
-class Tile {
+class Tile : public Tree<QTREE_NODES>
+{
+public:
 	Tile(int lod, int ilat, int ilng);
 	~Tile();
 
@@ -27,5 +31,5 @@ public:
 private:
 	vPlanet *vobj;
 
-//	Tile *tree[2]; // Western/Eastern hemisphere
+	Tile *tree[2]; // Western/Eastern hemisphere
 };

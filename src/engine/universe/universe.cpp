@@ -28,7 +28,9 @@ void Universe::init()
 	// Temporary hacks for testing - to be removed later
 //	sol = new CelestialStar("Sol");
 	string earthName = "Earth";
-	earth = new CelestialBody(earthName);
-	earth->setRadius(6378.1);
-}
+	vec3d_t earthPos = vec3d_t(0, 0, -20000.0);
 
+	earth = new CelestialBody(earthName);
+	earth->setRadius(6371.0);
+	earth->setPosition(earthPos);
+}

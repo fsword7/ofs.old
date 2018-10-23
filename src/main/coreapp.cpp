@@ -53,6 +53,8 @@ void CoreApp::initEngine()
 	player = new Player();
 	universe = new Universe();
 	engine = new Engine(universe);
+
+	universe->init();
 }
 
 void CoreApp::tick()

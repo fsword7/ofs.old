@@ -10,8 +10,8 @@
 #include "engine/player.h"
 
 Camera::Camera()
-: position(0, 0, 0),
-  rotation(1, 0, 0, 0),
+: camPosition(0, 0, 0),
+  camRotation(1, 0, 0, 0),
   fov(toRadian(OFS_DEFAULT_FOV))
 {
 }

@@ -55,8 +55,8 @@ void glScene::paint(Player &player, Universe &universe)
 
 	// get main camera from player for position and orientation.
 	cam  = player.getCamera(0);
-	cpos = cam->getPosition();
-	crot = cam->getRotation();
+	cpos = cam->position();
+	crot = cam->rotation();
 	cfov = cam->getFOV();
 
 //	glClearColor(1.0, 0.0, 0.0, 0.0);
@@ -64,5 +64,6 @@ void glScene::paint(Player &player, Universe &universe)
 	if (vobj == nullptr)
 		vobj = new vPlanet(universe.earth, this);
 
+	vobj->update(player);
 	vobj->paint();
 }

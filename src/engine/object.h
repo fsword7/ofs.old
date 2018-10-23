@@ -22,10 +22,14 @@ public:
 	inline double radius() const   { return objRadius; };
 	inline double mass() const     { return objMass; };
 
-	inline void setRadius(double rad) { objRadius = rad; }
 	inline void setMass(double mass)  { objMass = mass; }
 
+	void setRadius(double rad);
+	void setPosition(vec3d_t pos);
+
 	string name(int idx = 0);
+
+	vec3d_t position(double dt = 0);
 
 private:
 	ObjectType objType;
@@ -38,4 +42,5 @@ protected:
 	double  objMass;		// Object mass
 	double  objAlbedo;		// Object albedo
 
+	vec3d_t objPosition;	// Object current position
 };

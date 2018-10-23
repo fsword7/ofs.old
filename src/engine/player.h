@@ -12,16 +12,16 @@ public:
 	Camera();
 	~Camera();
 
-	inline vec3d_t getPosition() { return position; }
-	inline quatd_t getRotation() { return rotation; }
+	inline vec3d_t position() { return camPosition; }
+	inline quatd_t rotation() { return camRotation; }
 	inline float getFOV() { return fov; };
 
 	void setFOVrad(float fov);
 	void setFOVdeg(float fov);
 
 private:
-	vec3d_t position;
-	quatd_t rotation;
+	vec3d_t camPosition;
+	quatd_t camRotation;
 	float   fov;
 };
 

@@ -11,7 +11,7 @@
 #include "engine/render/vobject.h"
 #include "engine/render/terrainmgr.h"
 
-vPlanet::vPlanet(const Object *obj, const Scene *scene)
+vPlanet::vPlanet(Object *obj, Scene *scene)
 : vObject(obj, scene)
 {
 	terrain = new TerrainManager(this);

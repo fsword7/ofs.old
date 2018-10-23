@@ -16,6 +16,7 @@ set(ofs_cpp_SRCS
 	engine/render/gl/shadermgr.cpp
 	engine/universe/universe.cpp
 	engine/universe/body.cpp
+	util/tree.cpp
 )
 
 set(ofs_h_SRCS
