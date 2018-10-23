@@ -16,6 +16,7 @@ public:
 
 	void init();
 
-private:
 	CelestialBody *earth;
+
+private:
 };

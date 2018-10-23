@@ -29,6 +29,6 @@ void Universe::init()
 //	sol = new CelestialStar("Sol");
 	string earthName = "Earth";
 	earth = new CelestialBody(earthName);
-
+	earth->setRadius(6378.1);
 }
 

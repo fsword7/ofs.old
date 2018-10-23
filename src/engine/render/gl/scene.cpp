@@ -9,6 +9,7 @@
 #include "main/math.h"
 #include "engine/player.h"
 #include "engine/universe/universe.h"
+#include "engine/universe/body.h"
 #include "engine/render/scene.h"
 #include "engine/render/vobject.h"
 
@@ -36,9 +37,6 @@ void glScene::init(int w, int h)
 	glLoadIdentity();
 
 	resize(w, h);
-
-	// Test for rendering sphere - be removed later
-	vobj = new vPlanet(nullptr, this);
 }
 
 void glScene::resize(int w, int h)
@@ -62,6 +60,9 @@ void glScene::paint(Player &player, Universe &universe)
 	cfov = cam->getFOV();
 
 //	glClearColor(1.0, 0.0, 0.0, 0.0);
+
+	if (vobj == nullptr)
+		vobj = new vPlanet(universe.earth, this);
 
 	vobj->paint();
 }

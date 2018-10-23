@@ -22,6 +22,11 @@ protected:
 	const Object *obj;
 	const Scene  *scene;
 
+	bool	visible;	// visible object within camera view
+	double	radiua;		// object radius
+	vec3d_t	cpos;		// camera position from object relative
+	double	cdist;		// camera distance from object center
+
 private:
 
 };
