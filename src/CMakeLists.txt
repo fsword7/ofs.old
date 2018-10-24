@@ -16,6 +16,7 @@ set(ofs_cpp_SRCS
 	engine/render/gl/shadermgr.cpp
 	engine/universe/universe.cpp
 	engine/universe/body.cpp
+	engine/universe/star.cpp
 	util/tree.cpp
 )
 
@@ -38,6 +39,7 @@ set(ofs_h_SRCS
 	engine/universe/astro.h
 	engine/universe/universe.h
 	engine/universe/body.h
+	engine/universe/star.h
 	util/tree.h
 )
 
