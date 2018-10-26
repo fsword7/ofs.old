@@ -17,13 +17,13 @@ glMesh::~glMesh()
 {
 }
 
-void glMesh::createSphere(int glat, int glng)
+void glMesh::createSphere(int glat, int glng, int lod, int ilat, int ilng)
 {
-	int nlat, ilat;
-	int nlng, ilng;
-	int lod;
-
-	int nvtx = (glat+1)*(glng+1);
+	int nlat  = lod << 1;
+	int nlng  = lod << 2;
+	int nvtx  = (glat+1)*(glng+1);
+	int nvtxb = nvtx + (glat+1) + (glng+1);
+	int nidx  = 2*glat*glng*3;
 
 	double lat, clat, slat, lat0, lat1;
 	double lng, clng, slng, lng0, lng1;
@@ -38,9 +38,53 @@ void glMesh::createSphere(int glat, int glng)
 	double clng0 = cos(lng0), slng0 = sin(lng0);
 	double clng1 = cos(lng1), slng1 = sin(lng1);
 
-	for (int y = 0; y < glat; y++) {
-		for (int x = 0; x < glng; x++) {
+	vec3d_t nml, pos;
 
+	vtx_t<double> *vtx = new vtx_t<double>[nvtxb];
+	uint16_t *idx = new uint16_t[nidx];
+
+	// Initialize vertexes
+	int vidx = 0;
+	for (int y = 0; y <= glat; y++) {
+		lat = lat0 + (lat1-lat0) * (double(y)/double(glat));
+		slat = sin(lat); clat = cos(lat);
+		for (int x = 0; x <= glng; x++) {
+			lng = lng0 + (lng1-lng0) * (double(x)/double(glng));
+			slng = sin(lng); clng = cos(lng);
+
+			nml = vec3d_t(clat*clng, slat, clat*slng);
+			pos = nml;
+
+			vtx[vidx].px = pos.x;
+			vtx[vidx].py = pos.y;
+			vtx[vidx].pz = pos.z;
+
+			vtx[vidx].nx = nml.x;
+			vtx[vidx].ny = nml.y;
+			vtx[vidx].nz = nml.z;
+
+			vtx[vidx].tu0 = 0;
+			vtx[vidx].tv0 = 0;
+			vidx++;
 		}
 	}
+
+	// Initialize indices for vertexes
+	int iidx  = 0;
+	int nofs0 = 0;
+	for (int y = 0; y < glat; y++) {
+		int nofs1 = nofs0 + glng + 1;
+		for (int x = 0; x < glng; x++) {
+			idx[iidx++] = nofs0+x;
+			idx[iidx++] = nofs1+x;
+			idx[iidx++] = nofs0+x+1;
+			idx[iidx++] = nofs1+x+1;
+			idx[iidx++] = nofs0+x+1;
+			idx[iidx++] = nofs1+x;
+		}
+		nofs0 = nofs1;
+	}
+
+	delete [] vtx;
+	delete [] idx;
 }
