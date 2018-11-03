@@ -14,8 +14,22 @@ class vPlanet;
 class Tile : public Tree<QTREE_NODES>
 {
 public:
-	Tile(int lod, int ilat, int ilng);
-	~Tile();
+	Tile();
+	virtual ~Tile();
+
+	virtual int load();
+
+protected:
+
+};
+
+class TerrainTile : public Tile
+{
+public:
+	TerrainTile(int lod, int ilat, int ilng);
+	~TerrainTile();
+
+	int load();
 
 private:
 	int lod;
@@ -31,5 +45,5 @@ public:
 private:
 	vPlanet *vobj;
 
-	Tile *tree[2]; // Western/Eastern hemisphere
+	TerrainTile *terrain[2]; // Western/Eastern hemisphere
 };
