@@ -11,19 +11,20 @@
 
 class vPlanet;
 
-class Tile : public Tree<QTREE_NODES>
+class QuadTile : public Tree<QTREE_NODES>
 {
 public:
-	Tile();
-	virtual ~Tile();
+	QuadTile(int lod, int ilat, int ilng);
+	virtual ~QuadTile();
 
 	virtual int load();
 
 protected:
-
+	int lod;
+	int ilat, ilng;
 };
 
-class TerrainTile : public Tile
+class TerrainTile : public QuadTile
 {
 public:
 	TerrainTile(int lod, int ilat, int ilng);
@@ -32,8 +33,6 @@ public:
 	int load();
 
 private:
-	int lod;
-	int ilat, ilng;
 
 };
 

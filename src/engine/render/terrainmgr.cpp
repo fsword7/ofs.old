@@ -9,22 +9,23 @@
 #include "main/math.h"
 #include "engine/render/terrainmgr.h"
 
-Tile::Tile()
+QuadTile::QuadTile(int _lod, int _ilat, int _ilng)
+: lod(_lod), ilat(_ilat), ilng(_ilng)
 {
 }
 
-Tile::~Tile()
+QuadTile::~QuadTile()
 {
 }
 
-int Tile::load()
+int QuadTile::load()
 {
 	return 0;
 }
 
 
-TerrainTile::TerrainTile(int _lod, int _ilat, int _ilng)
-: lod(_lod), ilat(_ilat), ilng(_ilng)
+TerrainTile::TerrainTile(int lod, int ilat, int ilng)
+: QuadTile(lod, ilat, ilng)
 {
 
 }
