@@ -8,6 +8,7 @@
 #include "main/main.h"
 #include "main/math.h"
 #include "engine/player.h"
+#include "engine/object.h"
 
 Camera::Camera()
 : camPosition(0, 0, 0),
@@ -28,6 +29,11 @@ void Camera::setFOVrad(float _fov)
 void Camera::setFOVdeg(float _fov)
 {
 	fov = toRadian(_fov);
+}
+
+void Camera::lookAt(Object *obj)
+{
+
 }
 
 // ***************************

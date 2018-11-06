@@ -7,6 +7,8 @@
 
 #pragma once
 
+class Object;
+
 class Camera {
 public:
 	Camera();
@@ -18,6 +20,8 @@ public:
 
 	void setFOVrad(float fov);
 	void setFOVdeg(float fov);
+
+	void lookAt(Object *obj);
 
 private:
 	vec3d_t camPosition;
