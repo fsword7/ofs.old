@@ -19,9 +19,12 @@ vPlanet::vPlanet(Object *obj, Scene *scene)
 
 vPlanet::~vPlanet()
 {
+	if (terrain != nullptr)
+		delete terrain;
 }
 
 void vPlanet::paint()
 {
-
+	if (terrain != nullptr)
+		terrain->paint();
 }

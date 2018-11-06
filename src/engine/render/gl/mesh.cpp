@@ -10,14 +10,35 @@
 #include "engine/render/gl/mesh.h"
 
 glMesh::glMesh()
+: nvtx(0), vtx(nullptr),
+  nidx(0), idx(nullptr)
 {
 }
 
 glMesh::~glMesh()
 {
+	if (vtx != nullptr)
+		delete [] vtx;
+	if (idx != nullptr)
+		delete [] idx;
 }
 
-void glMesh::createSphere(int glat, int glng, int lod, int ilat, int ilng)
+void glMesh::paint()
+{
+	GLsizei stride = sizeof(vtxd_t);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_DOUBLE, stride, &vtx[0].px);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glDrawElements(GL_TRIANGLE_STRIP, nidx, GL_UNSIGNED_SHORT, idx);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+glMesh *glMesh::createSphere(int glat, int glng, int lod, int ilat, int ilng)
 {
 	int nlat  = lod << 1;
 	int nlng  = lod << 2;
@@ -85,6 +106,12 @@ void glMesh::createSphere(int glat, int glng, int lod, int ilat, int ilng)
 		nofs0 = nofs1;
 	}
 
-	delete [] vtx;
-	delete [] idx;
+	glMesh *mesh = new glMesh();
+
+	mesh->nvtx = nvtx;
+	mesh->nidx = nidx/3;
+	mesh->vtx  = vtx;
+	mesh->idx  = idx;
+
+	return mesh;
 }

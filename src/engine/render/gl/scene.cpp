@@ -44,6 +44,7 @@ void glScene::resize(int w, int h)
 	glViewport(0, 0, w, h);
 	width  = w;
 	height = h;
+	aspect = float(width)/float(height);
 }
 
 void glScene::paint(Player &player, Universe &universe)
@@ -58,6 +59,8 @@ void glScene::paint(Player &player, Universe &universe)
 	cpos = cam->position();
 	crot = cam->rotation();
 	cfov = cam->getFOV();
+
+	gluPerspective(cfov, aspect, 0.001, 1'000'000.00);
 
 //	glClearColor(1.0, 0.0, 0.0, 0.0);
 

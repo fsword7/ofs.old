@@ -10,6 +10,7 @@
 #include "util/tree.h"
 
 class vPlanet;
+class glMesh;
 
 class QuadTile : public Tree<QTREE_NODES>
 {
@@ -30,16 +31,19 @@ public:
 	TerrainTile(int lod, int ilat, int ilng);
 	~TerrainTile();
 
-	int load();
+	int  load();
+	void paint();
 
 private:
-
+	glMesh *mesh;
 };
 
 class TerrainManager {
 public:
 	TerrainManager(vPlanet *vobj);
 	~TerrainManager();
+
+	void paint();
 
 private:
 	vPlanet *vobj;

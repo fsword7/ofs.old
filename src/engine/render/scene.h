@@ -23,7 +23,8 @@ public:
 	virtual void paint(Player &player, Universe &universe) = 0;
 
 protected:
-	int width, height;
+	int   width, height;
+	float aspect;
 };
 
 class glScene : public Scene {

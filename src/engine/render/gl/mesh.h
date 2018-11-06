@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "GL/glew.h"
+
 template<class T>
 struct vtx_t {
 	T px, py, pz;
@@ -23,5 +25,12 @@ public:
 	glMesh();
 	~glMesh();
 
-	void createSphere(int glat, int glng, int lod, int ilat, int ilng);
+	void paint();
+
+	static glMesh *createSphere(int glat, int glng, int lod, int ilat, int ilng);
+
+private:
+	int		 nvtx, nidx;
+	vtxd_t   *vtx;
+	uint16_t *idx;
 };
