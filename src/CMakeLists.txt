@@ -20,6 +20,17 @@ set(ofs_cpp_SRCS
 	util/tree.cpp
 )
 
+set(ofs_qt_cpp_SECS
+	main/qt/qtmain.cpp
+	main/qt/ofswinapp.cpp
+	main/qt/ofscoreapp.cpp
+	main/qt/ofswidget.cpp
+)
+
+set(ofs_sdl2_cpp_SRCS
+	main/sdl2/glmain.cpp
+)
+
 set(ofs_h_SRCS
 	main/qt/ofswinapp.h
 	main/qt/ofscoreapp.h
@@ -34,6 +45,7 @@ set(ofs_h_SRCS
 	engine/render/shader.h
 	engine/render/terrainmgr.h
 	engine/render/vobject.h
+	engine/render/gl/funcs.h
 	engine/render/gl/mesh.h
 	engine/render/gl/shadermgr.h
 	engine/universe/astro.h
@@ -41,6 +53,12 @@ set(ofs_h_SRCS
 	engine/universe/body.h
 	engine/universe/star.h
 	util/tree.h
+)
+
+set(ofs_qt_h_SRCS
+	main/qt/ofswinapp.h
+	main/qt/ofscoreapp.h
+	main/qt/ofswidget.h
 )
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
