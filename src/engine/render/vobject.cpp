@@ -28,6 +28,12 @@ void vObject::update(Player& player)
 
 	opos  = obj->position(0);
 	cpos  = opos - cam->position();
-	cdist = cpos.length();
+	cdist = glm::distance(opos, cpos);
+
+//	cout << fixed << setprecision(10);
+//	cout << "Camera:   (" << cpos.x << "," << cpos.y << "," << cpos.z << ")" << endl;
+//	cout << "Object:   (" << opos.x << "," << opos.y << "," << opos.z << ")" << endl;
+//	cout << "Distance: " << cdist << endl;
+
 }
 

@@ -39,3 +39,6 @@ public:
 private:
 	vObject *vobj;  // test - be removed later.
 };
+
+#define DIST_NEAR	0.001
+#define DIST_FAR	1.0e9

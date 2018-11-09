@@ -27,6 +27,8 @@ void glMesh::paint()
 {
 	GLsizei stride = sizeof(vtxd_t);
 
+	glColor4f(1, 1, 1, 1);
+
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_DOUBLE, stride, &vtx[0].px);
 

@@ -16,6 +16,7 @@
 #define OFS_DEFAULT_FOV		50
 
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <string>
 

@@ -10,6 +10,7 @@
 #include "engine/object.h"
 #include "engine/render/vobject.h"
 #include "engine/render/terrainmgr.h"
+#include "engine/render/gl/funcs.h"
 
 vPlanet::vPlanet(Object *obj, Scene *scene)
 : vObject(obj, scene)
@@ -25,6 +26,8 @@ vPlanet::~vPlanet()
 
 void vPlanet::paint()
 {
+	glTranslate(opos);
+
 	if (terrain != nullptr)
 		terrain->paint();
 }
