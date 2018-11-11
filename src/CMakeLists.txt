@@ -1,8 +1,4 @@
 set(ofs_cpp_SRCS
-	main/qt/qtmain.cpp
-	main/qt/ofswinapp.cpp
-	main/qt/ofscoreapp.cpp
-	main/qt/ofswidget.cpp
 	main/coreapp.cpp
 	engine/object.cpp
 	engine/engine.cpp
@@ -32,9 +28,6 @@ set(ofs_sdl2_cpp_SRCS
 )
 
 set(ofs_h_SRCS
-	main/qt/ofswinapp.h
-	main/qt/ofscoreapp.h
-	main/qt/ofswidget.h
 	main/coreapp.h
 	main/main.h
 	main/math.h
@@ -64,6 +57,9 @@ set(ofs_qt_h_SRCS
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_INCLUDE_DIRS})
 
-add_executable(ofs ${ofs_cpp_SRCS} ${ofs_h_SRCS})
-qt5_use_modules(ofs Widgets OpenGL)
-target_link_libraries(ofs ${QT_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
+#add_executable(ofs ${ofs_cpp_SRCS} ${ofs_qt_cpp_SRCS} ${ofs_h_SRCS} ${ofs_qt_h_SRCS})
+#qt5_use_modules(ofs Widgets OpenGL)
+#target_link_libraries(ofs ${QT_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
+
+add_executable(ofs ${ofs_cpp_SRCS} ${ofs_sdl2_cpp_SRCS} ${ofs_h_SRCS})
+target_link_libraries(ofs ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})

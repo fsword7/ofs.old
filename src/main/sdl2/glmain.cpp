@@ -19,10 +19,6 @@ using namespace ofs;
 void CoreApp::init()
 {
 	SDL_Window       *dWindow;
-	SDL_Renderer     *dRenderer;
-	SDL_RendererInfo  dRendererInfo;
-
-//	VkInstance   instance;
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		std::cerr << "OFS: Unable to initialize SDL: " << SDL_GetError() << std::endl;
@@ -31,14 +27,15 @@ void CoreApp::init()
 	atexit(SDL_Quit);
 
 	// OpenGL window/full screen
-//	SDL_CreateWindowAndRenderer(1600, 1200, SDL_WINDOW_OPENGL,
-//			&dWindow, &dRenderer);
-//	SDL_GetRendererInfo(dRenderer, &dRendererInfo);
-
 	dWindow = SDL_CreateWindow(APP_FULL_NAME,
 			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			OFS_DEFAULT_WIDTH, OFS_DEFAULT_HEIGHT,
 			SDL_WINDOW_SHOWN|SDL_WINDOW_OPENGL);
+	if (dWindow == nullptr) {
+		cerr << "SDL2 Window can't be created: " << SDL_GetError() << endl;
+		exit(1);
+	}
+	auto ctx = SDL_GL_CreateContext(dWindow);
 
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {
@@ -51,7 +48,6 @@ void CoreApp::init()
 
 void CoreApp::clean()
 {
-//	cleanVulkan();
 }
 
 int main(int argc, char **argv)
