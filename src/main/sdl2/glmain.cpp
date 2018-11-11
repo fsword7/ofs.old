@@ -41,9 +41,10 @@ void CoreApp::init()
 	if (err != GLEW_OK) {
 		cerr << "GLEW Error: " << glewGetErrorString(err) << endl;
 		exit(1);
-	} else
+	} else {
 		cout << "Using GLEW Version: " << glewGetString(GLEW_VERSION) << endl;
-
+		cout << "  OpenGL version:   " << glGetString(GL_VERSION) << endl;
+	}
 }
 
 void CoreApp::clean()
