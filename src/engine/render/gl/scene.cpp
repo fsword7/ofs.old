@@ -70,6 +70,7 @@ void glScene::paint(Player &player, Universe &universe)
 
 	glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
+	glClearColor(0.0, 0.0, 0.0, 1.0);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -77,29 +78,28 @@ void glScene::paint(Player &player, Universe &universe)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0.0, 0.0, 0.5,
-			  0.0, 0.0, 0.0,
-			  0.0, 1.0, 0.0);
-
-	glTranslatef(0.0, 0.0, -1.0);
-	glBegin(GL_QUADS);
-		glColor3f(0.0f, 1.0f, 0.0f);
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glVertex3f(0.5f, -0.5f, 0.5f);
-		glVertex3f(0.5f, 0.5f, 0.5f);
-		glVertex3f(-0.5f, 0.5f, 0.5f);
-		glVertex3f(-0.5f, -0.5f, 0.5f);
-	glEnd();
-
-//	glRotate(crot);
-
-//	glClearColor(1.0, 0.0, 0.0, 0.0);
-
-//	if (vobj == nullptr) {
-//		vobj = new vPlanet(universe.earth, this);
-//		cam->lookAt(universe.earth);
-//	}
+//	gluLookAt(0.0, 0.0, 0.5,
+//			  0.0, 0.0, 0.0,
+//			  0.0, 1.0, 0.0);
 //
-//	vobj->update(player);
-//	vobj->paint();
+//	glTranslatef(0.0, 0.0, -1.0);
+//	glBegin(GL_QUADS);
+//		glColor3f(0.0f, 1.0f, 0.0f);
+//		glNormal3f(0.0f, 0.0f, 1.0f);
+//		glVertex3f(0.5f, -0.5f, 0.5f);
+//		glVertex3f(0.5f, 0.5f, 0.5f);
+//		glVertex3f(-0.5f, 0.5f, 0.5f);
+//		glVertex3f(-0.5f, -0.5f, 0.5f);
+//	glEnd();
+
+	glRotate(crot);
+
+	if (vobj == nullptr) {
+		vobj = new vPlanet(universe.earth, this);
+		cam->lookAt(universe.earth);
+	}
+
+	glColor4f(1, 1, 1, 1);
+	vobj->update(player);
+	vobj->paint();
 }

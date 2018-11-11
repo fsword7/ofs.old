@@ -37,8 +37,7 @@ void Camera::lookAt(Object *obj)
 
 	m = glm::lookAt(camPosition, obj->position(), vec3d_t(0, 1, 0));
 
-//	camRotation = glm::conjugate(glm::quat_cast(m));
-	camRotation = glm::quat_cast(m);
+	camRotation = glm::conjugate(glm::quat_cast(m));
 
 }
 
