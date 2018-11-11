@@ -9,6 +9,7 @@
 #include "main/math.h"
 #include "engine/object.h"
 #include "engine/universe/body.h"
+#include "engine/universe/star.h"
 #include "engine/universe/universe.h"
 
 Universe::Universe()
@@ -26,7 +27,10 @@ void Universe::init()
 
 
 	// Temporary hacks for testing - to be removed later
-//	sol = new CelestialStar("Sol");
+	string solName = "Sol";
+	sol = new CelestialStar(solName);
+	unsortedStars.push_back(sol);
+
 	string earthName = "Earth";
 //	vec3d_t earthPos = vec3d_t(0, 0, -20000.0);
 	vec3d_t earthPos = vec3d_t(0, 0, -2.0);

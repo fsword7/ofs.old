@@ -8,6 +8,7 @@
 #pragma once
 
 class CelestialBody;
+class CelestialStar;
 
 class Universe {
 public:
@@ -17,6 +18,8 @@ public:
 	void init();
 
 	CelestialBody *earth;
+	CelestialStar *sol;
 
 private:
+	vector<CelestialStar *> unsortedStars;
 };
