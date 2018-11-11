@@ -33,4 +33,7 @@ private:
 	int		 nvtx, nidx;
 	vtxd_t   *vtx;
 	uint16_t *idx;
+
+	vec3d_t  *pos;
+	vec3d_t  *nml;
 };

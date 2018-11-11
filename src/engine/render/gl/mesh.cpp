@@ -30,10 +30,10 @@ void glMesh::paint()
 	glColor4f(1, 1, 1, 1);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_DOUBLE, stride, &vtx[0].px);
+	glVertexPointer(3, GL_DOUBLE, 0, pos);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glDrawElements(GL_TRIANGLE_STRIP, nidx, GL_UNSIGNED_SHORT, idx);
+	glDrawElements(GL_TRIANGLES, nidx, GL_UNSIGNED_SHORT, idx);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -64,6 +64,8 @@ glMesh *glMesh::createSphere(int glat, int glng, int lod, int ilat, int ilng)
 	vec3d_t nml, pos;
 
 	vtx_t<double> *vtx = new vtx_t<double>[nvtxb];
+	vec3d_t  *vpos = new vec3d_t[nvtxb];
+	vec3d_t  *vnml = new vec3d_t[nvtxb];
 	uint16_t *idx = new uint16_t[nidx];
 
 	// Initialize vertexes
@@ -85,6 +87,14 @@ glMesh *glMesh::createSphere(int glat, int glng, int lod, int ilat, int ilng)
 			vtx[vidx].nx = nml.x;
 			vtx[vidx].ny = nml.y;
 			vtx[vidx].nz = nml.z;
+
+			vpos[vidx].x = pos.x;
+			vpos[vidx].y = pos.y;
+			vpos[vidx].z = pos.z;
+
+			vnml[vidx].x = nml.x;
+			vnml[vidx].y = nml.y;
+			vnml[vidx].z = nml.z;
 
 			vtx[vidx].tu0 = 0;
 			vtx[vidx].tv0 = 0;
@@ -114,6 +124,9 @@ glMesh *glMesh::createSphere(int glat, int glng, int lod, int ilat, int ilng)
 	mesh->nidx = nidx/3;
 	mesh->vtx  = vtx;
 	mesh->idx  = idx;
+
+	mesh->pos = vpos;
+	mesh->nml = vnml;
 
 	return mesh;
 }
