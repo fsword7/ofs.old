@@ -15,10 +15,11 @@
 
 using namespace ofs;
 
+SDL_Window *dWindow;
+
 // Initialize SDL2 facility with OpenGL
 void CoreApp::init()
 {
-	SDL_Window       *dWindow;
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		std::cerr << "OFS: Unable to initialize SDL: " << SDL_GetError() << std::endl;
@@ -37,6 +38,8 @@ void CoreApp::init()
 	}
 	auto ctx = SDL_GL_CreateContext(dWindow);
 
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {
 		cerr << "GLEW Error: " << glewGetErrorString(err) << endl;
@@ -54,14 +57,27 @@ void CoreApp::clean()
 int main(int argc, char **argv)
 {
 	CoreApp &app = *new CoreApp();
+	bool run = true;
 
 	std::cout << "Orbital Flight Simulator" << std::endl;
 
 	app.init();
+	app.initEngine();
+	app.initRenderer();
 
+	while (run) {
+		SDL_Event event;
 
+		while(SDL_PollEvent(&event) != 0) {
+			if (event.type == SDL_QUIT)
+				run = false;
+		}
 
-	SDL_Delay(5000);
+		app.tick();
+		app.paint();
+		SDL_GL_SwapWindow(dWindow);
+	}
+
 	app.clean();
 
 	return 0;
