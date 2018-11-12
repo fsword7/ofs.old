@@ -7,6 +7,7 @@
 
 #pragma once
 
+class StarDatabase;
 class CelestialBody;
 class CelestialStar;
 
@@ -21,5 +22,5 @@ public:
 	CelestialStar *sol;
 
 private:
-	vector<CelestialStar *> unsortedStars;
+	StarDatabase *stardb;
 };
