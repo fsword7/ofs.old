@@ -32,7 +32,7 @@ void CoreApp::init()
 	dWindow = SDL_CreateWindow(APP_FULL_NAME,
 			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			OFS_DEFAULT_WIDTH, OFS_DEFAULT_HEIGHT,
-			SDL_WINDOW_OPENGL);
+			SDL_WINDOW_OPENGL /* |SDL_WINDOW_RESIZABLE */);
 	if (dWindow == nullptr) {
 		cerr << "SDL2 Window can't be created: " << SDL_GetError() << endl;
 		exit(1);
@@ -54,10 +54,28 @@ void CoreApp::clean()
 {
 }
 
+void CoreApp::run()
+{
+	bool running = true;
+
+	while (running) {
+		SDL_Event event;
+
+		while(SDL_PollEvent(&event) != 0) {
+			if (event.type == SDL_QUIT)
+				running = false;
+		}
+
+		tick();
+		paint();
+		SDL_GL_SwapWindow(dWindow);
+	}
+}
+
 int main(int argc, char **argv)
 {
 	CoreApp &app = *new CoreApp();
-	bool run = true;
+
 
 	std::cout << "Orbital Flight Simulator" << std::endl;
 
@@ -65,18 +83,7 @@ int main(int argc, char **argv)
 	app.initEngine();
 	app.initRenderer();
 
-	while (run) {
-		SDL_Event event;
-
-		while(SDL_PollEvent(&event) != 0) {
-			if (event.type == SDL_QUIT)
-				run = false;
-		}
-
-		app.tick();
-		app.paint();
-		SDL_GL_SwapWindow(dWindow);
-	}
+	app.run();
 
 	app.clean();
 

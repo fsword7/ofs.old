@@ -51,6 +51,7 @@ void glScene::resize(int w, int h)
 	width  = w;
 	height = h;
 	aspect = double(width)/double(height);
+	cout << "Width: " << w << " Height: " << h << " Aspect: " << aspect << endl;
 }
 
 void glScene::paint(Player &player, Universe &universe)
@@ -75,8 +76,8 @@ void glScene::paint(Player &player, Universe &universe)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-//	glFrustum(cfov, aspect, DIST_NEAR, DIST_FAR);
-	gluPerspective(toDegree(cfov), aspect, DIST_NEAR, DIST_FAR);
+	glFrustum(cfov, aspect, DIST_NEAR, DIST_FAR);
+//	gluPerspective(toDegree(cfov), aspect, DIST_NEAR, DIST_FAR);
 	glRotate(crot);
 
 	glMatrixMode(GL_MODELVIEW);

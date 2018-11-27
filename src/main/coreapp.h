@@ -25,16 +25,19 @@ namespace ofs {
 		void initRenderer();
 		void initEngine();
 
+		void run();
+
 		void tick();
 		void paint();
 		void resize(int w, int h);
+
+	protected:
+		int width, height;
 
 	private:
 		Player   *player;
 		Engine   *engine;
 		Universe *universe;
 		Scene    *scene;
-
-		int width, height;
 	};
 }

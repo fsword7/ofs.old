@@ -20,7 +20,7 @@ inline void glFrustum(T fovy, T aspect, T near, T far)
 {
 	T fw, fh;
 
-	fh = tan(fovy) * near;
+	fh = tan(fovy / 2.0) * near;
 	fw = fh * aspect;
 
 	glFrustum( -fw, fw, -fh, fh, near, far);
