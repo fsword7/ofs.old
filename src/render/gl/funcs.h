@@ -12,7 +12,7 @@
 inline void glMatrix(const mat4d_t& m)
 {
 	mat4d_t trans = glm::transpose(m);
-	glLoadMatrixd(&trans[0].x);
+	glMultMatrixd(&trans[0].x);
 }
 
 template<class T>

@@ -35,10 +35,10 @@ void Camera::focus(Object *obj)
 {
 	vec3d_t opos = obj->position();
 	vec3d_t up   = vec3d_t(0, 1, 0);
-	mat4d_t m    = lookAt(opos, camPosition, up);
+	mat4d_t m    = lookAt(camPosition, opos, up);
 
-//	camRotation = glm::conjugate(glm::quat_cast(m));
-	camRotation = glm::quat_cast(m);
+	camRotation = glm::conjugate(glm::quat_cast(m));
+//	camRotation = glm::quat_cast(m);
 
 	cout << "Camera Parameters: " << endl;
 	cout << fixed << setprecision(10) << endl;

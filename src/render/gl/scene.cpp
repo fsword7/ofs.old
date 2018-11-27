@@ -69,19 +69,20 @@ void glScene::paint(Player &player, Universe &universe)
 	cfov  = cam->getFOV();
 	crotm = glm::mat4_cast(crot);
 
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glRotate(crot);
+	glFrustum(cfov, aspect, DIST_NEAR, DIST_FAR);
+//	gluPerspective(toDegree(cfov), aspect, DIST_NEAR, DIST_FAR);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 	glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
 //	glEnable(GL_DEPTH_TEST);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glColor3f(1.0, 1.0, 1.0);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glFrustum(cfov, aspect, DIST_NEAR, DIST_FAR);
-//	gluPerspective(toDegree(cfov), aspect, DIST_NEAR, DIST_FAR);
-	glRotate(crot);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 
 	if (vobj == nullptr) {
 		vobj = new vPlanet(universe.earth, this);
