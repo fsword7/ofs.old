@@ -38,7 +38,7 @@ void Universe::init()
 
 	string earthName = "Earth";
 //	vec3d_t earthPos = vec3d_t(0, 0, -20000.0);
-	vec3d_t earthPos = vec3d_t(-1.0, 0, -3.0);
+	vec3d_t earthPos = vec3d_t(0, 0, -3.0);
 
 	earth = new CelestialBody(earthName);
 	earth->setRadius(6371.0);

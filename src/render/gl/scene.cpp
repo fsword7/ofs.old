@@ -71,9 +71,9 @@ void glScene::paint(Player &player, Universe &universe)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glRotate(crot);
+
 	glFrustum(cfov, aspect, DIST_NEAR, DIST_FAR);
-//	gluPerspective(toDegree(cfov), aspect, DIST_NEAR, DIST_FAR);
+	glRotate(crot);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
