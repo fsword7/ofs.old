@@ -26,19 +26,19 @@ void CoreApp::init()
 		abort();
 	}
 	atexit(SDL_Quit);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	// OpenGL window/full screen
 	dWindow = SDL_CreateWindow(APP_FULL_NAME,
 			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			OFS_DEFAULT_WIDTH, OFS_DEFAULT_HEIGHT,
-			SDL_WINDOW_SHOWN|SDL_WINDOW_OPENGL);
+			SDL_WINDOW_OPENGL);
 	if (dWindow == nullptr) {
 		cerr << "SDL2 Window can't be created: " << SDL_GetError() << endl;
 		exit(1);
 	}
 	auto ctx = SDL_GL_CreateContext(dWindow);
 
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {

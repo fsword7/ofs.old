@@ -7,7 +7,7 @@
 
 #include "main/main.h"
 #include "main/math.h"
-#include "engine/universe/body.h"
+#include "universe/body.h"
 
 CelestialBody::CelestialBody(string& name)
 : Object(name, ObjectType::objCelestialBody)

@@ -7,7 +7,7 @@
 
 #include "main/main.h"
 #include "main/math.h"
-#include "engine/render/gl/mesh.h"
+#include "render/gl/mesh.h"
 
 glMesh::glMesh()
 : nvtx(0), vtx(nullptr),

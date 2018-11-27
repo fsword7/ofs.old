@@ -8,10 +8,10 @@
 #include "main/main.h"
 #include "main/math.h"
 #include "engine/object.h"
-#include "engine/universe/stardb.h"
-#include "engine/universe/body.h"
-#include "engine/universe/star.h"
-#include "engine/universe/universe.h"
+#include "universe/stardb.h"
+#include "universe/body.h"
+#include "universe/star.h"
+#include "universe/universe.h"
 
 Universe::Universe()
 {
@@ -38,7 +38,7 @@ void Universe::init()
 
 	string earthName = "Earth";
 //	vec3d_t earthPos = vec3d_t(0, 0, -20000.0);
-	vec3d_t earthPos = vec3d_t(0, 0, -2.0);
+	vec3d_t earthPos = vec3d_t(0, 0, 1.75);
 
 	earth = new CelestialBody(earthName);
 	earth->setRadius(6371.0);

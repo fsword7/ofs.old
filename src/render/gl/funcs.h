@@ -15,6 +15,17 @@ inline void glMatrix(const mat4d_t& m)
 	glLoadMatrixd(&trans[0].x);
 }
 
+template<class T>
+inline void glFrustum(T fovy, T aspect, T near, T far)
+{
+	T fw, fh;
+
+	fh = tan(fovy) * near;
+	fw = fh * aspect;
+
+	glFrustum( -fw, fw, -fh, fh, near, far);
+}
+
 inline void glRotate(const quatd_t& q)
 {
 	glMatrix(glm::mat4_cast(q));

@@ -12,21 +12,21 @@
 
 Camera::Camera()
 : camPosition(0, 0, 0),
-  camRotation(1, 0, 0, 0),
-  fov(toRadian(OFS_DEFAULT_FOV))
+  camRotation(1, 0, 0, 0)
 {
+	setFOVdeg(OFS_DEFAULT_FOV);
 }
 
 Camera::~Camera()
 {
 }
 
-void Camera::setFOVrad(float _fov)
+void Camera::setFOVrad(double _fov)
 {
 	fov = _fov;
 }
 
-void Camera::setFOVdeg(float _fov)
+void Camera::setFOVdeg(double _fov)
 {
 	fov = toRadian(_fov);
 }
@@ -35,11 +35,16 @@ void Camera::focus(Object *obj)
 {
 	vec3d_t opos = obj->position();
 	vec3d_t up   = vec3d_t(0, 1, 0);
-	mat4d_t m;
+	mat4d_t m    = lookAt(opos, camPosition, up);
 
-	m = glm::lookAt(camPosition, opos, up);
+//	camRotation = glm::conjugate(glm::quat_cast(m));
+	camRotation = glm::quat_cast(m);
 
-	camRotation = glm::conjugate(glm::quat_cast(m));
+	cout << "Camera Parameters: " << endl;
+	cout << fixed << setprecision(10) << endl;
+	cout << "Object:   (" << opos.x << ", " << opos.y << ", " << opos.z << ")" << endl;
+	cout << "Camera:   (" << camPosition.x << ", " << camPosition.y << ", " << camPosition.z << ")" << endl;
+	cout << "Rotation: (" << camRotation.w << ", " << camRotation.x << ", " << camRotation.y << ", " << camRotation.z << ")" << endl;
 
 }
 

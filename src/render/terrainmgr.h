@@ -11,16 +11,19 @@
 
 class vPlanet;
 class glMesh;
+class TerrainManager;
 
 class QuadTile : public Tree<QTREE_NODES>
 {
 public:
-	QuadTile(int lod, int ilat, int ilng);
+	QuadTile(TerrainManager *mgr, int lod, int ilat, int ilng);
 	virtual ~QuadTile();
 
 	virtual int load();
 
 protected:
+	TerrainManager *mgr;
+
 	int lod;
 	int ilat, ilng;
 };
@@ -28,7 +31,7 @@ protected:
 class TerrainTile : public QuadTile
 {
 public:
-	TerrainTile(int lod, int ilat, int ilng);
+	TerrainTile(TerrainManager *mgr, int lod, int ilat, int ilng);
 	~TerrainTile();
 
 	int  load();

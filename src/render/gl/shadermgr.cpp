@@ -6,7 +6,7 @@
  */
 
 #include "main/main.h"
-#include "engine/render/gl/shadermgr.h"
+#include "render/gl/shadermgr.h"
 
 glShaderMgr::glShaderMgr()
 {

@@ -9,7 +9,7 @@
 #include "main/math.h"
 #include "engine/player.h"
 #include "engine/object.h"
-#include "engine/render/vobject.h"
+#include "render/vobject.h"
 
 vObject::vObject(Object *_obj, Scene *_scene)
 : obj(_obj), scene(_scene),

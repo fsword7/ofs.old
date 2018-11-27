@@ -8,9 +8,9 @@
 #include "main/main.h"
 #include "main/math.h"
 #include "engine/object.h"
-#include "engine/render/vobject.h"
-#include "engine/render/terrainmgr.h"
-#include "engine/render/gl/funcs.h"
+#include "render/vobject.h"
+#include "render/terrainmgr.h"
+#include "render/gl/funcs.h"
 
 vPlanet::vPlanet(Object *obj, Scene *scene)
 : vObject(obj, scene)

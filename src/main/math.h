@@ -27,3 +27,18 @@ inline T toRadian(T deg) { return deg * (PI / 180.0); }
 
 template<class T>
 inline T toDegree(T rad) { return rad * (180.0 / PI); }
+
+//quatd_t lookAt(vec3d_t from, vec3d_t to, vec3d_t up)
+//{
+//	mat3d_t m;
+//
+//	vec3d_t dir = glm::normalize(to - from);
+//	vec3d_t v   = glm::normalize(glm::cross(dir, up));
+//	vec3d_t u   = glm::cross(v, dir);
+//
+//	m[0] = v;
+//	m[1] = u;
+//	m[2] = -dir;
+//
+//	return glm::conjugate(glm::quat_cast(m));
+//}

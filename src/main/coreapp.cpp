@@ -9,8 +9,8 @@
 #include "main/math.h"
 #include "engine/engine.h"
 #include "engine/player.h"
-#include "engine/universe/universe.h"
-#include "engine/render/scene.h"
+#include "universe/universe.h"
+#include "render/scene.h"
 #include "main/coreapp.h"
 
 using namespace ofs;

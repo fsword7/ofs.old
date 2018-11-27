@@ -3,17 +3,17 @@ set(ofs_cpp_SRCS
 	engine/object.cpp
 	engine/engine.cpp
 	engine/player.cpp
-	engine/render/terrainmgr.cpp
-	engine/render/vobject.cpp
-	engine/render/vplanet.cpp
-	engine/render/gl/mesh.cpp
-	engine/render/gl/scene.cpp
-	engine/render/gl/shader.cpp
-	engine/render/gl/shadermgr.cpp
-	engine/universe/universe.cpp
-	engine/universe/stardb.cpp
-	engine/universe/body.cpp
-	engine/universe/star.cpp
+	render/terrainmgr.cpp
+	render/vobject.cpp
+	render/vplanet.cpp
+	render/gl/mesh.cpp
+	render/gl/scene.cpp
+	render/gl/shader.cpp
+	render/gl/shadermgr.cpp
+	universe/universe.cpp
+	universe/stardb.cpp
+	universe/body.cpp
+	universe/star.cpp
 	util/tree.cpp
 )
 
@@ -35,18 +35,18 @@ set(ofs_h_SRCS
 	engine/object.h
 	engine/engine.h
 	engine/player.h
-	engine/render/scene.h
-	engine/render/shader.h
-	engine/render/terrainmgr.h
-	engine/render/vobject.h
-	engine/render/gl/funcs.h
-	engine/render/gl/mesh.h
-	engine/render/gl/shadermgr.h
-	engine/universe/astro.h
-	engine/universe/universe.h
-	engine/universe/stardb.h
-	engine/universe/body.h
-	engine/universe/star.h
+	render/scene.h
+	render/shader.h
+	render/terrainmgr.h
+	render/vobject.h
+	render/gl/funcs.h
+	render/gl/mesh.h
+	render/gl/shadermgr.h
+	universe/astro.h
+	universe/universe.h
+	universe/stardb.h
+	universe/body.h
+	universe/star.h
 	util/tree.h
 )
 

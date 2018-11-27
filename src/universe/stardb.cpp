@@ -8,8 +8,8 @@
 #include "main/main.h"
 #include "main/math.h"
 #include "engine/object.h"
-#include "engine/universe/star.h"
-#include "engine/universe/stardb.h"
+#include "universe/star.h"
+#include "universe/stardb.h"
 
 using namespace std;
 

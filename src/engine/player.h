@@ -16,17 +16,17 @@ public:
 
 	inline vec3d_t position() { return camPosition; }
 	inline quatd_t rotation() { return camRotation; }
-	inline float getFOV() { return fov; };
+	inline double getFOV() { return fov; };
 
-	void setFOVrad(float fov);
-	void setFOVdeg(float fov);
+	void setFOVrad(double fov);
+	void setFOVdeg(double fov);
 
 	void focus(Object *obj);
 
 private:
 	vec3d_t camPosition;
 	quatd_t camRotation;
-	float   fov;
+	double  fov;
 };
 
 class Player {

@@ -7,7 +7,7 @@
 
 #include "main/main.h"
 #include "main/math.h"
-#include "engine/universe/star.h"
+#include "universe/star.h"
 
 CelestialStar::CelestialStar(string& name)
 : Object(name, ObjectType::objCelestialStar)

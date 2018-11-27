@@ -5,9 +5,9 @@
  *      Author: Tim Stark
  */
 
-#include <engine/render/scene.h>
 #include "main/main.h"
-#include "engine/render/shader.h"
+#include "render/scene.h"
+#include "render/shader.h"
 
 Shader::Shader(ShaderType _type)
 : type(_type)

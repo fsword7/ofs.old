@@ -7,11 +7,11 @@
 
 #include "main/main.h"
 #include "main/math.h"
-#include "engine/render/terrainmgr.h"
-#include "engine/render/gl/mesh.h"
+#include "render/terrainmgr.h"
+#include "render/gl/mesh.h"
 
-QuadTile::QuadTile(int _lod, int _ilat, int _ilng)
-: lod(_lod), ilat(_ilat), ilng(_ilng)
+QuadTile::QuadTile(TerrainManager *_mgr, int _lod, int _ilat, int _ilng)
+: mgr(_mgr), lod(_lod), ilat(_ilat), ilng(_ilng)
 {
 }
 
@@ -25,8 +25,8 @@ int QuadTile::load()
 }
 
 
-TerrainTile::TerrainTile(int lod, int ilat, int ilng)
-: QuadTile(lod, ilat, ilng),
+TerrainTile::TerrainTile(TerrainManager *mgr, int lod, int ilat, int ilng)
+: QuadTile(mgr, lod, ilat, ilng),
   mesh(nullptr)
 {
 
@@ -41,8 +41,7 @@ TerrainTile::~TerrainTile()
 int TerrainTile::load()
 {
 
-	mesh = glMesh::createSphere(32, 32, lod, ilat, ilng);
-
+	mesh = mgr->createSpherePatch(lod, ilat, ilng, 32);
 	return 0;
 }
 
@@ -58,7 +57,7 @@ TerrainManager::TerrainManager(vPlanet *_vobj)
 
 	// Initialize root of terrain tiles
 	for (int idx = 0; idx < 2; idx++) {
-		terrain[idx] = new TerrainTile(0, 0, idx);
+		terrain[idx] = new TerrainTile(this, 0, 0, idx);
 		terrain[idx]->load();
 	}
 }
@@ -83,7 +82,7 @@ void TerrainManager::paint()
 // Create spherical patch/hemisphere for LOD level 0+
 //glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng, int grids,
 //	tcRange2 &tcr, const int16_t *elev, double elevGlobe, double elevScale)
-glMesh *createSpherePatch(int lod, int ilat, int ilng, int grids)
+glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng, int grids)
 {
 	int nlat = 1 << lod;
 	int nlng = 2 << lod;
