@@ -25,6 +25,7 @@ set(ofs_qt_cpp_SECS
 )
 
 set(ofs_sdl2_cpp_SRCS
+	main/sdl2/coreapp.cpp
 	main/sdl2/glmain.cpp
 )
 
@@ -56,6 +57,10 @@ set(ofs_qt_h_SRCS
 	main/qt/ofswidget.h
 )
 
+set(ofs_sdl2_h_SECS
+	main/sdl2/coreapp.h
+)
+
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_INCLUDE_DIRS})
 
@@ -63,5 +68,5 @@ include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_INCLUDE_DIRS})
 #qt5_use_modules(ofs Widgets OpenGL)
 #target_link_libraries(ofs ${QT_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
 
-add_executable(ofs ${ofs_cpp_SRCS} ${ofs_sdl2_cpp_SRCS} ${ofs_h_SRCS})
+add_executable(ofs ${ofs_cpp_SRCS} ${ofs_sdl2_cpp_SRCS} ${ofs_h_SRCS} ${ofs_sdl2_h_SRCS})
 target_link_libraries(ofs ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})

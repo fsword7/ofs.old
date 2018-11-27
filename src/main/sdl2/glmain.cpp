@@ -12,13 +12,12 @@
 
 #include "main/main.h"
 #include "main/coreapp.h"
+#include "main/sdl2/coreapp.h"
 
 using namespace ofs;
 
-SDL_Window *dWindow;
-
 // Initialize SDL2 facility with OpenGL
-void CoreApp::init()
+void sdlCoreApp::init()
 {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -50,11 +49,11 @@ void CoreApp::init()
 	}
 }
 
-void CoreApp::clean()
+void sdlCoreApp::clean()
 {
 }
 
-void CoreApp::run()
+void sdlCoreApp::run()
 {
 	bool running = true;
 
@@ -74,7 +73,7 @@ void CoreApp::run()
 
 int main(int argc, char **argv)
 {
-	CoreApp &app = *new CoreApp();
+	CoreApp &app = *new sdlCoreApp();
 
 
 	std::cout << "Orbital Flight Simulator" << std::endl;

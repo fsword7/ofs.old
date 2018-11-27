@@ -17,15 +17,14 @@ namespace ofs {
 	{
 	public:
 		CoreApp();
-		~CoreApp();
+		virtual ~CoreApp();
 
-		void init();
-		void clean();
+		virtual void init() = 0;
+		virtual void clean() = 0;
+		virtual void run() = 0;
 
 		void initRenderer();
 		void initEngine();
-
-		void run();
 
 		void tick();
 		void paint();
