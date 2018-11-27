@@ -11,7 +11,6 @@
 #include <GL/glew.h>
 
 #include "main/main.h"
-#include "main/coreapp.h"
 #include "main/sdl2/coreapp.h"
 
 using namespace ofs;
@@ -31,7 +30,7 @@ void sdlCoreApp::init()
 	dWindow = SDL_CreateWindow(APP_FULL_NAME,
 			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			OFS_DEFAULT_WIDTH, OFS_DEFAULT_HEIGHT,
-			SDL_WINDOW_OPENGL /* |SDL_WINDOW_RESIZABLE */);
+			SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
 	if (dWindow == nullptr) {
 		cerr << "SDL2 Window can't be created: " << SDL_GetError() << endl;
 		exit(1);
@@ -56,13 +55,24 @@ void sdlCoreApp::clean()
 void sdlCoreApp::run()
 {
 	bool running = true;
+	int  w, h;
 
 	while (running) {
 		SDL_Event event;
 
 		while(SDL_PollEvent(&event) != 0) {
-			if (event.type == SDL_QUIT)
+			switch (event.type) {
+			case SDL_QUIT:
 				running = false;
+				break;
+
+			case SDL_WINDOWEVENT:
+				if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
+					SDL_GetWindowSize(dWindow, &w, &h);
+					resize(w, h);
+				}
+				break;
+			}
 		}
 
 		tick();
@@ -74,7 +84,6 @@ void sdlCoreApp::run()
 int main(int argc, char **argv)
 {
 	CoreApp &app = *new sdlCoreApp();
-
 
 	std::cout << "Orbital Flight Simulator" << std::endl;
 
