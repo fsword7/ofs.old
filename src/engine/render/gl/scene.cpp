@@ -96,7 +96,7 @@ void glScene::paint(Player &player, Universe &universe)
 
 	if (vobj == nullptr) {
 		vobj = new vPlanet(universe.earth, this);
-		cam->lookAt(universe.earth);
+		cam->focus(universe.earth);
 	}
 
 	glColor4f(1, 1, 1, 1);

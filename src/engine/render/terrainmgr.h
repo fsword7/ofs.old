@@ -45,6 +45,10 @@ public:
 
 	void paint();
 
+//	glMesh *createSpherePatch(int lod, int ilat, int ilng, int grids,
+//		tcRange2 &tcr, const int16_t *elev, double elevGlobe, double elevScale);
+	glMesh *createSpherePatch(int lod, int ilat, int ilng, int grids);
+
 private:
 	vPlanet *vobj;
 

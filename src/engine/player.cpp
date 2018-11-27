@@ -31,11 +31,13 @@ void Camera::setFOVdeg(float _fov)
 	fov = toRadian(_fov);
 }
 
-void Camera::lookAt(Object *obj)
+void Camera::focus(Object *obj)
 {
+	vec3d_t opos = obj->position();
+	vec3d_t up   = vec3d_t(0, 1, 0);
 	mat4d_t m;
 
-	m = glm::lookAt(camPosition, obj->position(), vec3d_t(0, 1, 0));
+	m = glm::lookAt(camPosition, opos, up);
 
 	camRotation = glm::conjugate(glm::quat_cast(m));
 

@@ -21,7 +21,7 @@ public:
 	void setFOVrad(float fov);
 	void setFOVdeg(float fov);
 
-	void lookAt(Object *obj);
+	void focus(Object *obj);
 
 private:
 	vec3d_t camPosition;

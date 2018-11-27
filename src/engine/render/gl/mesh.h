@@ -11,9 +11,9 @@
 
 template<class T>
 struct vtx_t {
-	T px, py, pz;
+	T vx, vy, vz;
 	T nx, ny, nz;
-	T tu0, tv0;
+	T tu, tv;
 };
 
 typedef vtx_t<float>  vtxf_t;
@@ -25,15 +25,19 @@ public:
 	glMesh();
 	~glMesh();
 
+	static glMesh *create(int nvtx, vtxd_t *vtx, int nidx, uint16_t *idx);
+
+	void allocate();
 	void paint();
 
 	static glMesh *createSphere(int glat, int glng, int lod, int ilat, int ilng);
 
-private:
+public:
 	int		 nvtx, nidx;
 	vtxd_t   *vtx;
 	uint16_t *idx;
 
-	vec3d_t  *pos;
-	vec3d_t  *nml;
+private:
+	bool   isAllocated;
+	GLuint vbo, ibo;
 };

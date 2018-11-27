@@ -11,7 +11,9 @@
 
 glMesh::glMesh()
 : nvtx(0), vtx(nullptr),
-  nidx(0), idx(nullptr)
+  nidx(0), idx(nullptr),
+  isAllocated(false),
+  vbo(0), ibo(0)
 {
 }
 
@@ -21,16 +23,67 @@ glMesh::~glMesh()
 		delete [] vtx;
 	if (idx != nullptr)
 		delete [] idx;
+
+	// Delete all VBO allocations
+	if (ibo != 0)
+		glDeleteBuffers(1, &ibo);
+	if (vbo != 0)
+		glDeleteBuffers(1, &vbo);
+}
+
+glMesh *glMesh::create(int nvtx, vtxd_t *vtx, int nidx, uint16_t *idx)
+{
+	glMesh *mesh = new glMesh();
+
+	mesh->nvtx = nvtx;
+	mesh->vtx  = vtx;
+	mesh->nidx = nidx;
+	mesh->idx  = idx;
+
+	return mesh;
+}
+
+void glMesh::allocate()
+{
+	// Initialize vertex buffer objects
+	if (vbo == 0) {
+		glGenBuffers(1, &vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vtxd_t)*nvtx, vtx, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	if (ibo == 0) {
+		glGenBuffers(1, &ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint16_t)*nidx, idx, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+
+	isAllocated = true;
 }
 
 void glMesh::paint()
 {
-	GLsizei stride = sizeof(vtxd_t);
-
-	glColor4f(1, 1, 1, 1);
+//	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_DOUBLE, 0, pos);
+//	glEnableClientState(GL_NORMAL_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glVertexPointer(3, GL_DOUBLE, sizeof(vtxd_t), &vtx[0].vx);
+//	glNormalPointer(GL_DOUBLE, sizeof(vtxd_t), &vtx[0].nx);
+//	glTexCoordPointer(2, GL_DOUBLE, sizeof(vtxd_t), &vtx[0].tu);
+
+//	glVertexPointer(3, GL_DOUBLE, sizeof(vtxd_t), BUFFER_OFFSET(0));
+//	glNormalPointer(GL_DOUBLE, sizeof(vtxd_t), BUFFER_OFFSET(3));
+//	glTexCoordPointer(2, GL_DOUBLE, sizeof(vtxd_t), BUFFER_OFFSET(6));
+
+//	if (tex != nullptr) {
+//		glEnable(GL_TEXTURE_2D);
+//		tex->bind();
+//	}
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glDrawElements(GL_TRIANGLES, nidx, GL_UNSIGNED_SHORT, idx);
@@ -38,6 +91,9 @@ void glMesh::paint()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
+//	glDisableClientState(GL_NORMAL_ARRAY);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glDisable(GL_TEXTURE_2D);
 }
 
 glMesh *glMesh::createSphere(int glat, int glng, int lod, int ilat, int ilng)
@@ -80,9 +136,9 @@ glMesh *glMesh::createSphere(int glat, int glng, int lod, int ilat, int ilng)
 			nml = vec3d_t(clat*clng, slat, clat*slng);
 			pos = nml;
 
-			vtx[vidx].px = pos.x;
-			vtx[vidx].py = pos.y;
-			vtx[vidx].pz = pos.z;
+			vtx[vidx].vx = pos.x;
+			vtx[vidx].vy = pos.y;
+			vtx[vidx].vz = pos.z;
 
 			vtx[vidx].nx = nml.x;
 			vtx[vidx].ny = nml.y;
@@ -96,8 +152,8 @@ glMesh *glMesh::createSphere(int glat, int glng, int lod, int ilat, int ilng)
 			vnml[vidx].y = nml.y;
 			vnml[vidx].z = nml.z;
 
-			vtx[vidx].tu0 = 0;
-			vtx[vidx].tv0 = 0;
+			vtx[vidx].tu = 0;
+			vtx[vidx].tv = 0;
 			vidx++;
 		}
 	}
@@ -124,9 +180,6 @@ glMesh *glMesh::createSphere(int glat, int glng, int lod, int ilat, int ilng)
 	mesh->nidx = nidx/3;
 	mesh->vtx  = vtx;
 	mesh->idx  = idx;
-
-	mesh->pos = vpos;
-	mesh->nml = vnml;
 
 	return mesh;
 }
