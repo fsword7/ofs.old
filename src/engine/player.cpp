@@ -87,8 +87,16 @@ void Player::setTravelSpeed(double ts)
 	trSpeed = ts;
 }
 
-void Player::update(double dt, double scale)
+void Player::update(double dt, double timeTravel)
 {
-	realTime += dt;
+//	realTime += dt / SECONDS_PER_DAY;
+//	jdTime   += (dt / SECONDS_PER_DAY) * timeTravel;
+
+	// Free travel mode
+	// Update current orientation (local reference frame)
+
+	// Update correct position by using velocity control
+	trVelocity = glm::conjugate(lqrot) * vec3d_t(0, 0, trSpeed);
+	lpos -= trVelocity * dt;
 
 }
