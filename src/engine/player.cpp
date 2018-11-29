@@ -57,6 +57,11 @@ Player::Player()
   camera(1)
 {
 	camera[0] = new Camera();
+
+	// Initialize velocity controls
+	trSpeed    = 0.0;
+	trVelocity = vec3d_t(0, 0, 0);
+	rtVelocity = vec3d_t(0, 0, 0);
 }
 
 Player::~Player()
@@ -71,6 +76,16 @@ Camera *Player::getCamera(int idx) const
 	if (idx < camera.size())
 		return camera[idx];
 	return nullptr;
+}
+
+void Player::setRotationVelocity(vec3d_t rv)
+{
+	rtVelocity = rv;
+}
+
+void Player::setTravelSpeed(double ts)
+{
+	trSpeed = ts;
 }
 
 void Player::update(double dt, double scale)

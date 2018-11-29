@@ -77,8 +77,8 @@ void CoreApp::tick()
 	vec3d_t rv;
 	double  tv;
 
-//	rv = player->getRotationVelocity();
-//	tv = player->getTravelSpeed();
+	rv = player->getRotationVelocity();
+	tv = player->getTravelSpeed();
 
 	// Keyboard rotation and travel control
 	// X-axis rotation control
@@ -112,8 +112,8 @@ void CoreApp::tick()
 		tv *= exp(-dt * keyTravelAccel);
 	}
 
-//	player->setRotationVelocity(rv);
-//	player->setTravelSpeed(tv);
+	player->setRotationVelocity(rv);
+	player->setTravelSpeed(tv);
 
 }
 

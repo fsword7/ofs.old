@@ -39,6 +39,12 @@ public:
 	inline vec3d_t getPosition() { return position; }
 	inline quatd_t getRotation() { return rotation; }
 
+	inline double  getTravelSpeed()      { return trSpeed; }
+	inline vec3d_t getRotationVelocity() { return rtVelocity; }
+
+	void setRotationVelocity(vec3d_t rtVelocity);
+	void setTravelSpeed(double trSpeed);
+
 	Camera *getCamera(int idx) const;
 
 private:
@@ -47,6 +53,12 @@ private:
 
 	double  realTime;
 	double  simTime;
+
+	// Velocity control
+	vec3d_t	rtVelocity;
+	vec3d_t	trVelocity;
+	double  trSpeed;
+
 
 	vector<Camera *> camera;
 };
