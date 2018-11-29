@@ -19,6 +19,8 @@ public:
 	void clean();
 	void run();
 
+	void pressKeyEvent(SDL_KeyboardEvent *key, bool down);
+
 private:
 	SDL_Window *dWindow;
 

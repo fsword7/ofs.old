@@ -72,6 +72,13 @@ void sdlCoreApp::run()
 					resize(w, h);
 				}
 				break;
+
+			case SDL_KEYDOWN:
+				pressKeyEvent(&event.key, true);
+				break;
+			case SDL_KEYUP:
+				pressKeyEvent(&event.key, false);
+				break;
 			}
 		}
 
@@ -79,6 +86,34 @@ void sdlCoreApp::run()
 		paint();
 		SDL_GL_SwapWindow(dWindow);
 	}
+}
+
+void sdlCoreApp::pressKeyEvent(SDL_KeyboardEvent *key, bool down)
+{
+	CoreApp::keyCode code = keyUndefined;
+
+	switch(key->keysym.sym)
+	{
+	case SDLK_LEFT:  code = keyLeft;  break;
+	case SDLK_RIGHT: code = keyRight; break;
+	case SDLK_UP:    code = keyUp;    break;
+	case SDLK_DOWN:  code = keyDown;  break;
+	case SDLK_KP_0:  code = keyPad0;  break;
+	case SDLK_KP_1:  code = keyPad1;  break;
+	case SDLK_KP_2:  code = keyPad2;  break;
+	case SDLK_KP_3:  code = keyPad3;  break;
+	case SDLK_KP_4:  code = keyPad4;  break;
+	case SDLK_KP_5:  code = keyPad5;  break;
+	case SDLK_KP_6:  code = keyPad6;  break;
+	case SDLK_KP_7:  code = keyPad7;  break;
+	case SDLK_KP_8:  code = keyPad8;  break;
+	case SDLK_KP_9:  code = keyPad9;  break;
+    case SDLK_F1:    code = keyF1;    break;
+    case SDLK_F2:    code = keyF2;    break;
+	}
+
+	if (code > 0)
+		pressKey(code, down);
 }
 
 int main(int argc, char **argv)

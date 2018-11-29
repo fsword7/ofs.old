@@ -24,6 +24,9 @@ CoreApp::CoreApp()
   width(OFS_DEFAULT_WIDTH),
   height(OFS_DEFAULT_HEIGHT)
 {
+	// Initialize state keys
+	for (int key = 0; key < 256; key++)
+		stateKey[key] = false;
 }
 
 CoreApp::~CoreApp()
@@ -55,6 +58,11 @@ void CoreApp::initEngine()
 	engine = new Engine(universe);
 
 	universe->init();
+}
+
+void CoreApp::pressKey(keyCode code, bool down)
+{
+	stateKey[code] = down;
 }
 
 void CoreApp::tick()
