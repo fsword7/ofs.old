@@ -13,7 +13,7 @@
 // Default window scene size
 #define OFS_DEFAULT_WIDTH	1280
 #define OFS_DEFAULT_HEIGHT	720
-#define OFS_DEFAULT_FOV		50
+#define OFS_DEFAULT_FOV		50.0
 
 #include <iostream>
 #include <iomanip>

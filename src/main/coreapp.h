@@ -83,6 +83,11 @@ namespace ofs {
 		Universe *universe;
 		Scene    *scene;
 
-		bool stateKey[256];
+		// keyboard handle parameters
+		bool	stateKey[256];
+		double	keyRotationAccel;
+		double	keyTravelAccel;
+		double	keyTravelBrake;
+
 	};
 }

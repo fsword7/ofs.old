@@ -27,6 +27,12 @@ CoreApp::CoreApp()
 	// Initialize state keys
 	for (int key = 0; key < 256; key++)
 		stateKey[key] = false;
+
+	// Initialize velocity control
+	keyRotationAccel = toRadian(OFS_DEFAULT_FOV);
+	keyTravelAccel   = 2.0;
+	keyTravelBrake   = 10.0;
+
 }
 
 CoreApp::~CoreApp()
@@ -67,6 +73,48 @@ void CoreApp::pressKey(keyCode code, bool down)
 
 void CoreApp::tick()
 {
+	double  dt = 1.0;
+	vec3d_t rv;
+	double  tv;
+
+//	rv = player->getRotationVelocity();
+//	tv = player->getTravelSpeed();
+
+	// Keyboard rotation and travel control
+	// X-axis rotation control
+	if (stateKey[keyPad8] || stateKey[keyUp])
+		rv += vec3d_t(dt * -keyRotationAccel, 0, 0);
+	if (stateKey[keyPad2] || stateKey[keyDown])
+		rv += vec3d_t(dt * keyRotationAccel, 0, 0);
+
+	// Y-axis rotation control
+	if (stateKey[keyPad4] || stateKey[keyLeft])
+		rv += vec3d_t(0, dt * -keyRotationAccel, 0);
+	if (stateKey[keyPad6] || stateKey[keyRight])
+		rv += vec3d_t(0, dt * keyRotationAccel, 0);
+
+	// Z-axis rotation control
+	if (stateKey[keyPad7])
+		rv += vec3d_t(0, 0, dt * keyRotationAccel);
+	if (stateKey[keyPad9])
+		rv += vec3d_t(0, 0, dt * -keyRotationAccel);
+
+	// Travel velocity control
+	if (stateKey[keyPad1])
+		tv -= dt * 1000.0;
+	if (stateKey[keyPad3])
+		tv += dt * 1000.0;
+
+	// Braking velocity control
+	if (stateKey[keyPad5])
+	{
+		rv *= exp(-dt * keyRotationAccel);
+		tv *= exp(-dt * keyTravelAccel);
+	}
+
+//	player->setRotationVelocity(rv);
+//	player->setTravelSpeed(tv);
+
 }
 
 void CoreApp::paint()
