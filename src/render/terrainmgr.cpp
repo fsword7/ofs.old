@@ -225,12 +225,12 @@ glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng, int grids
     for (int y = 0; y < grids; y++) {
         for (int x = 0; x < grids; x++) {
             *pidx++ = (y+0)*(grids+1) + (x+0);
-            *pidx++ = (y+1)*(grids+1) + (x+0);
             *pidx++ = (y+0)*(grids+1) + (x+1);
+            *pidx++ = (y+1)*(grids+1) + (x+0);
 
             *pidx++ = (y+1)*(grids+1) + (x+0);
-            *pidx++ = (y+1)*(grids+1) + (x+1);
             *pidx++ = (y+0)*(grids+1) + (x+1);
+            *pidx++ = (y+1)*(grids+1) + (x+1);
 
 //            std::cout << "Index: (" << pidx[0] << "," << pidx[1] << "," << pidx[2] << ")" << std::endl;
 //            std::cout << "Index: (" << pidx[3] << "," << pidx[4] << "," << pidx[5] << ")" << std::endl;

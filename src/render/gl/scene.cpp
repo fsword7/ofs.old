@@ -90,5 +90,9 @@ void glScene::paint(Player &player, Universe &universe)
 	}
 
 	vobj->update(player);
+
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	vobj->paint();
+	glDisable(GL_CULL_FACE);
 }
