@@ -36,8 +36,8 @@ public:
 
 	void update(double dt, double scale);
 
-	inline vec3d_t getPosition() { return position; }
-	inline quatd_t getRotation() { return rotation; }
+	inline vec3d_t getPosition() { return lpos; }
+	inline quatd_t getRotation() { return lqrot; }
 
 	inline double  getTravelSpeed()      { return trSpeed; }
 	inline vec3d_t getRotationVelocity() { return rtVelocity; }
@@ -48,11 +48,17 @@ public:
 	Camera *getCamera(int idx) const;
 
 private:
-	vec3d_t	position;
-	quatd_t	rotation;
+	// Universe position, orientation, and velocity
+	vec3d_t	upos, uvec;
+	quatd_t	uqrot;
 
+	// Local position, orientation, and velocity in local reference frame
+	vec3d_t	lpos, lvec;
+	quatd_t	lqrot;
+
+	// Current real time and virtual julian time
 	double  realTime;
-	double  simTime;
+	double  jdTime;
 
 	// Velocity control
 	vec3d_t	rtVelocity;

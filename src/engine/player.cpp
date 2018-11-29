@@ -50,10 +50,9 @@ void Camera::focus(Object *obj)
 // ***************************
 
 Player::Player()
-: position(0, 0, 0),
-  rotation(1, 0, 0, 0),
-  realTime(0),
-  simTime(0),
+: upos(0, 0, 0), uvec(0, 0, 0), uqrot(1, 0, 0, 0),
+  lpos(0, 0, 0), lvec(0, 0, 0), lqrot(1, 0, 0, 0),
+  realTime(0), jdTime(0),
   camera(1)
 {
 	camera[0] = new Camera();
