@@ -19,3 +19,11 @@ CelestialBody::~CelestialBody()
 {
 }
 
+string CelestialBody::getFolder() const
+{
+	string pname;
+
+	pname = "../data/systems/Sol/" + name() + "/";
+
+	return pname;
+}

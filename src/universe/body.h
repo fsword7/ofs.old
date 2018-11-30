@@ -15,5 +15,7 @@ public:
 	CelestialBody(string& name);
 	~CelestialBody();
 
+	string getFolder() const;
+
 private:
 };

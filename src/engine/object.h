@@ -16,7 +16,7 @@ enum ObjectType {
 class Object {
 public:
 	Object(string name, ObjectType type);
-	~Object();
+	virtual ~Object();
 
 	inline ObjectType type() const { return objType; };
 	inline double radius() const   { return objRadius; };
@@ -28,8 +28,11 @@ public:
 	void setPosition(vec3d_t pos);
 
 	string name(int idx = 0);
+	string name(int idx = 0) const;
 
 	vec3d_t position(double dt = 0);
+
+	virtual string getFolder() const;
 
 private:
 	ObjectType objType;

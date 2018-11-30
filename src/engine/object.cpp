@@ -30,6 +30,13 @@ string Object::name(int idx)
 	return objNames[idx];
 }
 
+string Object::name(int idx) const
+{
+	if (idx >= objNames.size())
+		return "";
+	return objNames[idx];
+}
+
 vec3d_t Object::position(double)
 {
 	return objPosition;
@@ -45,4 +52,9 @@ void Object::setRadius(double rad)
 void Object::setPosition(vec3d_t pos)
 {
 	objPosition = pos;
+}
+
+string Object::getFolder() const
+{
+	return "";
 }

@@ -15,6 +15,7 @@ Engine::Engine(Universe *_univ, Player *_player)
   player(_player),
   realTime(0), scaleTime(1.0)
 {
+	pdata = "../data/";
 }
 
 Engine::~Engine()

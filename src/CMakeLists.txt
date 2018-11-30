@@ -4,6 +4,7 @@ set(ofs_cpp_SRCS
 	engine/object.cpp
 	engine/engine.cpp
 	engine/player.cpp
+	render/image.cpp
 	render/terrainmgr.cpp
 	render/vobject.cpp
 	render/vplanet.cpp
@@ -39,6 +40,7 @@ set(ofs_h_SRCS
 	engine/object.h
 	engine/engine.h
 	engine/player.h
+	render/image.h
 	render/scene.h
 	render/shader.h
 	render/terrainmgr.h
