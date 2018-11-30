@@ -7,6 +7,7 @@ set(ofs_cpp_SRCS
 	render/terrainmgr.cpp
 	render/vobject.cpp
 	render/vplanet.cpp
+	render/ztreemgr.cpp
 	render/gl/mesh.cpp
 	render/gl/scene.cpp
 	render/gl/shader.cpp
@@ -42,6 +43,7 @@ set(ofs_h_SRCS
 	render/shader.h
 	render/terrainmgr.h
 	render/vobject.h
+	render/ztreemgr.h
 	render/gl/funcs.h
 	render/gl/mesh.h
 	render/gl/shadermgr.h
@@ -59,7 +61,7 @@ set(ofs_qt_h_SRCS
 	main/qt/ofswidget.h
 )
 
-set(ofs_sdl2_h_SECS
+set(ofs_sdl2_h_SRCS
 	main/sdl2/coreapp.h
 )
 
@@ -71,4 +73,9 @@ include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_INCLUDE_DIRS})
 #target_link_libraries(ofs ${QT_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
 
 add_executable(ofs ${ofs_cpp_SRCS} ${ofs_sdl2_cpp_SRCS} ${ofs_h_SRCS} ${ofs_sdl2_h_SRCS})
-target_link_libraries(ofs ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
+target_link_libraries(ofs
+	${SDL2_LIBRARIES}
+	${OPENGL_LIBRARIES}
+	${GLEW_LIBRARIES}
+	${ZLIB_LIBRARIES}
+)
