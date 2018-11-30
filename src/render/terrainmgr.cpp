@@ -7,7 +7,10 @@
 
 #include "main/main.h"
 #include "main/math.h"
+#include "engine/object.h"
+#include "render/vobject.h"
 #include "render/terrainmgr.h"
+#include "render/ztreemgr.h"
 #include "render/gl/mesh.h"
 
 QuadTile::QuadTile(TerrainManager *_mgr, int _lod, int _ilat, int _ilng)
@@ -41,6 +44,7 @@ TerrainTile::~TerrainTile()
 int TerrainTile::load()
 {
 
+
 	mesh = mgr->createSpherePatch(lod, ilat, ilng, 32);
 	return 0;
 }
@@ -54,6 +58,14 @@ void TerrainTile::paint()
 TerrainManager::TerrainManager(vPlanet *_vobj)
 : vobj(_vobj)
 {
+	string pname;
+
+	pname = vobj->object()->getFolder() + "/ztree";
+
+	// Initailize ztree database for tile image loading
+	for (int idx = 0; idx < 4; idx++)
+		ztree[idx] = nullptr;
+	ztree[0] = zTreeManager::create(pname, "surf");
 
 	// Initialize root of terrain tiles
 	for (int idx = 0; idx < 2; idx++) {

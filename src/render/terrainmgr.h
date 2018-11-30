@@ -12,6 +12,7 @@
 class vPlanet;
 class glMesh;
 class TerrainManager;
+class zTreeManager;
 
 class QuadTile : public Tree<QTREE_NODES>
 {
@@ -54,6 +55,8 @@ public:
 
 private:
 	vPlanet *vobj;
+
+	zTreeManager *ztree[5];
 
 	TerrainTile *terrain[2]; // Western/Eastern hemisphere
 };

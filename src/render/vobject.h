@@ -17,6 +17,8 @@ public:
 	vObject(Object *obj, Scene *scene);
 	virtual ~vObject();
 
+	Object *object() { return obj; }
+
 	void update(Player &player);
 
 	virtual void paint() = 0;
