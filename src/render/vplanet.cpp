@@ -26,7 +26,7 @@ vPlanet::~vPlanet()
 
 void vPlanet::paint()
 {
-	glTranslate(opos);
+	glTranslate(cpos);
 
 	if (terrain != nullptr)
 		terrain->paint();

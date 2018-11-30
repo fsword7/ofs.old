@@ -80,47 +80,47 @@ void CoreApp::tick()
 	Date *jdate = engine->getRealTime();
 
 	double  dt;
-	vec3d_t rv;
-	double  tv;
+	vec3d_t av;
+	double  ts;
 
 	dt = jdate->update();
-	rv = player->getRotationVelocity();
-	tv = player->getTravelSpeed();
+	av = player->getAngularVelocity();
+	ts = player->getTravelSpeed();
 
 	// Keyboard rotation and travel control
 	// X-axis rotation control
 	if (stateKey[keyPad8] || stateKey[keyUp])
-		rv += vec3d_t(dt * -keyRotationAccel, 0, 0);
+		av += vec3d_t(dt * keyRotationAccel, 0, 0);
 	if (stateKey[keyPad2] || stateKey[keyDown])
-		rv += vec3d_t(dt * keyRotationAccel, 0, 0);
+		av += vec3d_t(dt * -keyRotationAccel, 0, 0);
 
 	// Y-axis rotation control
 	if (stateKey[keyPad4] || stateKey[keyLeft])
-		rv += vec3d_t(0, dt * -keyRotationAccel, 0);
+		av += vec3d_t(0, dt * keyRotationAccel, 0);
 	if (stateKey[keyPad6] || stateKey[keyRight])
-		rv += vec3d_t(0, dt * keyRotationAccel, 0);
+		av += vec3d_t(0, dt * -keyRotationAccel, 0);
 
 	// Z-axis rotation control
 	if (stateKey[keyPad7])
-		rv += vec3d_t(0, 0, dt * keyRotationAccel);
+		av += vec3d_t(0, 0, dt * -keyRotationAccel);
 	if (stateKey[keyPad9])
-		rv += vec3d_t(0, 0, dt * -keyRotationAccel);
+		av += vec3d_t(0, 0, dt * keyRotationAccel);
 
 	// Travel velocity control
 	if (stateKey[keyPad1])
-		tv -= dt * 1000.0;
+		ts -= dt /* * 1000.0 */;
 	if (stateKey[keyPad3])
-		tv += dt * 1000.0;
+		ts += dt /* * 1000.0 */;
 
 	// Braking velocity control
 	if (stateKey[keyPad5])
 	{
-		rv *= exp(-dt * keyRotationAccel);
-		tv *= exp(-dt * keyTravelAccel);
+		av *= exp(-dt * keyRotationAccel);
+		ts *= exp(-dt * keyTravelAccel);
 	}
 
-	player->setRotationVelocity(rv);
-	player->setTravelSpeed(tv);
+	player->setAngularVelocity(av);
+	player->setTravelSpeed(ts);
 	engine->update(dt);
 }
 

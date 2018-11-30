@@ -62,6 +62,11 @@ void glScene::paint(Player &player, Universe &universe)
 	double  cfov;
 	mat4d_t crotm;
 
+	if (vobj == nullptr) {
+		vobj = new vPlanet(universe.earth, this);
+		player.focus(universe.earth);
+	}
+
 	// get main camera from player for position and orientation.
 	cam   = player.getCamera(0);
 	cpos  = cam->position();
@@ -82,12 +87,6 @@ void glScene::paint(Player &player, Universe &universe)
 //	glEnable(GL_DEPTH_TEST);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glColor3f(1.0, 1.0, 1.0);
-
-
-	if (vobj == nullptr) {
-		vobj = new vPlanet(universe.earth, this);
-		cam->focus(universe.earth);
-	}
 
 	vobj->update(player);
 

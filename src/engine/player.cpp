@@ -11,8 +11,9 @@
 #include "engine/player.h"
 #include "engine/object.h"
 
-Camera::Camera()
-: camPosition(0, 0, 0),
+Camera::Camera(Player *_player)
+: player(_player),
+  camPosition(0, 0, 0),
   camRotation(1, 0, 0, 0)
 {
 	setFOVdeg(OFS_DEFAULT_FOV);
@@ -48,6 +49,12 @@ void Camera::focus(Object *obj)
 
 }
 
+void Camera::update()
+{
+	camPosition = player->getPosition();
+	camRotation = player->getRotation();
+}
+
 // ***************************
 
 Player::Player()
@@ -56,12 +63,12 @@ Player::Player()
   realTime(0), jdTime(0),
   camera(1)
 {
-	camera[0] = new Camera();
+	camera[0] = new Camera(this);
 
 	// Initialize velocity controls
-	trSpeed    = 0.0;
-	trVelocity = vec3d_t(0, 0, 0);
-	rtVelocity = vec3d_t(0, 0, 0);
+	ts = 0.0;
+	tv = vec3d_t(0, 0, 0);
+	av = vec3d_t(0, 0, 0);
 }
 
 Player::~Player()
@@ -78,14 +85,14 @@ Camera *Player::getCamera(int idx) const
 	return nullptr;
 }
 
-void Player::setRotationVelocity(vec3d_t rv)
+void Player::setAngularVelocity(vec3d_t _av)
 {
-	rtVelocity = rv;
+	av = _av;
 }
 
-void Player::setTravelSpeed(double ts)
+void Player::setTravelSpeed(double _ts)
 {
-	trSpeed = ts;
+	ts = _ts;
 }
 
 void Player::update(double dt, double timeTravel)
@@ -94,12 +101,34 @@ void Player::update(double dt, double timeTravel)
 	jdTime   += (dt / SECONDS_PER_DAY) * timeTravel;
 
 	// Free travel mode
-	// Update current orientation (local reference frame)
-	quatd_t dr = quatd_t(0, rtVelocity.x, rtVelocity.y, rtVelocity.z) * lqrot;
-	lqrot += (dt/2) * dr;
+	// Update current position and orientation (local reference frame)
+	// Applying angular velocity to rotation quaternion in local space.
+	//
+	//      dq/dt = q * w * t/2
+	//		w = (0, x, y, z)
+	//
+	lqrot += lqrot * quatd_t(0, av.x, av.y, av.z) * (dt / 2.0);
+	lpos  -= lqrot * vec3d_t(0, 0, ts) * dt;
 
-	// Update correct position by using velocity control
-	trVelocity = glm::conjugate(lqrot) * vec3d_t(0, 0, trSpeed);
-	lpos -= trVelocity * dt;
+	for (auto cam : camera)
+		cam->update();
+}
+
+void Player::focus(Object *obj)
+{
+	vec3d_t opos = obj->position();
+	vec3d_t up   = vec3d_t(0, 1, 0);
+	mat4d_t m    = glm::lookAt(lpos, opos, up);
+
+	lqrot = glm::conjugate(glm::quat_cast(m));
+
+	for (auto cam : camera)
+		cam->update();
+
+//	cout << "Camera Parameters: " << endl;
+//	cout << fixed << setprecision(10) << endl;
+//	cout << "Object:   (" << opos.x << ", " << opos.y << ", " << opos.z << ")" << endl;
+//	cout << "Camera:   (" << camPosition.x << ", " << camPosition.y << ", " << camPosition.z << ")" << endl;
+//	cout << "Rotation: (" << camRotation.w << ", " << camRotation.x << ", " << camRotation.y << ", " << camRotation.z << ")" << endl;
 
 }

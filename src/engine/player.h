@@ -8,10 +8,11 @@
 #pragma once
 
 class Object;
+class Player;
 
 class Camera {
 public:
-	Camera();
+	Camera(Player *player);
 	~Camera();
 
 	inline vec3d_t position() { return camPosition; }
@@ -22,8 +23,11 @@ public:
 	void setFOVdeg(double fov);
 
 	void focus(Object *obj);
+	void update();
 
 private:
+	Player *player;
+
 	vec3d_t camPosition;
 	quatd_t camRotation;
 	double  fov;
@@ -39,13 +43,15 @@ public:
 	inline vec3d_t getPosition() { return lpos; }
 	inline quatd_t getRotation() { return lqrot; }
 
-	inline double  getTravelSpeed()      { return trSpeed; }
-	inline vec3d_t getRotationVelocity() { return rtVelocity; }
+	inline double  getTravelSpeed()     { return ts; }
+	inline vec3d_t getAngularVelocity() { return av; }
 
-	void setRotationVelocity(vec3d_t rtVelocity);
-	void setTravelSpeed(double trSpeed);
+	void setAngularVelocity(vec3d_t av);
+	void setTravelSpeed(double ts);
 
 	Camera *getCamera(int idx) const;
+
+	void focus(Object *obj);
 
 private:
 	// Universe position, orientation, and velocity
@@ -61,10 +67,9 @@ private:
 	double  jdTime;
 
 	// Velocity control
-	vec3d_t	rtVelocity;
-	vec3d_t	trVelocity;
-	double  trSpeed;
-
+	vec3d_t	av; // Angular velocity
+	vec3d_t	tv; // Travel velocity
+	double  ts; // Travel speed
 
 	vector<Camera *> camera;
 };
