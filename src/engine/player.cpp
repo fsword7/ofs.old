@@ -95,6 +95,8 @@ void Player::update(double dt, double timeTravel)
 
 	// Free travel mode
 	// Update current orientation (local reference frame)
+	quatd_t dr = quatd_t(0, rtVelocity.x, rtVelocity.y, rtVelocity.z) * lqrot;
+	lqrot += (dt/2) * dr;
 
 	// Update correct position by using velocity control
 	trVelocity = glm::conjugate(lqrot) * vec3d_t(0, 0, trSpeed);
