@@ -32,7 +32,6 @@ CoreApp::CoreApp()
 	keyRotationAccel = toRadian(OFS_DEFAULT_FOV);
 	keyTravelAccel   = 2.0;
 	keyTravelBrake   = 10.0;
-
 }
 
 CoreApp::~CoreApp()
@@ -45,7 +44,6 @@ CoreApp::~CoreApp()
 		delete engine;
 	if (player != nullptr)
 		delete player;
-
 }
 
 void CoreApp::initRenderer()
@@ -61,7 +59,7 @@ void CoreApp::initEngine()
 
 	player = new Player();
 	universe = new Universe();
-	engine = new Engine(universe);
+	engine = new Engine(universe, player);
 
 	universe->init();
 }
@@ -71,12 +69,21 @@ void CoreApp::pressKey(keyCode code, bool down)
 	stateKey[code] = down;
 }
 
+void CoreApp::start()
+{
+	if (engine != nullptr)
+		engine->start();
+}
+
 void CoreApp::tick()
 {
-	double  dt = 1.0;
+	Date *jdate = engine->getRealTime();
+
+	double  dt;
 	vec3d_t rv;
 	double  tv;
 
+	dt = jdate->update();
 	rv = player->getRotationVelocity();
 	tv = player->getTravelSpeed();
 
@@ -114,7 +121,7 @@ void CoreApp::tick()
 
 	player->setRotationVelocity(rv);
 	player->setTravelSpeed(tv);
-
+	engine->update(dt);
 }
 
 void CoreApp::paint()

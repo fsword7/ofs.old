@@ -70,6 +70,7 @@ namespace ofs {
 
 		void pressKey(keyCode code, bool down);
 
+		void start();
 		void tick();
 		void paint();
 		void resize(int w, int h);
@@ -88,6 +89,5 @@ namespace ofs {
 		double	keyRotationAccel;
 		double	keyTravelAccel;
 		double	keyTravelBrake;
-
 	};
 }

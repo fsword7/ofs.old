@@ -1,5 +1,6 @@
 set(ofs_cpp_SRCS
 	main/coreapp.cpp
+	main/date.cpp
 	engine/object.cpp
 	engine/engine.cpp
 	engine/player.cpp
@@ -33,6 +34,7 @@ set(ofs_h_SRCS
 	main/coreapp.h
 	main/main.h
 	main/math.h
+	main/date.h
 	engine/object.h
 	engine/engine.h
 	engine/player.h

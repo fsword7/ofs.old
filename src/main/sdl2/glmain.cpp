@@ -57,6 +57,7 @@ void sdlCoreApp::run()
 	bool running = true;
 	int  w, h;
 
+	start();
 	while (running) {
 		SDL_Event event;
 

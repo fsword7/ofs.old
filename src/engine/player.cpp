@@ -7,6 +7,7 @@
 
 #include "main/main.h"
 #include "main/math.h"
+#include "main/date.h"
 #include "engine/player.h"
 #include "engine/object.h"
 
@@ -89,8 +90,8 @@ void Player::setTravelSpeed(double ts)
 
 void Player::update(double dt, double timeTravel)
 {
-//	realTime += dt / SECONDS_PER_DAY;
-//	jdTime   += (dt / SECONDS_PER_DAY) * timeTravel;
+	realTime += dt / SECONDS_PER_DAY;
+	jdTime   += (dt / SECONDS_PER_DAY) * timeTravel;
 
 	// Free travel mode
 	// Update current orientation (local reference frame)
