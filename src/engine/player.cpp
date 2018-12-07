@@ -66,7 +66,6 @@ Player::Player()
 	camera[0] = new Camera(this);
 
 	// Initialize velocity controls
-	ts = 0.0;
 	tv = vec3d_t(0, 0, 0);
 	av = vec3d_t(0, 0, 0);
 }
@@ -90,9 +89,14 @@ void Player::setAngularVelocity(vec3d_t _av)
 	av = _av;
 }
 
-void Player::setTravelSpeed(double _ts)
+void Player::setTravelVelocity(vec3d_t _tv)
 {
-	ts = _ts;
+	tv = _tv;
+}
+
+void Player::setTravelSpeed(double ts)
+{
+	tv.z = ts;
 }
 
 void Player::update(double dt, double timeTravel)
@@ -108,7 +112,7 @@ void Player::update(double dt, double timeTravel)
 	//		w = (0, x, y, z)
 	//
 	lqrot += lqrot * quatd_t(0, av.x, av.y, av.z) * (dt / 2.0);
-	lpos  -= lqrot * vec3d_t(0, 0, ts) * dt;
+	lpos  -= lqrot * tv * dt;
 
 	for (auto cam : camera)
 		cam->update();

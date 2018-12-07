@@ -43,10 +43,12 @@ public:
 	inline vec3d_t getPosition() { return lpos; }
 	inline quatd_t getRotation() { return lqrot; }
 
-	inline double  getTravelSpeed()     { return ts; }
 	inline vec3d_t getAngularVelocity() { return av; }
+	inline vec3d_t getTravelVelocity()  { return tv; }
+	inline double  getTravelSpeed()     { return tv.z; }
 
 	void setAngularVelocity(vec3d_t av);
+	void setTravelVelocity(vec3d_t tv);
 	void setTravelSpeed(double ts);
 
 	Camera *getCamera(int idx) const;
@@ -69,7 +71,6 @@ private:
 	// Velocity control
 	vec3d_t	av; // Angular velocity
 	vec3d_t	tv; // Travel velocity
-	double  ts; // Travel speed
 
 	vector<Camera *> camera;
 };
