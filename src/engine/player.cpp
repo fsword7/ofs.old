@@ -87,6 +87,7 @@ Camera *Player::getCamera(int idx) const
 void Player::setAngularVelocity(vec3d_t _av)
 {
 	av = _av;
+	wv = quatd_t(0, av.x, av.y, av.z);
 }
 
 void Player::setTravelVelocity(vec3d_t _tv)
@@ -111,7 +112,7 @@ void Player::update(double dt, double timeTravel)
 	//      dq/dt = q * w * t/2
 	//		w = (0, x, y, z)
 	//
-	lqrot += lqrot * quatd_t(0, av.x, av.y, av.z) * (dt / 2.0);
+	lqrot += lqrot * wv * (dt / 2.0);
 	lpos  -= lqrot * tv * dt;
 
 	for (auto cam : camera)

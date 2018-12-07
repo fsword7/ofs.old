@@ -70,6 +70,7 @@ private:
 
 	// Velocity control
 	vec3d_t	av; // Angular velocity
+	quatd_t wv; //    Quaternion control
 	vec3d_t	tv; // Travel velocity
 
 	vector<Camera *> camera;
