@@ -10,7 +10,7 @@
 #include "engine/player.h"
 #include "universe/universe.h"
 #include "universe/body.h"
-#include "render/scene.h"
+#include "render/gl/scene.h"
 #include "render/vobject.h"
 #include "render/gl/funcs.h"
 

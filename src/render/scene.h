@@ -7,8 +7,6 @@
 
 #pragma once
 
-#include "GL/glew.h"
-
 class Player;
 class Universe;
 class vObject;
@@ -25,19 +23,6 @@ public:
 protected:
 	int    width, height;
 	double aspect;
-};
-
-class glScene : public Scene {
-public:
-	glScene();
-	~glScene();
-
-	void init(int w, int h);
-	void resize(int w, int h);
-	void paint(Player &player, Universe &universe);
-
-private:
-	vObject *vobj;  // test - be removed later.
 };
 
 #define DIST_NEAR	0.001

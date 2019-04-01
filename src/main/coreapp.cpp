@@ -10,7 +10,7 @@
 #include "engine/engine.h"
 #include "engine/player.h"
 #include "universe/universe.h"
-#include "render/scene.h"
+#include "render/gl/scene.h"
 #include "main/coreapp.h"
 
 using namespace ofs;

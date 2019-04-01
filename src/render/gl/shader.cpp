@@ -6,7 +6,7 @@
  */
 
 #include "main/main.h"
-#include "render/scene.h"
+#include "render/gl/scene.h"
 #include "render/gl/shader.h"
 
 Shader::Shader(ShaderType _type)
