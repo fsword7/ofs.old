@@ -25,5 +25,46 @@ protected:
 	double aspect;
 };
 
+class StarVertexBuffer
+{
+public:
+	enum pointType {
+		usePoints = 0,
+		useSprites
+	};
+
+	struct starVertex
+	{
+		vec3d_t		posStar;
+		double		size;
+		uint16_t	color[4];
+	};
+
+	StarVertexBuffer(const Scene &scene, int maxStars, pointType type);
+	virtual ~StarVertexBuffer();
+
+	// Render routines
+	virtual void startPoints() = 0;
+	virtual void startSprites() = 0;
+	virtual void render() = 0;
+	virtual void finish() = 0;
+
+//	inline void addStar(const vec3d_t &pos, const Color &color, double size)
+//	{
+//		if (nStars < maxStars) {
+//			nStars++;
+//		} else {
+//			render();
+//			nStars = 0;
+//		}
+//	}
+
+protected:
+	const Scene &scene;
+	pointType type;
+	int  maxStars, nStars;
+	starVertex *buffer;
+};
+
 #define DIST_NEAR	0.001
 #define DIST_FAR	1.0e9
