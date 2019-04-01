@@ -48,6 +48,7 @@ set(ofs_h_SRCS
 	render/ztreemgr.h
 	render/gl/funcs.h
 	render/gl/mesh.h
+	render/gl/scene.h
 	render/gl/shader.h
 	render/gl/shadermgr.h
 	universe/astro.h
