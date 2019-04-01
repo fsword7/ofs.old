@@ -7,7 +7,7 @@
 
 #include "main/main.h"
 #include "render/scene.h"
-#include "render/shader.h"
+#include "render/gl/shader.h"
 
 Shader::Shader(ShaderType _type)
 : type(_type)
