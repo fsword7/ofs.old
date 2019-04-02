@@ -5,8 +5,7 @@
  *      Author: Tim Stark
  */
 
-#include "main/main.h"
-#include "main/math.h"
+#include "main/core.h"
 #include "universe/body.h"
 
 CelestialBody::CelestialBody(string& name)

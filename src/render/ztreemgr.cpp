@@ -5,7 +5,7 @@
  *      Author: Tim Stark
  */
 
-#include "main/main.h"
+#include "main/core.h"
 #include "render/ztreemgr.h"
 
 #include <unistd.h>

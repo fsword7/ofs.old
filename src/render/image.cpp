@@ -5,8 +5,7 @@
  *      Author: Tim Stark
  */
 
-#include "main/main.h"
-#include "main/math.h"
+#include "main/core.h"
 #include "render/image.h"
 #include "render/gl/funcs.h"
 

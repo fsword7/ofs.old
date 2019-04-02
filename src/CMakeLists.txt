@@ -33,6 +33,7 @@ set(ofs_sdl2_cpp_SRCS
 )
 
 set(ofs_h_SRCS
+	main/core.h
 	main/coreapp.h
 	main/main.h
 	main/math.h

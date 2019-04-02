@@ -13,7 +13,7 @@
 
 #include <iostream>
 
-#include "main/main.h"
+#include "main/core.h"
 #include "main/coreapp.h"
 #include "main/qt/ofscoreapp.h"
 #include "main/qt/ofswidget.h"

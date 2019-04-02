@@ -13,7 +13,7 @@
 //#include <GL/GL.h>
 //#include <GL/glew.h>
 
-#include "main/main.h"
+#include "main/core.h"
 #include "main/coreapp.h"
 
 #define APP_FULL_NAME	"Orbital Flight Simulator"

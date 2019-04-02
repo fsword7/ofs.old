@@ -5,8 +5,7 @@
  *      Author: Tim Stark
  */
 
-#include "main/main.h"
-#include "main/math.h"
+#include "main/core.h"
 #include "engine/engine.h"
 #include "engine/player.h"
 #include "universe/universe.h"

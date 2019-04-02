@@ -5,6 +5,6 @@
  *      Author: Tim Stark
  */
 
-#include "main/main.h"
+#include "main/core.h"
 #include "util/tree.h"
 

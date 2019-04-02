@@ -8,7 +8,7 @@
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 
-#include "main/main.h"
+#include "main/core.h"
 #include "main/sdl2/coreapp.h"
 
 using namespace ofs;

@@ -8,8 +8,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-#include "main/main.h"
-#include "main/math.h"
+#include "main/core.h"
 #include "main/date.h"
 
 static const char *monthList[] =

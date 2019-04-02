@@ -5,7 +5,7 @@
  *      Author: Tim Stark
  */
 
-#include "main/main.h"
+#include "main/core.h"
 #include "main/coreapp.h"
 #include "main/qt/ofscoreapp.h"
 
