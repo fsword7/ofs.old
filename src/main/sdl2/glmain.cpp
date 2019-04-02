@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <GL/glew.h>
 
 #include "main/core.h"
@@ -18,12 +19,18 @@ using namespace ofs;
 // Initialize SDL2 facility with OpenGL
 void sdlCoreApp::init()
 {
-
+	// SDL initialization
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		std::cerr << "OFS: Unable to initialize SDL: " << SDL_GetError() << std::endl;
 		abort();
 	}
-	atexit(SDL_Quit);
+
+	// TTF initialization
+	if (TTF_Init() != 0) {
+		std::cerr << "OFS: Unable to initialize TTF: " << SDL_GetError() << std::endl;
+		abort();
+	}
+
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	// OpenGL window/full screen
@@ -50,6 +57,8 @@ void sdlCoreApp::init()
 
 void sdlCoreApp::clean()
 {
+	TTF_Quit();
+	SDL_Quit();
 }
 
 void sdlCoreApp::run()
