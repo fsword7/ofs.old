@@ -7,9 +7,12 @@
 
 #pragma once
 
-class glShaderMgr {
+#include "render/shadermgr.h"
+
+class glShaderManager : public ShaderManager
+{
 public:
-	glShaderMgr();
-	~glShaderMgr();
+	glShaderManager();
+	~glShaderManager();
 
 };

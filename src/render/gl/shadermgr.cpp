@@ -8,11 +8,10 @@
 #include "main/main.h"
 #include "render/gl/shadermgr.h"
 
-glShaderMgr::glShaderMgr()
+glShaderManager::glShaderManager()
 {
 }
 
-glShaderMgr::~glShaderMgr()
+glShaderManager::~glShaderManager()
 {
 }
-

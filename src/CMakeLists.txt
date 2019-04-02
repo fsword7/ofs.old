@@ -44,6 +44,7 @@ set(ofs_h_SRCS
 	render/image.h
 	render/scene.h
 	render/shader.h
+	render/shadermgr.h
 	render/terrainmgr.h
 	render/vobject.h
 	render/ztreemgr.h
