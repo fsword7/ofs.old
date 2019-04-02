@@ -29,7 +29,8 @@ class StarVertexBuffer
 {
 public:
 	enum pointType {
-		usePoints = 0,
+		useNotUsed = 0,
+		usePoints,
 		useSprites
 	};
 
@@ -40,7 +41,7 @@ public:
 		uint16_t	color[4];
 	};
 
-	StarVertexBuffer(const Scene &scene, int maxStars, pointType type);
+	StarVertexBuffer(const Scene &scene, int maxStars = 1000);
 	virtual ~StarVertexBuffer();
 
 	// Render routines
@@ -63,7 +64,9 @@ protected:
 	const Scene &scene;
 	pointType type;
 	int  maxStars, nStars;
-	starVertex *buffer;
+	bool flagStarted;
+
+	std::vector<starVertex> buffer;
 };
 
 #define DIST_NEAR	0.001
