@@ -12,9 +12,11 @@ class Shader;
 class ShaderProperties
 {
 public:
-	ShaderProperties();
+	ShaderProperties() : type(shrNone) {}
+	~ShaderProperties() = default;
 
 	enum ShaderType {
+		shrNone				= 0x0000,
 		shrPointSprite		= 0x0001, // Displaying stars as point in background
 		shrNormalTexture	= 0x0002
 	};
