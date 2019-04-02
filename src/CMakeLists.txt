@@ -5,7 +5,8 @@ set(ofs_cpp_SRCS
 	engine/engine.cpp
 	engine/player.cpp
 	render/image.cpp
-	render/scene.cpp
+	render/shadermgr.cpp
+	render/stars.cpp
 	render/terrainmgr.cpp
 	render/vobject.cpp
 	render/vplanet.cpp

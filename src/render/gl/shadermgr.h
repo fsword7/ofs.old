@@ -15,4 +15,7 @@ public:
 	glShaderManager();
 	~glShaderManager();
 
+	Shader *buildVertexShader(const ShaderProperties &shp) override;
+	Shader *buildFragmentShader(const ShaderProperties &shp) override;
+
 };
