@@ -27,7 +27,7 @@ void sdlCoreApp::init()
 
 	// TTF initialization
 	if (TTF_Init() != 0) {
-		std::cerr << "OFS: Unable to initialize TTF: " << SDL_GetError() << std::endl;
+		std::cerr << "OFS: Unable to initialize TTF: " << TTF_GetError() << std::endl;
 		abort();
 	}
 
