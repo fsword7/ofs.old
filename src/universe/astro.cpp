@@ -24,11 +24,11 @@ vec3d_t astro::convertEquatorialToEcliptic(double ra, double dec, double pc)
 	theta = ra * PI*2.0 + PI;
 	phi   = ((dec / 90.0) - 1.0) * PI/2.0;
 
-	x = cos(theta) * sin(phi) * pc;
-	y = cos(phi) * pc;
-	z = -sin(theta) * sin(phi) * pc;
+	x = cos(theta) * sin(phi);
+	y = cos(phi);
+	z = -sin(theta) * sin(phi);
 
-	return glm::normalize(vec3d_t(x, y, z) * glm::dquat(rot));
+	return glm::normalize(vec3d_t(x, y, z) * glm::dquat(rot)) * pc;
 }
 
 
