@@ -14,7 +14,7 @@ class glMesh;
 class TerrainManager;
 class zTreeManager;
 
-class QuadTile : public Tree<QTREE_NODES>
+class QuadTile : public Tree<QuadTile, QTREE_NODES>
 {
 public:
 	QuadTile(TerrainManager *mgr, int lod, int ilat, int ilng);

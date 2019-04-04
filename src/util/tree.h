@@ -10,73 +10,73 @@
 #define QTREE_NODES	4	// Quadtree structure
 #define OTREE_NODES 8	// Octree structure
 
-template<int nodes>
+template<class Object, int nodes>
 class Tree
 {
 public:
-	Tree(Tree *parent = nullptr);
+	Tree(Object *parent = nullptr);
 	~Tree();
 
-	Tree *getChild(int idx);
-	const Tree *getChild(int idx) const;
+	Object *getChild(int idx);
+	const Object *getChild(int idx) const;
 
-	Tree *addChild(int idx, Tree *child);
+	Object *addChild(int idx, Object *child);
 	bool delChild(int idx);
 	bool delChildren();
 
 private:
-	Tree *parent;
-	Tree *child[nodes];
+	Object *parent;
+	Object *child[nodes];
 };
 
-template<int nodes>
-Tree<nodes>::Tree(Tree *_parent)
+template<class Object, int nodes>
+Tree<Object, nodes>::Tree(Object *_parent)
 {
 	parent = _parent;
 	for (int idx = 0; idx < nodes; idx++)
 		child[idx] = nullptr;
 }
 
-template<int nodes>
-Tree<nodes>::~Tree()
+template<class Object, int nodes>
+Tree<Object, nodes>::~Tree()
 {
 	if (parent != nullptr)
 		parent = nullptr;
-	for (int idx = 0; idx < QTREE_NODES; idx++)
+	for (int idx = 0; idx < nodes; idx++)
 		if (child[idx] != nullptr)
 			delete child[idx];
 }
 
-template<int nodes>
-Tree<nodes> *Tree<nodes>::getChild(int idx)
+template<class Object, int nodes>
+Object *Tree<Object, nodes>::getChild(int idx)
 {
-	if (idx < 0 || idx >= QTREE_NODES)
+	if (idx < 0 || idx >= nodes)
 		return nullptr;
 	return child[idx];
 }
 
-template<int nodes>
-const Tree<nodes> *Tree<nodes>::getChild(int idx) const
+template<class Object, int nodes>
+const Object *Tree<Object, nodes>::getChild(int idx) const
 {
-	if (idx < 0 || idx >= QTREE_NODES)
+	if (idx < 0 || idx >= nodes)
 		return nullptr;
 	return child[idx];
 }
 
-template<int nodes>
-Tree<nodes> *Tree<nodes>::addChild(int idx, Tree *_child)
+template<class Object, int nodes>
+Object *Tree<Object, nodes>::addChild(int idx, Object *_child)
 {
-	if (idx < 0 || idx >= QTREE_NODES)
+	if (idx < 0 || idx >= nodes)
 		return nullptr;
 	child[idx] = _child;
 
 	return child[idx];
 }
 
-template<int nodes>
-bool Tree<nodes>::delChild(int idx)
+template<class Object, int nodes>
+bool Tree<Object, nodes>::delChild(int idx)
 {
-	if (idx < 0 || idx >= QTREE_NODES)
+	if (idx < 0 || idx >= nodes)
 		return false;
 	if (child[idx] != nullptr) {
 		delete child[idx];
@@ -86,11 +86,11 @@ bool Tree<nodes>::delChild(int idx)
 	return false;
 }
 
-template<int nodes>
-bool Tree<nodes>::delChildren()
+template<class Object, int nodes>
+bool Tree<Object, nodes>::delChildren()
 {
 	bool ok = true;
-	for (int idx = 0; idx < QTREE_NODES; idx++) {
+	for (int idx = 0; idx < nodes; idx++) {
 		if (child[idx] != nullptr) {
 			if (child[idx]->delChildren() == true) {
 				delete child[idx];
