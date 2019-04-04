@@ -32,7 +32,7 @@ public:
 	string name(int idx = 0);
 	string name(int idx = 0) const;
 
-	vec3d_t position(double dt = 0);
+	vec3d_t position(double dt = 0) const;
 
 	virtual string getFolder() const;
 

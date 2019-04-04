@@ -46,7 +46,7 @@ string Object::name(int idx) const
 	return objNames[idx];
 }
 
-vec3d_t Object::position(double)
+vec3d_t Object::position(double) const
 {
 	return objPosition;
 }
