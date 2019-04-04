@@ -17,6 +17,7 @@ set(ofs_cpp_SRCS
 	render/gl/shadermgr.cpp
 	universe/universe.cpp
 	universe/stardb.cpp
+	universe/startree.cpp
 	universe/body.cpp
 	universe/star.cpp
 	util/tree.cpp
@@ -58,6 +59,7 @@ set(ofs_h_SRCS
 	universe/astro.h
 	universe/universe.h
 	universe/stardb.h
+	universe/startree.h
 	universe/body.h
 	universe/star.h
 	util/tree.h
