@@ -44,3 +44,24 @@ inline T toDegree(T rad) { return rad * (180.0 / PI); }
 //
 //	return glm::conjugate(glm::quat_cast(m));
 //}
+
+template <class T>
+glm::tquat<T> xrot(T radians)
+{
+	T ang = radians * T(0.5); // half angle
+	return glm::tquat<T>(std::cos(ang), std::sin(ang), 0, 0);
+}
+
+template <class T>
+glm::tquat<T> yrot(T radians)
+{
+	T ang = radians * T(0.5); // half angle
+	return glm::tquat<T>(std::cos(ang), 0, std::sin(ang), 0);
+}
+
+template <class T>
+glm::tquat<T> zrot(T radians)
+{
+	T ang = radians * T(0.5); // half angle
+	return glm::tquat<T>(std::cos(ang), 0, 0, std::sin(ang));
+}
