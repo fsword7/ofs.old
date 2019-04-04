@@ -9,6 +9,15 @@
 #include "main/math.h"
 #include "engine/object.h"
 
+Object::Object(ObjectType type)
+: objType(type), objNames(1),
+  objRadius(0), objSemiAxes(0, 0, 0),
+  objMass(0), objAlbedo(1.0),
+  objPosition(0, 0, 0)
+{
+	objNames.clear();
+}
+
 Object::Object(string name, ObjectType type)
 : objType(type), objNames(1),
   objRadius(0), objSemiAxes(0, 0, 0),
@@ -42,6 +51,10 @@ vec3d_t Object::position(double)
 	return objPosition;
 }
 
+void Object::setName(const std::string &name)
+{
+	objNames[0] = name;
+}
 
 void Object::setRadius(double rad)
 {

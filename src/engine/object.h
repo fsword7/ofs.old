@@ -15,6 +15,7 @@ enum ObjectType {
 
 class Object {
 public:
+	Object(ObjectType type);
 	Object(string name, ObjectType type);
 	virtual ~Object();
 
@@ -24,6 +25,7 @@ public:
 
 	inline void setMass(double mass)  { objMass = mass; }
 
+	void setName(const std::string &name);
 	void setRadius(double rad);
 	void setPosition(vec3d_t pos);
 
