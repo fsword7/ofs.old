@@ -262,82 +262,82 @@ void StarDatabase::finish()
 	initStarOctreeData(unsortedStars);
 }
 
-////void StarDatabase::findVisibleStars(const ofsHandler& handle, const Player& player,
-////		double faintestMag)
-////{
-////	vec3d_t vpos = player.getPosition();
-////	double brightestMag = 1000.0;
-////
-////	for (uint32_t idx = 0; idx < uStars.size(); idx++) {
-////		CelestialStar *star = uStars[idx];
-////		vec3d_t spos = star->getPosition(0);
-////		double  dist = (spos - vpos).norm();
-////		double  appMag = star->getAppMag(convertKilometerToParsec(dist));
-////
-//////		std::cout << "Star ID: " << idx << " Apparent Mag: " << appMag << " Distance: " << dist << std::endl;
-////
-//////		if (appMag < brightestMag)
-//////			brightestMag = appMag;
-////
-////		if (appMag < faintestMag)
-////			handle.process(*star, dist, appMag);
-////	}
-//////	std::cout << "%%% Brightest Magnitude = " << brightestMag << std::endl;
-////}
-////
-////int StarDatabase::findNearStars(const vec3d_t& obs, double mdist,
-////		vector<const CelestialStar *>& stars) const
-////{
-//////	double dist = astro::convertKilometerToParsec(mdist);
-////
-////	stars.clear();
-////	for (int idx = 0; idx < uStars.size(); idx++) {
-////		CelestialStar *star = uStars[idx];
-////		double dist = (obs - star->getPosition(0)).norm();
-////		if (dist < mdist)
-////			stars.push_back(star);
-////	}
-////
-////	return stars.size();
-////}
-//
-//void StarDatabase::findVisibleStars(const ofsHandler& handle, const vec3d_t& obs,
-//		const quatd_t &rot, double fov, double aspect, double limitMag) const
+CelestialStar *StarDatabase::find(const std::string& name) const
+{
+	for (int idx = 0; idx < unsortedStars.size(); idx++) {
+		CelestialStar *star = unsortedStars[idx];
+		if (star->name() == name)
+			return star;
+	}
+	return nullptr;
+}
+
+//void StarDatabase::findVisibleStars(const ofsHandler& handle, const Player& player,
+//		double faintestMag)
 //{
-//	planed_t frustum[5];
-//	vec3d_t  plane[5];
+//	vec3d_t vpos = player.getPosition();
+//	double brightestMag = 1000.0;
 //
-//	mat3d_t  mrot = rot.toRotationMatrix();
-//	double   h    = tan(fov / 2.0);
-//	double   w    = h * aspect;
+//	for (uint32_t idx = 0; idx < uStars.size(); idx++) {
+//		CelestialStar *star = uStars[idx];
+//		vec3d_t spos = star->getPosition(0);
+//		double  dist = (spos - vpos).norm();
+//		double  appMag = star->getAppMag(convertKilometerToParsec(dist));
 //
-//	plane[0] = vec3d_t(0.0, 1.0, -h);
-//	plane[1] = vec3d_t(0.0, -1.0, -h);
-//	plane[2] = vec3d_t(1.0, 0.0, -w);
-//	plane[3] = vec3d_t(-1.0, 0.0, -w);
-//	plane[4] = vec3d_t(0.0, 0.0, -1.0);
+////		std::cout << "Star ID: " << idx << " Apparent Mag: " << appMag << " Distance: " << dist << std::endl;
 //
-//	for (int idx = 0; idx < 5; idx++) {
-//		plane[idx] = mrot.transpose() * plane[idx].normalized();
-//		frustum[idx] = planed_t(plane[idx], obs);
+////		if (appMag < brightestMag)
+////			brightestMag = appMag;
+//
+//		if (appMag < faintestMag)
+//			handle.process(*star, dist, appMag);
 //	}
-//
-////	std::cout << "Find visible stars by using octree..." << std::endl;
-//	starTree->processVisibleStars(handle, obs, frustum, limitMag, STARTREE_ROOTSIZE);
+////	std::cout << "%%% Brightest Magnitude = " << brightestMag << std::endl;
 //}
 //
-//void StarDatabase::findNearStars(const ofsHandler& handle, const vec3d_t& obs,
-//		double radius) const
+//int StarDatabase::findNearStars(const vec3d_t& obs, double mdist,
+//		vector<const CelestialStar *>& stars) const
 //{
-//	starTree->processNearStars(handle, obs, radius, STARTREE_ROOTSIZE);
-//}
+////	double dist = astro::convertKilometerToParsec(mdist);
 //
-//CelestialStar *StarDatabase::find(const std::string& name) const
-//{
+//	stars.clear();
 //	for (int idx = 0; idx < uStars.size(); idx++) {
 //		CelestialStar *star = uStars[idx];
-//		if (star->getName() == name)
-//			return star;
+//		double dist = (obs - star->getPosition(0)).norm();
+//		if (dist < mdist)
+//			stars.push_back(star);
 //	}
-//	return nullptr;
+//
+//	return stars.size();
 //}
+
+void StarDatabase::findVisibleStars(const ofsHandler& handle, const vec3d_t& obs,
+		const quatd_t &rot, double fov, double aspect, double limitMag) const
+{
+//	planed_t frustum[5];
+	vec3d_t  plane[5];
+
+	mat3d_t  mrot = glm::toMat3(rot);
+	double   h    = tan(fov / 2.0);
+	double   w    = h * aspect;
+
+	plane[0] = vec3d_t(0.0, 1.0, -h);
+	plane[1] = vec3d_t(0.0, -1.0, -h);
+	plane[2] = vec3d_t(1.0, 0.0, -w);
+	plane[3] = vec3d_t(-1.0, 0.0, -w);
+	plane[4] = vec3d_t(0.0, 0.0, -1.0);
+
+	for (int idx = 0; idx < 5; idx++) {
+		plane[idx] = glm::transpose(mrot) * glm::normalize(plane[idx]);
+//		frustum[idx] = planed_t(plane[idx], obs);
+	}
+
+//	std::cout << "Find visible stars by using octree..." << std::endl;
+//	starTree->processVisibleStars(handle, obs, frustum, limitMag, STARTREE_ROOTSIZE);
+}
+
+void StarDatabase::findNearStars(const ofsHandler& handle, const vec3d_t& obs,
+		double radius) const
+{
+//	starTree->processNearStars(handle, obs, radius, STARTREE_ROOTSIZE);
+}
