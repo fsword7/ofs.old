@@ -19,7 +19,7 @@ vec3d_t astro::convertEquatorialToEcliptic(double ra, double dec, double pc)
 	double  theta, phi;
 	double  x, y, z;
 //	double  km = convertParsecToKilometer(pc);
-//	quatd_t xrot(AngleAxis<double>(-J2000Obliquity, Vector3d::UnitX()));
+	vec3d_t rot(-J2000Obliquity, 0, 0);
 
 	theta = ra * PI*2.0 + PI;
 	phi   = ((dec / 90.0) - 1.0) * PI/2.0;
@@ -28,7 +28,7 @@ vec3d_t astro::convertEquatorialToEcliptic(double ra, double dec, double pc)
 	y = cos(phi) * pc;
 	z = -sin(theta) * sin(phi) * pc;
 
-	return /* xrot * */ vec3d_t(x, y, z);
+	return glm::normalize(vec3d_t(x, y, z) * glm::dquat(rot));
 }
 
 
