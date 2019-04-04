@@ -35,12 +35,12 @@ public:
     void add(const CelestialStar& obj);
     void split(double scale);
 
-//    void processVisibleStars(const ofsHandler &handle, const vec3d_t &obs,
-//    		const planed_t* frustum, const double limitingFactor,
-//    		const double scale);
+    void processVisibleStars(const ofsHandler &handle, const vec3d_t &obs,
+    		/* const planed_t* frustum, */ const double limitingFactor,
+    		const double scale);
 
-//    void processNearStars(const ofsHandler &handle, const vec3d_t &obs,
-//    		const double radius, const double scale);
+    void processNearStars(const ofsHandler &handle, const vec3d_t &obs,
+    		const double radius, const double scale);
 
 private:
     double   decay(double factor);

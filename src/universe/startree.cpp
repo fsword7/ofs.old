@@ -113,62 +113,63 @@ uint32_t StarTree::index(const CelestialStar &obj, const vec3d_t &cell)
 			((spos.z < cell.z) ? 0 : zPos);
 }
 
-//void StarTree::processVisibleStars(const ofsHandler &handle, const vec3d_t &obs,
-//		const planed_t* frustum, const double limitingFactor,
-//		const double scale)
-//{
-//
+void StarTree::processVisibleStars(const ofsHandler &handle, const vec3d_t &obs,
+		/* const planed_t* frustum, */ const double limitingFactor,
+		const double scale)
+{
+
 //	for (int idx = 0; idx < 5; idx++) {
 //		const planed_t& plane = frustum[idx];
 //		double r = scale * plane.normal().cwiseAbs().sum();
 //		if (plane.signedDistance(cellCenterPos) < -r)
 //			return;
 //	}
-//
-//	double dist    = (obs - cellCenterPos).norm() - scale * sqrt(3.0);
-//
-//	for (uint32_t idx = 0; idx < list.size(); idx++) {
-//		const CelestialStar& obj = *list[idx];
-//
-//		double dist = (obs - obj.position(0)).norm();
-//		double appMag = astro::convertAbsToAppMag(obj.getAbsMag(), dist);
-//
+
+	double dist    = glm::distance2(obs, cellCenterPos) - scale * sqrt(3.0);
+
+	for (uint32_t idx = 0; idx < list.size(); idx++) {
+		const CelestialStar& obj = *list[idx];
+
+		double dist = glm::distance2(obs, obj.position(0));
+		double appMag = astro::convertAbsToAppMag(obj.getAbsMag(), dist);
+
 //		handle.process(obj, dist, appMag);
-//	}
-//
-//	if (dist <= 0 || astro::convertAbsToAppMag(exclusionFactor, dist) <= limitingFactor) {
-//		for (int idx = 0; idx < 8; idx++) {
-//			StarTree *node = getChild(idx);
-//			if (node == nullptr)
-//				continue;
-//			node->processVisibleStars(handle, obs, frustum, limitingFactor, scale * 0.5);
-//		}
-//	}
-//}
-//
-//void StarTree::processNearStars(const ofsHandler &handle, const vec3d_t &obs,
-//		const double radius, const double scale)
-//{
-//
-//	double dist = glm::norm(obs - cellCenterPos) - scale * sqrt(3.0);
-//	if (dist > radius)
-//		return;
-//
-//	for (uint32_t idx = 0; idx < list.size(); idx++) {
-//		const CelestialStar& obj = *list[idx];
-//
-//		if ((obs - obj.getPosition(0)).squaredNorm() < square(radius)) {
-//			double dist = (obs - obj.position(0)).norm();
-//			double appMag = astro::convertAbsToAppMag(obj.getAbsMag(), dist);
-//
+	}
+
+	if (dist <= 0 || astro::convertAbsToAppMag(exclusionFactor, dist) <= limitingFactor) {
+		for (int idx = 0; idx < 8; idx++) {
+			StarTree *node = getChild(idx);
+			if (node == nullptr)
+				continue;
+			node->processVisibleStars(handle, obs, /* frustum, */ limitingFactor, scale * 0.5);
+		}
+	}
+}
+
+void StarTree::processNearStars(const ofsHandler &handle, const vec3d_t &obs,
+		const double radius, const double scale)
+{
+
+	double dist = glm::distance2(obs, cellCenterPos) - scale * sqrt(3.0);
+	if (dist > radius)
+		return;
+
+	for (uint32_t idx = 0; idx < list.size(); idx++) {
+		const CelestialStar& obj = *list[idx];
+
+		// squared norm??
+		if (glm::distance2(obs, obj.getPosition(0)) < square(radius)) {
+			double dist = glm::distance2(obs, obj.position(0));
+			double appMag = astro::convertAbsToAppMag(obj.getAbsMag(), dist);
+
 //			handle.process(obj, dist, appMag);
-//		}
-//	}
-//
-//	for (int idx = 0; idx < 8; idx++) {
-//		StarTree *node = getChild(idx);
-//		if (node == nullptr)
-//			continue;
-//		node->processNearStars(handle, obs, radius, scale * 0.5);
-//	}
-//}
+		}
+	}
+
+	for (int idx = 0; idx < 8; idx++) {
+		StarTree *node = getChild(idx);
+		if (node == nullptr)
+			continue;
+		node->processNearStars(handle, obs, radius, scale * 0.5);
+	}
+}
