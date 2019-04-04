@@ -9,21 +9,6 @@
 
 class CelestialStar;
 
-class StarDatabase
-{
-public:
-	StarDatabase();
-	~StarDatabase();
-
-private:
-	vector<CelestialStar *> unsortedStars;
-};
-
-//class Player;
-//class StarHandler;
-//class StarTree;
-//class CelestialStar;
-//
 //class ofsHandler {
 //public:
 //	ofsHandler() {};
@@ -31,18 +16,18 @@ private:
 //
 //	virtual void process(const CelestialStar& star, double dist, double appMag) const = 0;
 //};
-//
-//class StarDatabase
-//{
-//public:
-//	StarDatabase();
-//	~StarDatabase();
-//
-//	bool loadHYGData(const std::string& fname);
-//	bool loadXHIPData(const std::string& pname);
-//
-//    void finish();
-//
+
+class StarDatabase
+{
+public:
+	StarDatabase();
+	~StarDatabase();
+
+	bool loadHYGData(const std::string& fname);
+	bool loadXHIPData(const std::string& pname);
+
+    void finish();
+
 ////    void findVisibleStars(const ofsHandler& handle, const Player& player, double faintestMag);
 ////    int  findNearStars(const vec3d_t& obs, double mdist,
 ////    		std::vector<const CelestialStar *>& stars) const;
@@ -53,12 +38,11 @@ private:
 //    	double radius) const;
 //
 //    CelestialStar *find(const std::string& name) const;
-//
-//protected:
+
+protected:
 //    void initOctreeData(std::vector<CelestialStar*> stars);
-//
-//private:
-//	std::vector<CelestialStar*> uStars;  // Unsorted stars for loading purposes
-//
+
+private:
+	vector<CelestialStar *> unsortedStars;
 //	StarTree *starTree;
-//};
+};
