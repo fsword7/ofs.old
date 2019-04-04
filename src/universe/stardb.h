@@ -8,6 +8,7 @@
 #pragma once
 
 class CelestialStar;
+class StarTree;
 
 //class ofsHandler {
 //public:
@@ -40,9 +41,9 @@ public:
 //    CelestialStar *find(const std::string& name) const;
 
 protected:
-//    void initOctreeData(std::vector<CelestialStar*> stars);
+    void initStarOctreeData(std::vector<CelestialStar*> stars);
 
 private:
 	vector<CelestialStar *> unsortedStars;
-//	StarTree *starTree;
+	StarTree *starTree;
 };

@@ -7,8 +7,10 @@
 
 #include "main/core.h"
 #include "engine/object.h"
+#include "universe/astro.h"
 #include "universe/star.h"
 #include "universe/stardb.h"
+#include "universe/startree.h"
 
 #include "universe/hygdata.h"
 #include "universe/xhipdata.h"
@@ -238,26 +240,26 @@ bool StarDatabase::loadXHIPData(const std::string& pname)
 	return false;
 }
 
-//void StarDatabase::initOctreeData(std::vector<CelestialStar*> stars)
-//{
-//	double absMag = astro::convertAppToAbsMag(STARTREE_MAGNITUDE,
-//			STARTREE_ROOTSIZE * sqrt(3.0));
-//
-////	std::cout << "Star Tree: " << absMag << " magnitude" << std::endl;
-//
-//	starTree = new StarTree(vec3d_t(1000.0, 1000.0, 1000.0), absMag);
-//	for (int idx = 0; idx < unsortedStars.size(); idx++)
-//		starTree->insert(*unsortedStars[idx], STARTREE_ROOTSIZE);
-//
-//	std::cout << "Star Database has " << starTree->countNodes() << " nodes and "
-//			  << starTree->countObjects() << " objects" << std::endl;
-//}
+void StarDatabase::initStarOctreeData(std::vector<CelestialStar*> stars)
+{
+	double absMag = astro::convertAppToAbsMag(STARTREE_MAGNITUDE,
+			STARTREE_ROOTSIZE * sqrt(3.0));
+
+//	std::cout << "Star Tree: " << absMag << " magnitude" << std::endl;
+
+	starTree = new StarTree(vec3d_t(1000.0, 1000.0, 1000.0), absMag);
+	for (int idx = 0; idx < unsortedStars.size(); idx++)
+		starTree->insert(*unsortedStars[idx], STARTREE_ROOTSIZE);
+
+	std::cout << "Star Database has " << starTree->countNodes() << " nodes and "
+			  << starTree->countObjects() << " objects" << std::endl;
+}
 
 void StarDatabase::finish()
 {
 	std::cout << "Total star count: " << unsortedStars.size() << std::endl;
 
-//	initOctreeData(uStars);
+	initStarOctreeData(unsortedStars);
 }
 
 ////void StarDatabase::findVisibleStars(const ofsHandler& handle, const Player& player,
