@@ -21,6 +21,8 @@ typedef glm::dquat quatd_t;
 typedef glm::dmat3 mat3d_t;
 typedef glm::dmat4 mat4d_t;
 
+#define square(val) ((val) * (val))
+#define cube(val)   ((val) * (val) * (val))
 
 template<class T>
 inline T toRadian(T deg) { return deg * (PI / 180.0); }
