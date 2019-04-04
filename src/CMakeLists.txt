@@ -15,6 +15,7 @@ set(ofs_cpp_SRCS
 	render/gl/scene.cpp
 	render/gl/shader.cpp
 	render/gl/shadermgr.cpp
+	universe/astro.cpp
 	universe/universe.cpp
 	universe/stardb.cpp
 	universe/startree.cpp
