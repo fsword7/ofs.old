@@ -28,12 +28,11 @@ Universe::~Universe()
 
 void Universe::init()
 {
+//	std::string fname = "../data/stars/hygdata_v3.csv";
+//	stardb->loadHYGData(fname);
 
-
-
-	// Temporary hacks for testing - to be removed later
-	string solName = "Sol";
-	sol = new CelestialStar(solName);
+	std::string pname = "../data/stars/xhip";
+	stardb->loadXHIPData(pname);
 
 	string earthName = "Earth";
 //	vec3d_t earthPos = vec3d_t(0, 0, -20000.0);
