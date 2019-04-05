@@ -125,12 +125,12 @@ void StarTree::processVisibleStars(const ofsHandler &handle, const vec3d_t &obs,
 //			return;
 //	}
 
-	double dist    = glm::distance2(obs, cellCenterPos) - scale * sqrt(3.0);
+	double dist    = glm::distance(obs, cellCenterPos) - scale * sqrt(3.0);
 
 	for (uint32_t idx = 0; idx < list.size(); idx++) {
 		const CelestialStar& obj = *list[idx];
 
-		double dist = glm::distance2(obs, obj.position(0));
+		double dist = glm::distance(obs, obj.position(0));
 		double appMag = astro::convertAbsToAppMag(obj.getAbsMag(), dist);
 
 //		handle.process(obj, dist, appMag);
@@ -150,16 +150,15 @@ void StarTree::processNearStars(const ofsHandler &handle, const vec3d_t &obs,
 		const double radius, const double scale)
 {
 
-	double dist = glm::distance2(obs, cellCenterPos) - scale * sqrt(3.0);
+	double dist = glm::distance(obs, cellCenterPos) - scale * sqrt(3.0);
 	if (dist > radius)
 		return;
 
 	for (uint32_t idx = 0; idx < list.size(); idx++) {
 		const CelestialStar& obj = *list[idx];
 
-		// squared norm??
 		if (glm::distance2(obs, obj.getPosition(0)) < square(radius)) {
-			double dist = glm::distance2(obs, obj.position(0));
+			double dist = glm::distance(obs, obj.position(0));
 			double appMag = astro::convertAbsToAppMag(obj.getAbsMag(), dist);
 
 //			handle.process(obj, dist, appMag);

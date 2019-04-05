@@ -333,11 +333,11 @@ void StarDatabase::findVisibleStars(const ofsHandler& handle, const vec3d_t& obs
 	}
 
 //	std::cout << "Find visible stars by using octree..." << std::endl;
-//	starTree->processVisibleStars(handle, obs, frustum, limitMag, STARTREE_ROOTSIZE);
+	starTree->processVisibleStars(handle, obs, /* frustum, */ limitMag, STARTREE_ROOTSIZE);
 }
 
 void StarDatabase::findNearStars(const ofsHandler& handle, const vec3d_t& obs,
 		double radius) const
 {
-//	starTree->processNearStars(handle, obs, radius, STARTREE_ROOTSIZE);
+	starTree->processNearStars(handle, obs, radius, STARTREE_ROOTSIZE);
 }
