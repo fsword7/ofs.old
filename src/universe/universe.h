@@ -18,6 +18,9 @@ public:
 
 	void init();
 
+	int findCloseStars(const vec3d_t& obs, double mdist,
+			std::vector<const CelestialStar *>& stars) const;
+
 	CelestialBody *earth;
 	CelestialStar *sol;
 

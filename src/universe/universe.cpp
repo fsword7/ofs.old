@@ -7,9 +7,10 @@
 
 #include "main/core.h"
 #include "engine/object.h"
-#include "universe/stardb.h"
+#include "universe/astro.h"
 #include "universe/body.h"
 #include "universe/star.h"
+#include "universe/stardb.h"
 #include "universe/universe.h"
 
 Universe::Universe()
@@ -41,4 +42,41 @@ void Universe::init()
 	earth = new CelestialBody(earthName);
 	earth->setRadius(6371.0);
 	earth->setPosition(earthPos);
+}
+
+class CloseStarHandler : public ofsHandler
+{
+public:
+	CloseStarHandler(double mdist, std::vector<const CelestialStar *> &stars)
+		: maxDistance(mdist), nStars(stars) {};
+	~CloseStarHandler() {};
+
+	void process(const CelestialStar& star, double dist, double) const
+	{
+		if (dist < maxDistance)
+			nStars.push_back(&star);
+	}
+
+private:
+	double maxDistance;
+	std::vector<const CelestialStar *> &nStars;
+
+};
+
+int Universe::findCloseStars(const vec3d_t& obs, double mdist,
+		vector<const CelestialStar *>& stars) const
+{
+	CloseStarHandler handle(mdist, stars);
+	vec3d_t lobs = obs / KM_PER_PC;
+	int count;
+
+	if (stardb == nullptr)
+		return 0;
+	stardb->findNearStars(handle, lobs, mdist);
+
+//	cout << "Near stars: " << count << " stars" << std::endl;
+//	if (count > 0)
+//		cout << "Star name: " << stars[0]->getName() << std::endl;
+
+	return stars.size();
 }
