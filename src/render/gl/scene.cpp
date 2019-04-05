@@ -62,6 +62,8 @@ void glScene::paint(Player &player, Universe &universe)
 	double  cfov;
 	mat4d_t crotm;
 
+	closeStars.clear();
+
 	if (vobj == nullptr) {
 		vobj = new vPlanet(universe.earth, this);
 		player.focus(universe.earth);
@@ -73,6 +75,10 @@ void glScene::paint(Player &player, Universe &universe)
 	crot  = cam->rotation();
 	cfov  = cam->getFOV();
 	crotm = glm::mat4_cast(crot);
+
+	// Find closest stars within desired local distance
+	universe.findCloseStars(cpos, 1.0, closeStars);
+
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();

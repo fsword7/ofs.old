@@ -10,6 +10,7 @@
 class Player;
 class Universe;
 class vObject;
+class CelestialStar;
 
 class Scene {
 public:
@@ -23,6 +24,8 @@ public:
 protected:
 	int    width, height;
 	double aspect;
+
+	std::vector<const CelestialStar *> closeStars;
 };
 
 class StarVertexBuffer
