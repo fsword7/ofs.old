@@ -133,7 +133,7 @@ void StarTree::processVisibleStars(const ofsHandler &handle, const vec3d_t &obs,
 		double dist = glm::distance(obs, obj.position(0));
 		double appMag = astro::convertAbsToAppMag(obj.getAbsMag(), dist);
 
-//		handle.process(obj, dist, appMag);
+		handle.process(obj, dist, appMag);
 	}
 
 	if (dist <= 0 || astro::convertAbsToAppMag(exclusionFactor, dist) <= limitingFactor) {
@@ -161,7 +161,7 @@ void StarTree::processNearStars(const ofsHandler &handle, const vec3d_t &obs,
 			double dist = glm::distance(obs, obj.position(0));
 			double appMag = astro::convertAbsToAppMag(obj.getAbsMag(), dist);
 
-//			handle.process(obj, dist, appMag);
+			handle.process(obj, dist, appMag);
 		}
 	}
 
