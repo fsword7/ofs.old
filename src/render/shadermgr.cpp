@@ -9,6 +9,11 @@
 #include "render/shadermgr.h"
 
 
+void ShaderManager::createShader(const ShaderProperties &prop)
+{
+
+}
+
 void ShaderManager::dumpSource(ostream &out, const std::string &source)
 {
 	bool newLine = true;

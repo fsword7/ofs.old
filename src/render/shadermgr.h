@@ -44,6 +44,8 @@ public:
 	ShaderManager() {}
 	virtual ~ShaderManager() = default;
 
+	void createShader(const ShaderProperties &prop);
+
 	virtual Shader *buildVertexShader(const ShaderProperties &shp) = 0;
 	virtual Shader *buildFragmentShader(const ShaderProperties &shp) = 0;
 

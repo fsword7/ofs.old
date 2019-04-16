@@ -7,6 +7,7 @@
 
 #include "main/core.h"
 #include "render/gl/scene.h"
+#include "render/gl/shadermgr.h"
 #include "render/gl/stars.h"
 
 void glScene::initStarVertexBuffer()
@@ -33,7 +34,10 @@ void glStarVertexBuffer::startPoints()
 
 void glStarVertexBuffer::startSprites()
 {
+	ShaderProperties prop;
 
+	prop.type = ShaderProperties::shrPointSprite;
+	scene.getShaderManager()->createShader(prop);
 }
 
 void glStarVertexBuffer::render()

@@ -80,6 +80,8 @@ Shader *glShaderManager::buildVertexShader(const ShaderProperties &shp)
 	source += "   gl_Position = ftransform();\n";
 	source += "}\n";
 
+	dumpSource(cout, source);
+
 	return nullptr;
 }
 
@@ -93,6 +95,8 @@ Shader *glShaderManager::buildFragmentShader(const ShaderProperties &shp)
 
 	source += "   color = vec4(1.0, 1.0, 1.0, 1.0);\n";
 	source += "}\n";
+
+	dumpSource(cout, source);
 
 	return nullptr;
 }

@@ -11,6 +11,7 @@
 #include "universe/universe.h"
 #include "universe/body.h"
 #include "render/gl/scene.h"
+#include "render/gl/shadermgr.h"
 #include "render/vobject.h"
 #include "render/gl/funcs.h"
 
@@ -41,6 +42,8 @@ void glScene::init(int w, int h)
 //	glCullFace(GL_BACK);
 //
 //	glDepthFunc(GL_LEQUAL);
+
+	shader = new glShaderManager();
 
 	resize(w, h);
 }
