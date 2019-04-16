@@ -14,6 +14,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
 
+#include "main/plane.h"
+
 #define PI (3.14159265358979323846)
 
 typedef glm::dvec3 vec3d_t;
