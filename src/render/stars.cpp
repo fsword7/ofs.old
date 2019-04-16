@@ -7,6 +7,7 @@
 
 #include "main/core.h"
 #include "render/scene.h"
+#include "render/stars.h"
 
 StarVertexBuffer::StarVertexBuffer(const Scene &scene, int maxStars)
 : scene(scene),

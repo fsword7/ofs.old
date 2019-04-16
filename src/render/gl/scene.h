@@ -15,6 +15,8 @@ public:
 	glScene();
 	~glScene();
 
+	void initStarVertexBuffer();
+
 	void init(int w, int h);
 	void resize(int w, int h);
 	void paint(Player &player, Universe &universe);
