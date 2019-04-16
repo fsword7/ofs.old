@@ -114,7 +114,7 @@ uint32_t StarTree::index(const CelestialStar &obj, const vec3d_t &cell)
 }
 
 void StarTree::processVisibleStars(const ofsHandler &handle, const vec3d_t &obs,
-		/* const planed_t* frustum, */ const double limitingFactor,
+		const planed_t* frustum, const double limitingFactor,
 		const double scale)
 {
 
@@ -141,7 +141,7 @@ void StarTree::processVisibleStars(const ofsHandler &handle, const vec3d_t &obs,
 			StarTree *node = getChild(idx);
 			if (node == nullptr)
 				continue;
-			node->processVisibleStars(handle, obs, /* frustum, */ limitingFactor, scale * 0.5);
+			node->processVisibleStars(handle, obs, frustum, limitingFactor, scale * 0.5);
 		}
 	}
 }

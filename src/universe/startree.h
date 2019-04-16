@@ -36,7 +36,7 @@ public:
     void split(double scale);
 
     void processVisibleStars(const ofsHandler &handle, const vec3d_t &obs,
-    		/* const planed_t* frustum, */ const double limitingFactor,
+    		const planed_t* frustum, const double limitingFactor,
     		const double scale);
 
     void processNearStars(const ofsHandler &handle, const vec3d_t &obs,

@@ -314,7 +314,7 @@ CelestialStar *StarDatabase::find(const std::string& name) const
 void StarDatabase::findVisibleStars(const ofsHandler& handle, const vec3d_t& obs,
 		const quatd_t &rot, double fov, double aspect, double limitMag) const
 {
-//	planed_t frustum[5];
+	planed_t frustum[5];
 	vec3d_t  plane[5];
 
 	mat3d_t  mrot = glm::toMat3(rot);
@@ -329,11 +329,11 @@ void StarDatabase::findVisibleStars(const ofsHandler& handle, const vec3d_t& obs
 
 	for (int idx = 0; idx < 5; idx++) {
 		plane[idx] = glm::transpose(mrot) * glm::normalize(plane[idx]);
-//		frustum[idx] = planed_t(plane[idx], obs);
+		frustum[idx] = planed_t(plane[idx], obs);
 	}
 
 //	std::cout << "Find visible stars by using octree..." << std::endl;
-	starTree->processVisibleStars(handle, obs, /* frustum, */ limitMag, STARTREE_ROOTSIZE);
+	starTree->processVisibleStars(handle, obs, frustum, limitMag, STARTREE_ROOTSIZE);
 }
 
 void StarDatabase::findNearStars(const ofsHandler& handle, const vec3d_t& obs,

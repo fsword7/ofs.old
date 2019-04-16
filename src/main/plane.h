@@ -10,6 +10,7 @@
 template <typename T>
 class Plane
 {
+public:
 	Plane()
 	: normal(0, 0, 1), d(0)
 	{
