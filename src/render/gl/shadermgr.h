@@ -18,4 +18,7 @@ public:
 	Shader *buildVertexShader(const ShaderProperties &shp) override;
 	Shader *buildFragmentShader(const ShaderProperties &shp) override;
 
+protected:
+	const std::string getVariableType(ShaderVariableType type) override;
+
 };

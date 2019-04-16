@@ -9,6 +9,19 @@
 
 class Shader;
 
+enum ShaderVariableType
+{
+	shrFloat,
+	shrDouble,
+	shrVector2,
+	shrVector3,
+	shrVector4,
+	shrSampler1D,
+	shrSampler2D,
+	shrSampler3D,
+	shrSamplerCube
+};
+
 class ShaderProperties
 {
 public:
@@ -33,6 +46,11 @@ public:
 
 	virtual Shader *buildVertexShader(const ShaderProperties &shp) = 0;
 	virtual Shader *buildFragmentShader(const ShaderProperties &shp) = 0;
+
+protected:
+	virtual const std::string getVariableType(ShaderVariableType type) = 0;
+
+	void dumpSource(ostream &out, const std::string &source);
 
 protected:
 //	std::map<ShaderProperties, Program *> shaders;
