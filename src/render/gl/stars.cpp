@@ -12,7 +12,8 @@
 
 void glScene::initStarVertex()
 {
-
+	starRenderer = new glStarVertex(*this, 2048);
+	starRenderer->startSprites();
 }
 
 // ***********************************************************

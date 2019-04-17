@@ -12,6 +12,7 @@ class Universe;
 class vObject;
 class CelestialStar;
 class ShaderManager;
+class StarVertex;
 
 class Scene {
 public:
@@ -31,6 +32,7 @@ protected:
 	std::vector<const CelestialStar *> closeStars;
 
 	ShaderManager *shader = nullptr;
+	StarVertex *starRenderer = nullptr;
 };
 
 #define DIST_NEAR	0.001
