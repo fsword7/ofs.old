@@ -9,9 +9,9 @@
 #include "render/shadermgr.h"
 
 
-void ShaderManager::createShader(const ShaderProperties &prop)
+ShaderPackage *ShaderManager::createShader(const ShaderProperties &prop)
 {
-
+	return nullptr;
 }
 
 void ShaderManager::dumpSource(ostream &out, const std::string &source)

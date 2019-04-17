@@ -28,11 +28,11 @@ private:
 	GLuint id;
 };
 
-class glProgram : public Program
+class glShaderProgram : public ShaderProgram
 {
 public:
-	glProgram(GLuint id);
-	~glProgram();
+	glShaderProgram(GLuint id);
+	~glShaderProgram();
 
 	inline GLuint getID() const { return id; }
 
@@ -41,7 +41,8 @@ public:
 
 	const string getLogInfo();
 
-	void use();
+	// Virtual function calls
+	void use() override;
 
 private:
 	GLuint id;

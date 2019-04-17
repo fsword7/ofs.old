@@ -10,29 +10,29 @@
 #include "render/gl/shadermgr.h"
 #include "render/gl/stars.h"
 
-void glScene::initStarVertexBuffer()
+void glScene::initStarVertex()
 {
 
 }
 
 // ***********************************************************
 
-glStarVertexBuffer::glStarVertexBuffer(const Scene &scene, int maxStars)
-: StarVertexBuffer(scene, maxStars)
+glStarVertex::glStarVertex(const Scene &scene, int maxStars)
+: StarVertex(scene, maxStars)
 {
 }
 
-glStarVertexBuffer::~glStarVertexBuffer()
+glStarVertex::~glStarVertex()
 {
 	finish();
 }
 
-void glStarVertexBuffer::startPoints()
+void glStarVertex::startPoints()
 {
 
 }
 
-void glStarVertexBuffer::startSprites()
+void glStarVertex::startSprites()
 {
 	ShaderProperties prop;
 
@@ -40,12 +40,12 @@ void glStarVertexBuffer::startSprites()
 	scene.getShaderManager()->createShader(prop);
 }
 
-void glStarVertexBuffer::render()
+void glStarVertex::render()
 {
 
 }
 
-void glStarVertexBuffer::finish()
+void glStarVertex::finish()
 {
 
 }

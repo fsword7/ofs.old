@@ -9,7 +9,7 @@
 #include "render/scene.h"
 #include "render/stars.h"
 
-StarVertexBuffer::StarVertexBuffer(const Scene &scene, int maxStars)
+StarVertex::StarVertex(const Scene &scene, int maxStars)
 : scene(scene),
   type(useNotUsed),
   maxStars(maxStars),
@@ -19,7 +19,7 @@ StarVertexBuffer::StarVertexBuffer(const Scene &scene, int maxStars)
 	buffer.resize(maxStars);
 }
 
-StarVertexBuffer::~StarVertexBuffer()
+StarVertex::~StarVertex()
 {
 	buffer.clear();
 }

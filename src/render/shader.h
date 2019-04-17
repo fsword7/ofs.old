@@ -36,11 +36,12 @@ private:
 	ShaderType type;
 };
 
-class Program
+class ShaderProgram
 {
 public:
-	Program();
-	~Program();
+	ShaderProgram();
+	virtual ~ShaderProgram();
+
+	// Virtual function calls
+	virtual void use() = 0;
 };
-
-

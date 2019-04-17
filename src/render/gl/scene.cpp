@@ -45,6 +45,8 @@ void glScene::init(int w, int h)
 
 	shader = new glShaderManager();
 
+	initStarVertex();
+
 	resize(w, h);
 }
 

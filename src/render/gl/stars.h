@@ -9,11 +9,11 @@
 
 #include "render/stars.h"
 
-class glStarVertexBuffer : public StarVertexBuffer
+class glStarVertex : public StarVertex
 {
 public:
-	glStarVertexBuffer(const Scene &scene, int maxStars = 1000);
-	~glStarVertexBuffer();
+	glStarVertex(const Scene &scene, int maxStars = 1000);
+	~glStarVertex();
 
 	// Render routines
 	void startPoints() override;

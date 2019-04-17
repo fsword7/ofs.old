@@ -15,7 +15,7 @@ public:
 	glScene();
 	~glScene();
 
-	void initStarVertexBuffer();
+	void initStarVertex();
 
 	void init(int w, int h);
 	void resize(int w, int h);

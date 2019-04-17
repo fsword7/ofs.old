@@ -8,6 +8,7 @@
 #pragma once
 
 class Shader;
+class ShaderProgram;
 
 enum ShaderVariableType
 {
@@ -38,13 +39,25 @@ public:
 	ShaderType type;
 };
 
+class ShaderPackage
+{
+public:
+	ShaderPackage();
+	virtual ~ShaderPackage();
+
+//	virtual void use() = 0;
+
+protected:
+	ShaderProgram *program = nullptr;
+};
+
 class ShaderManager
 {
 public:
 	ShaderManager() {}
 	virtual ~ShaderManager() = default;
 
-	void createShader(const ShaderProperties &prop);
+	ShaderPackage *createShader(const ShaderProperties &prop);
 
 	virtual Shader *buildVertexShader(const ShaderProperties &shp) = 0;
 	virtual Shader *buildFragmentShader(const ShaderProperties &shp) = 0;

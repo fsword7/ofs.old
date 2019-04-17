@@ -7,7 +7,7 @@
 
 #pragma once
 
-class StarVertexBuffer
+class StarVertex
 {
 public:
 	enum pointType {
@@ -23,8 +23,8 @@ public:
 		uint16_t	color[4];
 	};
 
-	StarVertexBuffer(const Scene &scene, int maxStars = 1000);
-	virtual ~StarVertexBuffer();
+	StarVertex(const Scene &scene, int maxStars = 1000);
+	virtual ~StarVertex();
 
 	// Render routines
 	virtual void startPoints() = 0;

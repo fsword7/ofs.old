@@ -10,17 +10,6 @@
 #include "render/gl/scene.h"
 #include "render/gl/shader.h"
 
-Shader::Shader(ShaderType _type)
-: type(_type)
-{
-}
-
-Shader::~Shader()
-{
-}
-
-// ******************************
-
 glShader::glShader(ShaderType type)
 : Shader(type)
 {
@@ -112,33 +101,23 @@ const string glShader::getLogInfo()
 
 // ***********************************
 
-Program::Program()
-{
-}
-
-Program::~Program()
-{
-}
-
-// ***********************************
-
-glProgram::glProgram(GLuint _id)
+glShaderProgram::glShaderProgram(GLuint _id)
 : id(_id)
 {
 	id = glCreateProgram();
 }
 
-glProgram::~glProgram()
+glShaderProgram::~glShaderProgram()
 {
 	glDeleteProgram(id);
 }
 
-void glProgram::attach(const glShader &shader)
+void glShaderProgram::attach(const glShader &shader)
 {
 	glAttachShader(id, shader.getID());
 }
 
-ShaderStatus glProgram::link()
+ShaderStatus glShaderProgram::link()
 {
 	GLint  status;
 	string log;
@@ -157,7 +136,7 @@ ShaderStatus glProgram::link()
 	return ShaderStatus::shrSuccessful;
 }
 
-const string glProgram::getLogInfo()
+const string glShaderProgram::getLogInfo()
 {
 	GLint   lsize = 0;
 	GLsizei size  = 0;
@@ -177,7 +156,7 @@ const string glProgram::getLogInfo()
 	return slog;
 }
 
-void glProgram::use()
+void glShaderProgram::use()
 {
 	glUseProgram(id);
 }
