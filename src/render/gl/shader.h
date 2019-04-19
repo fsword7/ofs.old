@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <GL/glew.h>
 #include "render/shader.h"
 
 class glShader : public Shader
@@ -21,7 +22,7 @@ public:
 
 	const string getLogInfo();
 
-	static ShaderStatus create(ShaderType type,
+	static ShaderStatus create(ostream &out, ShaderType type,
 		const vector<string>& source, glShader **shader);
 
 private:

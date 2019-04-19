@@ -6,6 +6,7 @@
  */
 
 #include "main/main.h"
+#include "render/gl/shader.h"
 #include "render/gl/shadermgr.h"
 
 using namespace std;
@@ -82,7 +83,12 @@ Shader *glShaderManager::buildVertexShader(const ShaderProperties &shp)
 
 	dumpVertexSource(cout, source);
 
-	return nullptr;
+	glShader *vs;
+	vector<string> vsrc;
+	vsrc.push_back(source);
+	ShaderStatus st = glShader::create(cout, shrVertexProcessor, vsrc, &vs);
+
+	return st == shrSuccessful ? vs : nullptr;
 }
 
 Shader *glShaderManager::buildFragmentShader(const ShaderProperties &shp)
@@ -98,5 +104,10 @@ Shader *glShaderManager::buildFragmentShader(const ShaderProperties &shp)
 
 	dumpFragmentSource(cout, source);
 
-	return nullptr;
+	glShader *fs;
+	vector<string> vsrc;
+	vsrc.push_back(source);
+	ShaderStatus st = glShader::create(cout, shrFragmentProcessor, vsrc, &fs);
+
+	return st == shrSuccessful ? fs : nullptr;
 }

@@ -32,7 +32,7 @@ glShader::~glShader()
 	glDeleteShader(id);
 }
 
-ShaderStatus glShader::create(ShaderType type,
+ShaderStatus glShader::create(ostream &out, ShaderType type,
 	const vector<string>& source, glShader **shader)
 {
 	glShader *newShader = new glShader(type);
@@ -45,8 +45,9 @@ ShaderStatus glShader::create(ShaderType type,
 	status = newShader->compile(source);
 	if (status != ShaderStatus::shrSuccessful) {
 		log = newShader->getLogInfo();
-		cerr << "\nCompiling shader program error:\n" << endl;
-		cerr << log << endl;
+		out << "\nCompiling shader program error:\n" << endl;
+		out << log << endl;
+		out.flush();
 
 		delete newShader;
 		return status;
