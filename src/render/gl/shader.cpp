@@ -45,7 +45,7 @@ ShaderStatus glShader::create(ostream &out, ShaderType type,
 	status = newShader->compile(source);
 	if (status != ShaderStatus::shrSuccessful) {
 		log = newShader->getLogInfo();
-		out << "\nCompiling shader program error:\n" << endl;
+		out << "\nCompiling shader source error:\n" << endl;
 		out << log << endl;
 		out.flush();
 
@@ -56,7 +56,6 @@ ShaderStatus glShader::create(ostream &out, ShaderType type,
 	*shader = newShader;
 	return ShaderStatus::shrSuccessful;
 }
-
 
 ShaderStatus glShader::compile(const vector<string>& source)
 {
@@ -102,8 +101,7 @@ const string glShader::getLogInfo()
 
 // ***********************************
 
-glShaderProgram::glShaderProgram(GLuint _id)
-: id(_id)
+glShaderProgram::glShaderProgram()
 {
 	id = glCreateProgram();
 }
@@ -118,7 +116,7 @@ void glShaderProgram::attach(const glShader &shader)
 	glAttachShader(id, shader.getID());
 }
 
-ShaderStatus glShaderProgram::link()
+ShaderStatus glShaderProgram::link(ostream &out)
 {
 	GLint  status;
 	string log;
@@ -128,8 +126,8 @@ ShaderStatus glShaderProgram::link()
 	glGetProgramiv(id, GL_LINK_STATUS, &status);
 	if (status == GL_FALSE) {
 		log = getLogInfo();
-		cerr << "\nLinking shader program error:\n" << endl;
-		cerr << log << endl;
+		out << "\nLinking shader program error:\n" << endl;
+		out << log << endl;
 
 		return ShaderStatus::shrLinkError;
 	}

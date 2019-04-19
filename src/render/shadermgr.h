@@ -43,13 +43,14 @@ public:
 class ShaderPackage
 {
 public:
-	ShaderPackage();
-	virtual ~ShaderPackage();
+	ShaderPackage(ShaderProgram &pgm, const ShaderProperties &shp);
+	virtual ~ShaderPackage() = default;
 
 //	virtual void use() = 0;
 
 protected:
-	ShaderProgram *program = nullptr;
+	ShaderProgram &program;
+	const ShaderProperties &properties;
 };
 
 class ShaderManager
@@ -63,6 +64,9 @@ public:
 
 protected:
 	virtual const std::string getVariableType(ShaderVariableType type) = 0;
+
+	virtual ShaderStatus createProgram(ostream &out, const ShaderProperties &shp,
+			Shader &fs, Shader &vs, ShaderProgram **pgm) = 0;
 
 	virtual Shader *buildStarVertexShader(const ShaderProperties &shp) = 0;
 	virtual Shader *buildStarFragmentShader(const ShaderProperties &shp) = 0;

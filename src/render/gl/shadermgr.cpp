@@ -184,3 +184,21 @@ Shader *glShaderManager::buildFragmentShader(const ShaderProperties &shp)
 
 	return st == shrSuccessful ? fs : nullptr;
 }
+
+ShaderStatus glShaderManager::createProgram(ostream &out, const ShaderProperties &shp,
+		Shader &fs, Shader &vs, ShaderProgram **pgm)
+{
+	glShaderProgram *npgm = new glShaderProgram();
+
+	npgm->attach(dynamic_cast<glShader&>(vs));
+	npgm->attach(dynamic_cast<glShader&>(fs));
+
+	if (shp.type & ShaderProperties::shrPointStar)
+		glBindAttribLocation(npgm->getID(), 7, "pointSize");
+
+	ShaderStatus st = npgm->link(out);
+
+	if (st == shrSuccessful)
+		*pgm = npgm;
+	return st;
+}

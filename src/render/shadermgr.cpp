@@ -9,6 +9,11 @@
 #include "render/shader.h"
 #include "render/shadermgr.h"
 
+ShaderPackage::ShaderPackage(ShaderProgram &pgm, const ShaderProperties &shp)
+: program(pgm), properties(shp)
+{
+}
+
 void ShaderManager::dumpSource(ostream &out, const std::string &source)
 {
 	bool newLine = true;
@@ -49,6 +54,7 @@ ShaderPackage *ShaderManager::buildPrograms(const ShaderProperties &shp)
 	Shader *fs = nullptr; // Fragment shader program
 
 	ShaderProgram *pgm;
+	ShaderStatus st;
 
 	if (shp.starShader == true) {
 		vs = buildStarVertexShader(shp);
@@ -59,15 +65,16 @@ ShaderPackage *ShaderManager::buildPrograms(const ShaderProperties &shp)
 	}
 
 	if (vs != nullptr && fs != nullptr) {
-
-	} else {
-
+		cout << "Linking shader programs..." << endl;
+		st = createProgram(cout, shp, *vs, *fs, &pgm);
 	}
 
 	delete vs;
 	delete fs;
 
-	return nullptr;
+	if (pgm == nullptr)
+		return nullptr;
+	return new ShaderPackage(*pgm, shp);
 }
 
 ShaderPackage *ShaderManager::createShader(const ShaderProperties &shp)

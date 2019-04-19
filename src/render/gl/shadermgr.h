@@ -22,6 +22,9 @@ protected:
 	std::string declareVarying(const std::string &name, ShaderVariableType type);
 	std::string declareAttribute(const std::string &name, ShaderVariableType type);
 
+	ShaderStatus createProgram(ostream &out, const ShaderProperties &shp,
+			Shader &fs, Shader &vs, ShaderProgram **pgm) override;
+
 	Shader *buildStarVertexShader(const ShaderProperties &shp) override;
 	Shader *buildStarFragmentShader(const ShaderProperties &shp) override;
 

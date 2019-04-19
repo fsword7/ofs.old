@@ -7,6 +7,7 @@
 
 #include "main/core.h"
 #include "render/gl/scene.h"
+#include "render/gl/shader.h"
 #include "render/gl/shadermgr.h"
 #include "render/gl/stars.h"
 

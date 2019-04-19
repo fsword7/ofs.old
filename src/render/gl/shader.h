@@ -32,13 +32,13 @@ private:
 class glShaderProgram : public ShaderProgram
 {
 public:
-	glShaderProgram(GLuint id);
+	glShaderProgram();
 	~glShaderProgram();
 
 	inline GLuint getID() const { return id; }
 
 	void attach(const glShader &shader);
-	ShaderStatus link();
+	ShaderStatus link(ostream &out);
 
 	const string getLogInfo();
 
