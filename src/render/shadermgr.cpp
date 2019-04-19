@@ -50,8 +50,13 @@ ShaderPackage *ShaderManager::buildPrograms(const ShaderProperties &shp)
 
 	ShaderProgram *pgm;
 
-	vs = buildVertexShader(shp);
-	fs = buildFragmentShader(shp);
+	if (shp.starShader == true) {
+		vs = buildStarVertexShader(shp);
+		fs = buildStarFragmentShader(shp);
+	} else {
+		vs = buildVertexShader(shp);
+		fs = buildFragmentShader(shp);
+	}
 
 	if (vs != nullptr && fs != nullptr) {
 

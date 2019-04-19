@@ -31,12 +31,13 @@ public:
 
 	enum ShaderType {
 		shrNone				= 0x0000,
-		shrPointSprite		= 0x0001, // Displaying stars as point in background
+		shrPointStar		= 0x0001, // Displaying stars as point in background
 		shrNormalTexture	= 0x0002
 	};
 
 public:
 	ShaderType type;
+	bool starShader = false;
 };
 
 class ShaderPackage
@@ -62,6 +63,9 @@ public:
 
 protected:
 	virtual const std::string getVariableType(ShaderVariableType type) = 0;
+
+	virtual Shader *buildStarVertexShader(const ShaderProperties &shp) = 0;
+	virtual Shader *buildStarFragmentShader(const ShaderProperties &shp) = 0;
 
 	virtual Shader *buildVertexShader(const ShaderProperties &shp) = 0;
 	virtual Shader *buildFragmentShader(const ShaderProperties &shp) = 0;

@@ -37,7 +37,8 @@ void glStarVertex::startSprites()
 {
 	ShaderProperties prop;
 
-	prop.type = ShaderProperties::shrPointSprite;
+	prop.starShader = true;
+	prop.type = ShaderProperties::shrPointStar;
 	scene.getShaderManager()->createShader(prop);
 }
 

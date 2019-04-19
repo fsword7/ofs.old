@@ -15,10 +15,16 @@ public:
 	glShaderManager();
 	~glShaderManager();
 
-	Shader *buildVertexShader(const ShaderProperties &shp) override;
-	Shader *buildFragmentShader(const ShaderProperties &shp) override;
-
 protected:
 	const std::string getVariableType(ShaderVariableType type) override;
 
+	std::string declareUniform(const std::string &name, ShaderVariableType type);
+	std::string declareVarying(const std::string &name, ShaderVariableType type);
+	std::string declareAttribute(const std::string &name, ShaderVariableType type);
+
+	Shader *buildStarVertexShader(const ShaderProperties &shp) override;
+	Shader *buildStarFragmentShader(const ShaderProperties &shp) override;
+
+	Shader *buildVertexShader(const ShaderProperties &shp) override;
+	Shader *buildFragmentShader(const ShaderProperties &shp) override;
 };

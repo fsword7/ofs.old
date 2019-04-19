@@ -11,7 +11,7 @@
 
 using namespace std;
 
-static const char *glslVersionHeader = "#version 120\n";
+static const char *glslVersionHeader = "#version 120\n\n";
 
 static const char *defaultVertrexShaderSource =
 	"void main(void) {\n"
@@ -68,15 +68,88 @@ const string glShaderManager::getVariableType(ShaderVariableType type)
 	}
 }
 
-Shader *glShaderManager::buildVertexShader(const ShaderProperties &shp)
+string glShaderManager::declareUniform(const string &name, ShaderVariableType type)
+{
+	return string("uniform ") + getVariableType(type) + " " + name + ";\n";
+}
+
+string glShaderManager::declareVarying(const string &name, ShaderVariableType type)
+{
+	return string("varying ") + getVariableType(type) + " " + name + ";\n";
+}
+
+string glShaderManager::declareAttribute(const string &name, ShaderVariableType type)
+{
+	return string("attribute ") + getVariableType(type) + " " + name + ";\n";
+}
+
+Shader *glShaderManager::buildStarVertexShader(const ShaderProperties &shp)
 {
 	string source(glslVersionHeader);
+
+	if (shp.type == ShaderProperties::shrPointStar)
+	{
+		source += declareUniform("pointScale", shrFloat);
+		source += declareAttribute("pointSize", shrFloat);
+	}
+	source += declareVarying("color", shrVector4);
 
 	// Begin main() function
 	source += "\nvoid main(void)\n{\n";
 
-	if (shp.type == ShaderProperties::shrPointSprite)
-		source += addPointSize();
+	source += "   color = gl_Color;\n";
+	if (shp.type & ShaderProperties::shrPointStar)
+		source += "   gl_PointSize = pointSize;\n";
+
+	source += "   gl_Position = ftransform();\n";
+	source += "}\n";
+
+	dumpVertexSource(cout, source);
+
+	glShader *vs;
+	vector<string> vsrc;
+	vsrc.push_back(source);
+	ShaderStatus st = glShader::create(cout, shrVertexProcessor, vsrc, &vs);
+
+	return st == shrSuccessful ? vs : nullptr;
+}
+
+Shader *glShaderManager::buildStarFragmentShader(const ShaderProperties &shp)
+{
+	string source(glslVersionHeader);
+
+	source += declareVarying("color", shrVector4);
+
+	// Begin main() function
+	source += "\nvoid main(void)\n{\n";
+	source += "   gl_FragColor = color;\n";
+	source += "}\n";
+
+	dumpFragmentSource(cout, source);
+
+	glShader *fs;
+	vector<string> vsrc;
+	vsrc.push_back(source);
+	ShaderStatus st = glShader::create(cout, shrFragmentProcessor, vsrc, &fs);
+
+	return st == shrSuccessful ? fs : nullptr;
+}
+
+Shader *glShaderManager::buildVertexShader(const ShaderProperties &shp)
+{
+	string source(glslVersionHeader);
+
+//	if (shp.type & ShaderProperties::shrPointSprite) {
+//		source += declareUniform("pointScale", shrFloat);
+//		source += declareAttribute("pointSize", shrFloat);
+//		source += declareVarying("pointFade", shrFloat);
+//	}
+
+	// Begin main() function
+	source += "\nvoid main(void)\n{\n";
+
+//	if (shp.type == ShaderProperties::shrPointSprite)
+//		source += addPointSize();
 
 	source += "   gl_Position = ftransform();\n";
 	source += "}\n";
