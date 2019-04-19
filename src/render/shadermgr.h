@@ -46,7 +46,7 @@ public:
 	ShaderPackage(ShaderProgram &pgm, const ShaderProperties &shp);
 	virtual ~ShaderPackage() = default;
 
-//	virtual void use() = 0;
+	void use() { program.use(); };
 
 protected:
 	ShaderProgram &program;

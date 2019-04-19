@@ -5,8 +5,7 @@
  *      Author: Tim Stark
  */
 
-#include "main/main.h"
-#include "main/math.h"
+#include "main/core.h"
 #include "render/gl/scene.h"
 #include "render/gl/shader.h"
 
@@ -158,4 +157,47 @@ const string glShaderProgram::getLogInfo()
 void glShaderProgram::use()
 {
 	glUseProgram(id);
+}
+
+
+glShaderFloatParameter &glShaderFloatParameter::operator = (float v)
+{
+	if (slot != -1)
+		glUniform1f(slot, v);
+	return *this;
+}
+
+glShaderVec3FParameter &glShaderVec3FParameter::operator = (const vec3f_t &v)
+{
+	if (slot != -1)
+		glUniform3f(slot, v.x, v.y, v.z);
+	return *this;
+}
+
+glShaderVec4FParameter &glShaderVec4FParameter::operator = (const vec4f_t &v)
+{
+	if (slot != -1)
+		glUniform4f(slot, v.x, v.y, v.z, v.w);
+	return *this;
+}
+
+glShaderDoubleParameter &glShaderDoubleParameter::operator = (double v)
+{
+	if (slot != -1)
+		glUniform1d(slot, v);
+	return *this;
+}
+
+glShaderVec3DParameter &glShaderVec3DParameter::operator = (const vec3d_t &v)
+{
+	if (slot != -1)
+		glUniform3d(slot, v.x, v.y, v.z);
+	return *this;
+}
+
+glShaderVec4DParameter &glShaderVec4DParameter::operator = (const vec4d_t &v)
+{
+	if (slot != -1)
+		glUniform4d(slot, v.x, v.y, v.z, v.w);
+	return *this;
 }
