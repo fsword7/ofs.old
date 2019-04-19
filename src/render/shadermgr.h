@@ -57,15 +57,18 @@ public:
 	ShaderManager() {}
 	virtual ~ShaderManager() = default;
 
-	ShaderPackage *createShader(const ShaderProperties &prop);
-
-	virtual Shader *buildVertexShader(const ShaderProperties &shp) = 0;
-	virtual Shader *buildFragmentShader(const ShaderProperties &shp) = 0;
+	ShaderPackage *createShader(const ShaderProperties &shp);
+	ShaderPackage *buildPrograms(const ShaderProperties &shp);
 
 protected:
 	virtual const std::string getVariableType(ShaderVariableType type) = 0;
 
+	virtual Shader *buildVertexShader(const ShaderProperties &shp) = 0;
+	virtual Shader *buildFragmentShader(const ShaderProperties &shp) = 0;
+
 	void dumpSource(ostream &out, const std::string &source);
+	void dumpVertexSource(ostream &out, const std::string &source);
+	void dumpFragmentSource(ostream &out, const std::string &source);
 
 protected:
 //	std::map<ShaderProperties, Program *> shaders;
