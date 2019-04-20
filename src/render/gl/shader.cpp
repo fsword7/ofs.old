@@ -160,42 +160,42 @@ void glShaderProgram::use()
 }
 
 
-glShaderFloatParameter &glShaderFloatParameter::operator = (float v)
+ShaderFloatParameter &glShaderFloatParameter::operator = (float v)
 {
 	if (slot != -1)
 		glUniform1f(slot, v);
 	return *this;
 }
 
-glShaderVec3FParameter &glShaderVec3FParameter::operator = (const vec3f_t &v)
+ShaderVec3FParameter &glShaderVec3FParameter::operator = (const vec3f_t &v)
 {
 	if (slot != -1)
 		glUniform3f(slot, v.x, v.y, v.z);
 	return *this;
 }
 
-glShaderVec4FParameter &glShaderVec4FParameter::operator = (const vec4f_t &v)
+ShaderVec4FParameter &glShaderVec4FParameter::operator = (const vec4f_t &v)
 {
 	if (slot != -1)
 		glUniform4f(slot, v.x, v.y, v.z, v.w);
 	return *this;
 }
 
-glShaderDoubleParameter &glShaderDoubleParameter::operator = (double v)
+ShaderDoubleParameter &glShaderDoubleParameter::operator = (double v)
 {
 	if (slot != -1)
 		glUniform1d(slot, v);
 	return *this;
 }
 
-glShaderVec3DParameter &glShaderVec3DParameter::operator = (const vec3d_t &v)
+ShaderVec3DParameter &glShaderVec3DParameter::operator = (const vec3d_t &v)
 {
 	if (slot != -1)
 		glUniform3d(slot, v.x, v.y, v.z);
 	return *this;
 }
 
-glShaderVec4DParameter &glShaderVec4DParameter::operator = (const vec4d_t &v)
+ShaderVec4DParameter &glShaderVec4DParameter::operator = (const vec4d_t &v)
 {
 	if (slot != -1)
 		glUniform4d(slot, v.x, v.y, v.z, v.w);

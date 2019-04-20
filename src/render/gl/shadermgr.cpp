@@ -202,3 +202,8 @@ ShaderStatus glShaderManager::createProgram(ostream &out, const ShaderProperties
 		*pgm = npgm;
 	return st;
 }
+
+ShaderPackage *glShaderManager::createPackage(ShaderProgram &pgm, const ShaderProperties &shp)
+{
+	return new glShaderPackage(pgm, shp);
+}

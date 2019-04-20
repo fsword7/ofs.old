@@ -74,7 +74,7 @@ ShaderPackage *ShaderManager::buildPrograms(const ShaderProperties &shp)
 
 	if (pgm == nullptr)
 		return nullptr;
-	return new ShaderPackage(*pgm, shp);
+	return createPackage(*pgm, shp);
 }
 
 ShaderPackage *ShaderManager::createShader(const ShaderProperties &shp)

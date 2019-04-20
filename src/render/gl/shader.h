@@ -50,7 +50,7 @@ private:
 };
 
 
-class glShaderFloatParameter
+class glShaderFloatParameter : public ShaderFloatParameter
 {
 public:
 	glShaderFloatParameter() = default;
@@ -59,13 +59,13 @@ public:
 		slot = glGetUniformLocation(obj, name);
 	}
 
-	glShaderFloatParameter &operator = (float v);
+	ShaderFloatParameter &operator = (float v);
 
 private:
 	int slot = -1;
 };
 
-class glShaderVec3FParameter
+class glShaderVec3FParameter : public ShaderVec3FParameter
 {
 public:
 	glShaderVec3FParameter() = default;
@@ -74,13 +74,13 @@ public:
 		slot = glGetUniformLocation(obj, name);
 	}
 
-	glShaderVec3FParameter &operator = (const vec3f_t &v);
+	ShaderVec3FParameter &operator = (const vec3f_t &v);
 
 private:
 	int slot = -1;
 };
 
-class glShaderVec4FParameter
+class glShaderVec4FParameter : public ShaderVec4FParameter
 {
 public:
 	glShaderVec4FParameter() = default;
@@ -89,13 +89,13 @@ public:
 		slot = glGetUniformLocation(obj, name);
 	}
 
-	glShaderVec4FParameter &operator = (const vec4f_t &v);
+	ShaderVec4FParameter &operator = (const vec4f_t &v);
 
 private:
 	int slot = -1;
 };
 
-class glShaderDoubleParameter
+class glShaderDoubleParameter : public ShaderDoubleParameter
 {
 public:
 	glShaderDoubleParameter() = default;
@@ -104,13 +104,13 @@ public:
 		slot = glGetUniformLocation(obj, name);
 	}
 
-	glShaderDoubleParameter &operator = (double v);
+	ShaderDoubleParameter &operator = (double v);
 
 private:
 	int slot = -1;
 };
 
-class glShaderVec3DParameter
+class glShaderVec3DParameter : public ShaderVec3DParameter
 {
 public:
 	glShaderVec3DParameter() = default;
@@ -119,13 +119,13 @@ public:
 		slot = glGetUniformLocation(obj, name);
 	}
 
-	glShaderVec3DParameter &operator = (const vec3d_t &v);
+	ShaderVec3DParameter &operator = (const vec3d_t &v);
 
 private:
 	int slot = -1;
 };
 
-class glShaderVec4DParameter
+class glShaderVec4DParameter : public ShaderVec4DParameter
 {
 public:
 	glShaderVec4DParameter() = default;
@@ -134,7 +134,7 @@ public:
 		slot = glGetUniformLocation(obj, name);
 	}
 
-	glShaderVec4DParameter &operator = (const vec4d_t &v);
+	ShaderVec4DParameter &operator = (const vec4d_t &v);
 
 private:
 	int slot = -1;

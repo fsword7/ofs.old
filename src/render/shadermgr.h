@@ -67,6 +67,7 @@ protected:
 
 	virtual ShaderStatus createProgram(ostream &out, const ShaderProperties &shp,
 			Shader &fs, Shader &vs, ShaderProgram **pgm) = 0;
+	virtual ShaderPackage *createPackage(ShaderProgram &pgm, const ShaderProperties &shp) = 0;
 
 	virtual Shader *buildStarVertexShader(const ShaderProperties &shp) = 0;
 	virtual Shader *buildStarFragmentShader(const ShaderProperties &shp) = 0;

@@ -24,10 +24,23 @@ protected:
 
 	ShaderStatus createProgram(ostream &out, const ShaderProperties &shp,
 			Shader &fs, Shader &vs, ShaderProgram **pgm) override;
+	ShaderPackage *createPackage(ShaderProgram &pgm, const ShaderProperties &shp) override;
 
 	Shader *buildStarVertexShader(const ShaderProperties &shp) override;
 	Shader *buildStarFragmentShader(const ShaderProperties &shp) override;
 
 	Shader *buildVertexShader(const ShaderProperties &shp) override;
 	Shader *buildFragmentShader(const ShaderProperties &shp) override;
+};
+
+class glShaderPackage : public ShaderPackage
+{
+public:
+	glShaderPackage(ShaderProgram &pgm, const ShaderProperties &shp)
+	: ShaderPackage(pgm, shp) {};
+	~glShaderPackage() = default;
+
+	glShaderFloatParameter pointSize;
+	glShaderVec4FParameter color;
+
 };
