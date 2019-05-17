@@ -32,15 +32,7 @@ public:
 	virtual void render() = 0;
 	virtual void finish() = 0;
 
-//	inline void addStar(const vec3d_t &pos, const Color &color, double size)
-//	{
-//		if (nStars < maxStars) {
-//			nStars++;
-//		} else {
-//			render();
-//			nStars = 0;
-//		}
-//	}
+	void addStar(const vec3d_t &pos, const Color &color, double size);
 
 protected:
 	const Scene &scene;
