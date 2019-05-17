@@ -36,11 +36,16 @@ protected:
 class glShaderPackage : public ShaderPackage
 {
 public:
+	enum {
+		PointSizeAttributeIndex = 7
+	};
+
 	glShaderPackage(ShaderProgram &pgm, const ShaderProperties &shp)
 	: ShaderPackage(pgm, shp) {};
 	~glShaderPackage() = default;
 
 	glShaderFloatParameter pointSize;
+	glShaderFloatParameter pointScale;
 	glShaderVec4FParameter color;
 
 };

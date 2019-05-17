@@ -23,3 +23,8 @@ StarVertex::~StarVertex()
 {
 	buffer.clear();
 }
+
+//void StarVertex::addStar(const vec3d_t &pos, const Color &color, double size)
+//{
+//
+//}

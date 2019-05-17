@@ -19,7 +19,7 @@ public:
 	struct starVertex
 	{
 		vec3d_t		posStar;
-		double		size;
+		float		size;
 		uint16_t	color[4];
 	};
 
