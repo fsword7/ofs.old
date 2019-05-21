@@ -38,6 +38,15 @@ inline T toRadian(T deg) { return deg * (PI / 180.0); }
 template<class T>
 inline T toDegree(T rad) { return rad * (180.0 / PI); }
 
+template<class T> inline T clamp(T x)
+{
+	if (x < 0.0)
+		return 0.0;
+	else if (x > 1.0)
+		return 1.0;
+	else return x;
+}
+
 //quatd_t lookAt(vec3d_t from, vec3d_t to, vec3d_t up)
 //{
 //	mat3d_t m;
