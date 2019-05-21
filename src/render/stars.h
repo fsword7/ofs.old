@@ -7,6 +7,9 @@
 
 #pragma once
 
+#include "universe/stardb.h"
+
+
 class StarVertex
 {
 public:
@@ -41,4 +44,32 @@ protected:
 	bool flagStarted;
 
 	std::vector<starVertex> buffer;
+};
+
+class StarRenderer : public ofsHandler
+{
+public:
+	StarRenderer() = default;
+	~StarRenderer()
+	{
+		if (starBuffer != nullptr)
+			delete starBuffer;
+	}
+
+	void process(const CelestialStar& star, double dist, double appMag) const;
+
+public:
+	vec3d_t obsPos = { 0, 0, 0 }; // Observer's camera position
+
+	// Star buffer for rendering
+	StarVertex *starBuffer = nullptr;
+
+	Scene  *scn = nullptr;     // Scene handler
+	vec3d_t cpos;    // Current camera/player position
+	double  pxSize;  // Pixel size
+	double  faintestMag;
+	double  size;
+
+//	StellarColors *starColors;
+
 };

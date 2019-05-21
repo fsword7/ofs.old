@@ -13,8 +13,13 @@
 
 void glScene::initStarVertex()
 {
-	starRenderer = new glStarVertex(*this, 2048);
-	starRenderer->startSprites();
+	StarVertex *starBuffer;
+
+	starBuffer = new glStarVertex(*this, 2048);
+	starBuffer->startPoints();
+
+	starRenderer = new StarRenderer();
+	starRenderer->starBuffer = starBuffer;
 }
 
 // ***********************************************************
@@ -33,8 +38,8 @@ void glStarVertex::startPoints()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	glDisable(GL_TEXTURE_2D);
 
@@ -64,9 +69,11 @@ void glStarVertex::startSprites()
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableVertexAttribArray(glShaderPackage::PointSizeAttributeIndex);
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
-//	glEnable(GL_POINT_SPRITE);
+	glEnable(GL_POINT_SPRITE);
 
 	uint32_t stride = sizeof(starVertex);
 	glVertexPointer(3, GL_DOUBLE, stride, &buffer[0].posStar);
@@ -98,7 +105,6 @@ void glStarVertex::finish()
 
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	switch (type) {
 	case useSprites:
