@@ -6,6 +6,13 @@
  */
 
 #include "main/core.h"
+Color::Color()
+{
+	rgba[0] = 0.0;
+	rgba[1] = 0.0;
+	rgba[2] = 0.0;
+	rgba[3] = 1.0;
+}
 
 Color::Color(uint16_t red, uint16_t green, uint16_t blue, uint16_t alpha)
 {
