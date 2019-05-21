@@ -63,13 +63,14 @@ public:
 	int    getTemperature() const;
 	double getLuminosity() const;
 	double getRadius() const;
+//	double getRadius();
 	double getAppMag(double dist) const;
 
 	inline double getAbsMag() const { return absMag; }
 //	inline SolarSystem *getSolarSystem() const { return system; }
 
 	vec3d_t getPosition(double tjd) const;
-
+//	vec3d_t getPosition(double tjd);
 
 //	void setSolarSystem(SolarSystem *sys);
 

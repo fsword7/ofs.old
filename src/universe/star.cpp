@@ -66,10 +66,27 @@ double CelestialStar::getRadius() const
 		SOLAR_RADIUS;
 }
 
+//double CelestialStar::getRadius()
+//{
+//	if (flags & knownRadius)
+//		return radius;
+//
+//	// Determine estimate star radius by using that formula
+//	// R/Rs = (Ts/T)^2 (L/Ls)^1/2
+//	return square(SOLAR_TEMPERATURE / getTemperature()) *
+//		sqrt(getLuminosity() / SOLAR_LUMINOSITY) *
+//		SOLAR_RADIUS;
+//}
+
 vec3d_t CelestialStar::getPosition(double) const
 {
 	return lpos;
 }
+
+//vec3d_t CelestialStar::getPosition(double)
+//{
+//	return lpos;
+//}
 
 double CelestialStar::getAppMag(double dist) const
 {
