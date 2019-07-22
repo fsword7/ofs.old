@@ -16,7 +16,7 @@ void glScene::initStarVertex()
 	StarVertex *starBuffer;
 
 	starBuffer = new glStarVertex(*this, 2048);
-	starBuffer->startPoints();
+//	starBuffer->startPoints();
 
 	starRenderer = new StarRenderer();
 	starRenderer->starBuffer = starBuffer;
