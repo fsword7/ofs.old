@@ -43,7 +43,7 @@ bool StarDatabase::loadHYGData(const std::string& fname)
 	if (!data.is_open())
 	{
 		std::cerr << "I/O Error: file '" << fname << "': "
-				  << strerror(errno) << std::endl;
+				  << std::strerror(errno) << std::endl;
 		return false;
 	}
 
@@ -122,14 +122,14 @@ bool StarDatabase::loadXHIPData(const std::string& pname)
     if (!mdata.is_open())
 	{
 		std::cerr << "I/O Error: file '" << mfname << "': "
-				  << strerror(errno) << std::endl;
+				  << std::strerror(errno) << std::endl;
 		return false;
 	}
 
 	if (!pdata.is_open())
 	{
 		std::cerr << "I/O Error: file '" << pfname << "': "
-				  << strerror(errno) << std::endl;
+				  << std::strerror(errno) << std::endl;
 		mdata.close();
 		return false;
 	}
@@ -137,7 +137,7 @@ bool StarDatabase::loadXHIPData(const std::string& pname)
 	if (!bdata.is_open())
 	{
 		std::cerr << "I/O Error: file '" << bfname << "': "
-				  << strerror(errno) << std::endl;
+				  << std::strerror(errno) << std::endl;
 		mdata.close();
 		pdata.close();
 		return false;

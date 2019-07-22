@@ -24,6 +24,9 @@
 #include <vector>
 #include <string>
 
+#include <cerrno>
+#include <cstring>
+
 using namespace std;
 
 // Four CC values for magic codes
