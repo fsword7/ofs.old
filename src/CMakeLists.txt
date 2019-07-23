@@ -25,6 +25,7 @@ set(ofs_cpp_SRCS
 	universe/body.cpp
 	universe/star.cpp
 	util/color.cpp
+	util/dds.cpp
 	util/tree.cpp
 )
 
@@ -71,6 +72,7 @@ set(ofs_h_SRCS
 	universe/body.h
 	universe/star.h
 	util/color.h
+	util/dds.h
 	util/tree.h
 )
 
