@@ -9,7 +9,7 @@
 
 #include "GL/glew.h"
 
-template<class T>
+template<typename T>
 struct vtx_t {
 	T vx, vy, vz;
 	T nx, ny, nz;

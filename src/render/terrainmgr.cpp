@@ -12,6 +12,8 @@
 #include "render/ztreemgr.h"
 #include "render/gl/mesh.h"
 
+static tcrd_t fullRange = { 0.0, 1.0, 0.0, 1.0 };
+
 QuadTile::QuadTile(TerrainManager *_mgr, int _lod, int _ilat, int _ilng)
 : mgr(_mgr), lod(_lod), ilat(_ilat), ilng(_ilng)
 {
@@ -29,7 +31,7 @@ int QuadTile::load()
 
 TerrainTile::TerrainTile(TerrainManager *mgr, int lod, int ilat, int ilng)
 : QuadTile(mgr, lod, ilat, ilng),
-  mesh(nullptr)
+  mesh(nullptr), state(Invalid), txRange(fullRange)
 {
 
 }
@@ -40,11 +42,42 @@ TerrainTile::~TerrainTile()
 		delete mesh;
 }
 
+//void TerrainFile::setSubTexCoordRange(tcrd_t &ptcr)
+//{
+//
+//}
+
 int TerrainTile::load()
 {
+	state = Loading;
 
+//    if (image == nullptr && mgr->tmgr[0] != nullptr) {
+//        res = szImage = mgr->tmgr[0]->read(lod+4, lat, lng, &ddsImage);
+//        if (res > 0 && ddsImage != nullptr) {
+//            image = dds.load(ddsImage, szImage);
+//            delete []ddsImage;
+////            std::cout << "Image loaded" << std::endl;
+//        }
+//    }
+//
+//    if (image == nullptr) {
+//    	// Non-existent tile. Have to load
+//    	// lower LOD tile from parent tile
+//    	// and set sub texture range.
+//    	TerrainTile *ptile = getParent();
+//    	if (ptile != nullptr) {
+//    		tex    = ptile->getTexture();
+//    		texOwn = false;
+//    		setSubTexRange(ptile->getTexRange());
+////    		std::cout << "Subtexture created" << std::endl;
+//    	}
+//    } else {
+//        tex = new ImageTexture(image);
+//        texOwn = true;
+////        std::cout << "Texture created" << std::endl;
+//    }
 
-	mesh = mgr->createSpherePatch(lod, ilat, ilng, 32);
+	mesh = mgr->createSpherePatch(lod, ilat, ilng, 32, txRange);
 	return 0;
 }
 
@@ -93,7 +126,8 @@ void TerrainManager::paint()
 // Create spherical patch/hemisphere for LOD level 0+
 //glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng, int grids,
 //	tcRange2 &tcr, const int16_t *elev, double elevGlobe, double elevScale)
-glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng, int grids)
+glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng,
+		int grids, tcrd_t &tcr)
 {
 	int nlat = 1 << lod;
 	int nlng = 2 << lod;
@@ -157,16 +191,15 @@ glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng, int grids
 
     du  = (mlng1 - mlng0) / grids;
     dv  = (mlat1 - mlat0) / grids;
-//    tur = tcr.tumax - tcr.tumin;
-//    tvr = tcr.tvmax - tcr.tvmin;
+    tur = tcr.tumax - tcr.tumin;
+    tvr = tcr.tvmax - tcr.tvmin;
 
     vidx = 0;
 	for (int y = 0; y <= grids; y++)
 	{
 		lat  = mlat0 + (mlat1-mlat0) * ((double)y/(double)grids);
 		slat = sin(lat); clat = cos(lat);
-//        tv = double(y)/double(grids);
-//        tv = tcr.tvmin + tvr * (double(y)/double(grids));
+        tv = tcr.tvmin + tvr * (double(y)/double(grids));
 
 //        std::cout << "Y = " << y << " LAT: " << toDegrees(lat) << std::endl;
 
@@ -174,8 +207,7 @@ glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng, int grids
 		{
 			lng  = mlng0 + (mlng1-mlng0) * ((double)x/(double)grids);
 			slng = sin(lng); clng = cos(lng);
-//            tu = 1 - (double(x)/double(grids));
-//            tu = 1 - (tcr.tumin + tur * (double(x)/double(grids)));
+            tu = tcr.tumin + tur * (double(x)/double(grids));
 
 //            std::cout << "X = " << x << " LNG: " << toDegrees(lng) << std::endl;
 

@@ -14,6 +14,17 @@ class glMesh;
 class TerrainManager;
 class zTreeManager;
 
+// Texture Coordination Range
+template <typename T>
+struct tcRange
+{
+	T tumin, tumax;
+	T tvmin, tvmax;
+};
+
+typedef tcRange<float>  tcrf_t;
+typedef tcRange<double> tcrd_t;
+
 class QuadTile : public Tree<QuadTile, QTREE_NODES>
 {
 public:
@@ -38,8 +49,18 @@ public:
 	int  load();
 	void paint();
 
+	enum tileState {
+		Invalid = 0x0000,
+		InQueue = 0x0001,
+		Loading = 0x0002,
+		NoImage = 0x0004
+	};
+
 private:
 	glMesh *mesh;
+
+	tileState state;
+	tcrd_t txRange;
 };
 
 class TerrainManager {
@@ -51,7 +72,7 @@ public:
 
 //	glMesh *createSpherePatch(int lod, int ilat, int ilng, int grids,
 //		tcRange2 &tcr, const int16_t *elev, double elevGlobe, double elevScale);
-	glMesh *createSpherePatch(int lod, int ilat, int ilng, int grids);
+	glMesh *createSpherePatch(int lod, int ilat, int ilng, int grids, tcrd_t &tcr);
 
 private:
 	vPlanet *vobj;
