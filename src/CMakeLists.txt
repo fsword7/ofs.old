@@ -10,6 +10,7 @@ set(ofs_cpp_SRCS
 	render/shadermgr.cpp
 	render/stars.cpp
 	render/terrainmgr.cpp
+	render/texture.cpp
 	render/vobject.cpp
 	render/vplanet.cpp
 	render/ztreemgr.cpp
@@ -57,6 +58,7 @@ set(ofs_h_SRCS
 	render/shadermgr.h
 	render/stars.h
 	render/terrainmgr.h
+	render/texture.h
 	render/vobject.h
 	render/ztreemgr.h
 	render/gl/funcs.h
