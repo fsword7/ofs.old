@@ -8,9 +8,11 @@
 #include "main/core.h"
 #include "engine/object.h"
 #include "render/vobject.h"
+#include "render/image.h"
 #include "render/terrainmgr.h"
 #include "render/ztreemgr.h"
 #include "render/gl/mesh.h"
+#include "util/dds.h"
 
 static tcrd_t fullRange = { 0.0, 1.0, 0.0, 1.0 };
 
@@ -49,17 +51,23 @@ TerrainTile::~TerrainTile()
 
 int TerrainTile::load()
 {
+	ddsLoader dds;
+	uint8_t  *ddsImage = nullptr;
+	Image    *image = nullptr;
+	uint32_t  szImage = 0;
+	int       res;
+
 	state = Loading;
 
-//    if (image == nullptr && mgr->tmgr[0] != nullptr) {
-//        res = szImage = mgr->tmgr[0]->read(lod+4, lat, lng, &ddsImage);
-//        if (res > 0 && ddsImage != nullptr) {
-//            image = dds.load(ddsImage, szImage);
-//            delete []ddsImage;
-////            std::cout << "Image loaded" << std::endl;
-//        }
-//    }
-//
+    if (image == nullptr && mgr->ztree[0] != nullptr) {
+        res = szImage = mgr->ztree[0]->read(lod+4, ilat, ilng, &ddsImage);
+        if (res > 0 && ddsImage != nullptr) {
+            image = dds.load(ddsImage, szImage);
+            delete []ddsImage;
+//            std::cout << "Image loaded" << std::endl;
+        }
+    }
+
 //    if (image == nullptr) {
 //    	// Non-existent tile. Have to load
 //    	// lower LOD tile from parent tile
@@ -72,9 +80,9 @@ int TerrainTile::load()
 ////    		std::cout << "Subtexture created" << std::endl;
 //    	}
 //    } else {
-//        tex = new ImageTexture(image);
-//        texOwn = true;
-////        std::cout << "Texture created" << std::endl;
+//        txImage = new ImageTexture(image);
+//        txOwn   = true;
+//        std::cout << "Texture created" << std::endl;
 //    }
 
 	mesh = mgr->createSpherePatch(lod, ilat, ilng, 32, txRange);

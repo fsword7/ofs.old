@@ -64,6 +64,8 @@ private:
 };
 
 class TerrainManager {
+	friend class TerrainTile;
+
 public:
 	TerrainManager(vPlanet *vobj);
 	~TerrainManager();
