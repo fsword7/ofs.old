@@ -13,6 +13,8 @@ class vObject;
 class CelestialStar;
 class ShaderManager;
 class StarRenderer;
+class Image;
+class ImageTexture;
 
 class Scene {
 public:
@@ -20,6 +22,8 @@ public:
 	virtual ~Scene();
 
 	ShaderManager *getShaderManager() const { return shader; }
+
+	virtual ImageTexture *createTexture(Image *image) = 0;
 
 	virtual void init(int w, int h) = 0;
 	virtual void resize(int w, int h) = 0;

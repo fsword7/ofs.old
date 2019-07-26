@@ -10,8 +10,10 @@
 class Texture
 {
 public:
-	Texture(int w, int h, int d = 1);
-	virtual ~Texture();
+	Texture(int w, int h, int d = 1)
+	: width(w), height(h), depth(d),
+	  format(0) {}
+	virtual ~Texture() = default;
 
 	virtual void bind() = 0;
 
@@ -24,10 +26,18 @@ protected:
 class ImageTexture : public Texture
 {
 public:
-	ImageTexture(Image *img);
-	~ImageTexture();
+	ImageTexture(Image *img)
+	: Texture(img->getWidth(), img->getHeight()),
+	  image(img), initFlag(false) {}
+	virtual ~ImageTexture()
+	{
+		if (image != nullptr)
+			delete image;
+	}
 
-private:
+	virtual void load(Image *img, int target) = 0;
+
+protected:
 	Image *image;
 	bool   initFlag;
 };

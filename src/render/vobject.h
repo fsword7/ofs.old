@@ -18,6 +18,7 @@ public:
 	virtual ~vObject();
 
 	Object *object() { return obj; }
+	inline Scene *getScene() { return scene; }
 
 	void update(Player &player);
 

@@ -9,6 +9,8 @@
 #include "engine/object.h"
 #include "render/vobject.h"
 #include "render/image.h"
+#include "render/texture.h"
+#include "render/scene.h"
 #include "render/terrainmgr.h"
 #include "render/ztreemgr.h"
 #include "render/gl/mesh.h"
@@ -80,12 +82,15 @@ int TerrainTile::load()
 ////    		std::cout << "Subtexture created" << std::endl;
 //    	}
 //    } else {
-//        txImage = new ImageTexture(image);
-//        txOwn   = true;
+        txImage = mgr->scene->createTexture(image);
+        txOwn   = true;
 //        std::cout << "Texture created" << std::endl;
 //    }
 
 	mesh = mgr->createSpherePatch(lod, ilat, ilng, 32, txRange);
+	if (mesh != nullptr)
+		mesh->txImage = txImage;
+//	state = Inactive;
 	return 0;
 }
 
@@ -95,8 +100,8 @@ void TerrainTile::paint()
 		mesh->paint();
 }
 
-TerrainManager::TerrainManager(vPlanet *_vobj)
-: vobj(_vobj)
+TerrainManager::TerrainManager(vPlanet *vobj)
+: scene(vobj->getScene()), vobj(vobj)
 {
 	string pname;
 
@@ -215,7 +220,7 @@ glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng,
 		{
 			lng  = mlng0 + (mlng1-mlng0) * ((double)x/(double)grids);
 			slng = sin(lng); clng = cos(lng);
-            tu = tcr.tumin + tur * (double(x)/double(grids));
+            tu = 1 - (tcr.tumin + tur * (double(x)/double(grids)));
 
 //            std::cout << "X = " << x << " LNG: " << toDegrees(lng) << std::endl;
 

@@ -7,6 +7,7 @@
 
 #include "main/main.h"
 #include "main/math.h"
+#include "render/gl/texture.h"
 #include "render/gl/mesh.h"
 
 glMesh::glMesh()
@@ -69,31 +70,30 @@ void glMesh::paint()
 //	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
-//	glEnableClientState(GL_NORMAL_ARRAY);
-//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
 	glVertexPointer(3, GL_DOUBLE, sizeof(vtxd_t), &vtx[0].vx);
+
+//	glEnableClientState(GL_NORMAL_ARRAY);
 //	glNormalPointer(GL_DOUBLE, sizeof(vtxd_t), &vtx[0].nx);
-//	glTexCoordPointer(2, GL_DOUBLE, sizeof(vtxd_t), &vtx[0].tu);
 
-//	glVertexPointer(3, GL_DOUBLE, sizeof(vtxd_t), BUFFER_OFFSET(0));
-//	glNormalPointer(GL_DOUBLE, sizeof(vtxd_t), BUFFER_OFFSET(3));
-//	glTexCoordPointer(2, GL_DOUBLE, sizeof(vtxd_t), BUFFER_OFFSET(6));
+	if (txImage != nullptr) {
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glEnable(GL_TEXTURE_2D);
+		glTexCoordPointer(2, GL_DOUBLE, sizeof(vtxd_t), &vtx[0].tu);
 
-//	if (tex != nullptr) {
-//		glEnable(GL_TEXTURE_2D);
-//		tex->bind();
-//	}
+		txImage->bind();
+	} else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glDrawElements(GL_TRIANGLES, nidx, GL_UNSIGNED_SHORT, idx);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	if (txImage != nullptr) {
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisable(GL_TEXTURE_2D);
+	} else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 //	glDisableClientState(GL_NORMAL_ARRAY);
-//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//	glDisable(GL_TEXTURE_2D);
 }
 
 glMesh *glMesh::createSphere(int glat, int glng, int lod, int ilat, int ilng)

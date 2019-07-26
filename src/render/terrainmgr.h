@@ -13,6 +13,7 @@ class vPlanet;
 class glMesh;
 class TerrainManager;
 class zTreeManager;
+class ImageTexture;
 
 // Texture Coordination Range
 template <typename T>
@@ -61,6 +62,9 @@ private:
 
 	tileState state;
 	tcrd_t txRange;
+
+	ImageTexture *txImage = nullptr;
+	bool txOwn = false;
 };
 
 class TerrainManager {
@@ -77,6 +81,7 @@ public:
 	glMesh *createSpherePatch(int lod, int ilat, int ilng, int grids, tcrd_t &tcr);
 
 private:
+	Scene *scene;
 	vPlanet *vobj;
 
 	zTreeManager *ztree[5];

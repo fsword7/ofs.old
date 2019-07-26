@@ -10,6 +10,7 @@
 #include "engine/player.h"
 #include "universe/universe.h"
 #include "universe/body.h"
+#include "render/gl/texture.h"
 #include "render/gl/scene.h"
 #include "render/gl/shader.h"
 #include "render/gl/shadermgr.h"
@@ -32,6 +33,11 @@ glScene::glScene()
 
 glScene::~glScene()
 {
+}
+
+ImageTexture *glScene::createTexture(Image *image)
+{
+	return new glImageTexture(image);
 }
 
 void glScene::init(int w, int h)
