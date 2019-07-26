@@ -47,6 +47,8 @@ protected:
 
 class TerrainTile : public QuadTile
 {
+	friend class TerrainManager;
+
 public:
 	TerrainTile(TerrainManager *mgr, int lod, int ilat, int ilng);
 	~TerrainTile();
@@ -56,7 +58,7 @@ public:
 	void setSubTexCoordRange(const tcrd_t &ptcr);
 
 	int  load();
-	void paint();
+	void render();
 
 	enum tileState {
 		Invalid		= 0x0000,
@@ -85,7 +87,10 @@ public:
 	TerrainManager(vPlanet *vobj);
 	~TerrainManager();
 
-	void paint();
+	// Rendering terrain area
+	void process(TerrainTile *tile);
+	void render(TerrainTile *tile);
+	void render();
 
 //	glMesh *createSpherePatch(int lod, int ilat, int ilng, int grids,
 //		tcRange2 &tcr, const int16_t *elev, double elevGlobe, double elevScale);

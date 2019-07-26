@@ -23,10 +23,10 @@ vPlanet::~vPlanet()
 		delete terrain;
 }
 
-void vPlanet::paint()
+void vPlanet::render()
 {
 	glTranslate(cpos);
 
 	if (terrain != nullptr)
-		terrain->paint();
+		terrain->render();
 }

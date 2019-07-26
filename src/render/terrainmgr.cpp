@@ -110,7 +110,7 @@ int TerrainTile::load()
 	return 0;
 }
 
-void TerrainTile::paint()
+void TerrainTile::render()
 {
 	if (mesh != nullptr)
 		mesh->paint();
@@ -144,12 +144,40 @@ TerrainManager::~TerrainManager()
 
 }
 
-void TerrainManager::paint()
+void TerrainManager::process(TerrainTile *tile)
 {
 
-	// Render the terrain
+	int lod  = tile->lod;
+	int nlat = 1 << tile->ilat;
+	int nlng = 2 << tile->ilng;
+
+	tile->state = TerrainTile::Rendering;
+
+}
+
+void TerrainManager::render(TerrainTile *tile)
+{
+
+	if (tile->state == TerrainTile::Rendering)
+		tile->render();
+//	else if (tile->state == TerrainTfile::Active)
+//	{
+//		for (int idx = 0; idx < 4; idx++) {
+//			TerrainTile *child = tile->getChild(idx);
+//			if (child != nullptr && (child->state & TILE_ACTIVE))
+//				render(child);
+//		}
+//	}
+}
+
+void TerrainManager::render()
+{
+
+	// Rendering terrain area
 	for (int idx = 0; idx < 2; idx++)
-		terrain[idx]->paint();
+		process(terrain[idx]);
+	for (int idx = 0; idx < 2; idx++)
+		render(terrain[idx]);
 }
 
 // Create spherical patch/hemisphere for LOD level 0+

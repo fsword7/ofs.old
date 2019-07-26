@@ -22,7 +22,7 @@ public:
 
 	void update(Player &player);
 
-	virtual void paint() = 0;
+	virtual void render() = 0;
 
 protected:
 	Object *obj;
@@ -54,7 +54,7 @@ public:
 	vPlanet(Object *obj, Scene *scene);
 	~vPlanet();
 
-	void paint();
+	void render();
 
 private:
 	TerrainManager *terrain;
