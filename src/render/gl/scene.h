@@ -26,6 +26,8 @@ public:
 	void resize(int w, int h);
 	void render(Player &player, Universe &universe);
 
+	void renderStars(const StarDatabase &stardb, const Player &player, double faintest);
+
 private:
 	vObject *vobj;  // test - be removed later.
 };

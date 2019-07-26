@@ -18,6 +18,8 @@ public:
 
 	void init();
 
+	StarDatabase &getStarDatabase() const { return *stardb; }
+
 	int findCloseStars(const vec3d_t& obs, double mdist,
 			std::vector<const CelestialStar *>& stars) const;
 

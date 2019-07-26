@@ -6,6 +6,7 @@
  */
 
 #include "main/core.h"
+#include "universe/stardb.h"
 #include "render/gl/scene.h"
 #include "render/gl/shader.h"
 #include "render/gl/shadermgr.h"
@@ -20,6 +21,12 @@ void glScene::initStarVertex()
 
 	starRenderer = new StarRenderer();
 	starRenderer->starBuffer = starBuffer;
+}
+
+void glScene::renderStars(const StarDatabase &stardb, const Player &player,
+	double faintest)
+{
+
 }
 
 // ***********************************************************

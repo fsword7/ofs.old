@@ -15,6 +15,7 @@ class ShaderManager;
 class StarRenderer;
 class Image;
 class ImageTexture;
+class StarDatabase;
 
 class Scene {
 public:
@@ -23,6 +24,7 @@ public:
 
 	ShaderManager *getShaderManager() const { return shader; }
 
+	virtual void renderStars(const StarDatabase &stardb, const Player &player, double faintest) = 0;
 	virtual ImageTexture *createTexture(Image *image) = 0;
 
 	virtual void init(int w, int h) = 0;

@@ -91,7 +91,6 @@ void glScene::render(Player &player, Universe &universe)
 	// Find closest stars within desired local distance
 	universe.findCloseStars(cpos, 1.0, closeStars);
 
-
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
@@ -105,6 +104,9 @@ void glScene::render(Player &player, Universe &universe)
 //	glEnable(GL_DEPTH_TEST);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glColor3f(1.0, 1.0, 1.0);
+
+	// Render visible stars
+	renderStars(universe.getStarDatabase(), player, 6.0);
 
 	vobj->update(player);
 
