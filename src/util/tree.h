@@ -17,6 +17,7 @@ public:
 	Tree(Object *parent = nullptr);
 	~Tree();
 
+	Object *getParent();
 	Object *getChild(int idx);
 	const Object *getChild(int idx) const;
 
@@ -45,6 +46,11 @@ Tree<Object, nodes>::~Tree()
 	for (int idx = 0; idx < nodes; idx++)
 		if (child[idx] != nullptr)
 			delete child[idx];
+}
+template<class Object, int nodes>
+Object *Tree<Object, nodes>::getParent()
+{
+	return parent;
 }
 
 template<class Object, int nodes>

@@ -44,12 +44,28 @@ TerrainTile::~TerrainTile()
 {
 	if (mesh != nullptr)
 		delete mesh;
+	if (txImage != nullptr && txOwn == true)
+		delete txImage;
 }
 
-//void TerrainFile::setSubTexCoordRange(tcrd_t &ptcr)
-//{
-//
-//}
+void TerrainTile::setSubTexCoordRange(const tcrd_t &ptcr)
+{
+	if ((ilng & 1) == 0) { // Right column
+		txRange.tumin = (ptcr.tumin + ptcr.tumax) / 2.0;
+		txRange.tumax = ptcr.tumax;
+	} else {       // Left column
+		txRange.tumin = ptcr.tumin;
+		txRange.tumax = (ptcr.tumin + ptcr.tumax) / 2.0;
+	}
+
+	if (ilat & 1) { // Top row
+		txRange.tvmin = (ptcr.tvmin + ptcr.tvmax) / 2.0;
+		txRange.tvmax = ptcr.tvmax;
+	} else {       // Bottom row
+		txRange.tvmin = ptcr.tvmin;
+		txRange.tvmax = (ptcr.tvmin + ptcr.tvmax) / 2.0;
+	}
+}
 
 int TerrainTile::load()
 {
@@ -70,22 +86,22 @@ int TerrainTile::load()
         }
     }
 
-//    if (image == nullptr) {
-//    	// Non-existent tile. Have to load
-//    	// lower LOD tile from parent tile
-//    	// and set sub texture range.
-//    	TerrainTile *ptile = getParent();
-//    	if (ptile != nullptr) {
-//    		tex    = ptile->getTexture();
-//    		texOwn = false;
-//    		setSubTexRange(ptile->getTexRange());
-////    		std::cout << "Subtexture created" << std::endl;
-//    	}
-//    } else {
+    if (image == nullptr) {
+    	// Non-existent tile. Have to load
+    	// lower LOD tile from parent tile
+    	// and set sub texture range.
+    	TerrainTile *ptile = dynamic_cast<TerrainTile *>(getParent());
+    	if (ptile != nullptr) {
+    		txImage = ptile->getTexture();
+    		txOwn   = false;
+    		setSubTexCoordRange(ptile->txRange);
+//    		std::cout << "Subtexture created" << std::endl;
+    	}
+    } else {
         txImage = mgr->scene->createTexture(image);
         txOwn   = true;
 //        std::cout << "Texture created" << std::endl;
-//    }
+    }
 
 	mesh = mgr->createSpherePatch(lod, ilat, ilng, 32, txRange);
 	if (mesh != nullptr)
