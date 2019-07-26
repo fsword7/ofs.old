@@ -24,7 +24,7 @@ public:
 
 	void init(int w, int h);
 	void resize(int w, int h);
-	void paint(Player &player, Universe &universe);
+	void render(Player &player, Universe &universe);
 
 private:
 	vObject *vobj;  // test - be removed later.

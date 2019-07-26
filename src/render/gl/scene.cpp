@@ -66,7 +66,7 @@ void glScene::resize(int w, int h)
 	cout << "Width: " << w << " Height: " << h << " Aspect: " << aspect << endl;
 }
 
-void glScene::paint(Player &player, Universe &universe)
+void glScene::render(Player &player, Universe &universe)
 {
 	Camera *cam;
 	vec3d_t cpos;

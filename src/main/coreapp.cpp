@@ -125,7 +125,7 @@ void CoreApp::tick()
 void CoreApp::paint()
 {
 	if (scene != nullptr && player != nullptr && universe != nullptr)
-		scene->paint(*player, *universe);
+		scene->render(*player, *universe);
 }
 
 void CoreApp::resize(int w, int h)

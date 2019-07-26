@@ -27,7 +27,7 @@ public:
 
 	virtual void init(int w, int h) = 0;
 	virtual void resize(int w, int h) = 0;
-	virtual void paint(Player &player, Universe &universe) = 0;
+	virtual void render(Player &player, Universe &universe) = 0;
 
 protected:
 	int    width, height;
