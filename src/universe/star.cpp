@@ -108,6 +108,7 @@ CelestialStar *CelestialStar::create(double ra, double dec, double plx,
 	star = new CelestialStar();
 	pc = 1000.0 / plx;
 	star->lpos = astro::convertEquatorialToEcliptic(ra, dec, pc);
+	star->objPosition = star->lpos;
 
 	temp = (int)(4600 * (1/((ci*0.92)+1.7) + 1/((ci*0.92)+0.62)));
 
