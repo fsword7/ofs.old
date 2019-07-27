@@ -64,7 +64,7 @@ public:
 	// Star buffer for rendering
 	StarVertex *starBuffer = nullptr;
 
-	Scene  *scn = nullptr;     // Scene handler
+	Scene  *scene = nullptr;     // Scene handler
 	vec3d_t cpos;    // Current camera/player position
 	double  pxSize;  // Pixel size
 	double  faintestMag;

@@ -14,13 +14,13 @@ Color::Color()
 	rgba[3] = 1.0;
 }
 
-Color::Color(uint16_t red, uint16_t green, uint16_t blue, uint16_t alpha)
-{
-	rgba[0] = red;
-	rgba[1] = green;
-	rgba[2] = blue;
-	rgba[3] = alpha;
-}
+//Color::Color(uint16_t red, uint16_t green, uint16_t blue, uint16_t alpha)
+//{
+//	rgba[0] = red;
+//	rgba[1] = green;
+//	rgba[2] = blue;
+//	rgba[3] = alpha;
+//}
 
 Color::Color(float red, float green, float blue, float alpha)
 {

@@ -11,7 +11,7 @@ class Color
 {
 public:
 	Color();
-	Color(uint16_t red, uint16_t green, uint16_t blue, uint16_t alpha = 0xFFFF);
+//	Color(uint16_t red, uint16_t green, uint16_t blue, uint16_t alpha = 0xFFFF);
 	Color(float red, float green, float blue, float alpha = 1.0);
 
 	uint16_t rgba[4];
