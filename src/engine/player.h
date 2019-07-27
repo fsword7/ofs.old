@@ -17,6 +17,8 @@ public:
 
 	inline vec3d_t position() { return camPosition; }
 	inline quatd_t rotation() { return camRotation; }
+	inline vec3d_t getPosition() const { return camPosition; }
+	inline quatd_t getRotation() const { return camRotation; }
 	inline double getFOV() { return fov; };
 
 	void setFOVrad(double fov);
@@ -40,8 +42,8 @@ public:
 
 	void update(double dt, double scale);
 
-	inline vec3d_t getPosition() { return lpos; }
-	inline quatd_t getRotation() { return lqrot; }
+	inline vec3d_t getPosition() const { return lpos; }
+	inline quatd_t getRotation() const { return lqrot; }
 
 	inline vec3d_t getAngularVelocity() { return av; }
 	inline vec3d_t getTravelVelocity()  { return tv; }

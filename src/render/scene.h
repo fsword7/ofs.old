@@ -16,6 +16,7 @@ class StarRenderer;
 class Image;
 class ImageTexture;
 class StarDatabase;
+class Camera;
 
 class Scene {
 public:
@@ -23,6 +24,8 @@ public:
 	virtual ~Scene();
 
 	ShaderManager *getShaderManager() const { return shader; }
+
+	double calculatePixelSize(Camera *cam) const;
 
 	virtual void renderStars(const StarDatabase &stardb, const Player &player, double faintest) = 0;
 	virtual ImageTexture *createTexture(Image *image) = 0;

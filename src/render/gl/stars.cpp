@@ -6,6 +6,7 @@
  */
 
 #include "main/core.h"
+#include "engine/player.h"
 #include "universe/astro.h"
 #include "universe/star.h"
 #include "universe/stardb.h"
@@ -124,23 +125,23 @@ void glScene::initStarVertex()
 void glScene::renderStars(const StarDatabase &stardb, const Player &player,
 	double faintest)
 {
-//	vec3d_t obs = player.getPosition() / KM_PER_PC;
-//	quatd_t rot = player.getOrientation();
-//	double  fov = cam->getFOVRad();
+	vec3d_t obs = player.getPosition() / KM_PER_PC;
+	quatd_t rot = player.getRotation();
+	Camera *cam = player.getCamera(0);
+	double  fov = cam->getFOV();
 //	double  aspect = cam->getAspect();
 
-//	starRenderer->cpos = cam->getPosition();
-//	starRenderer->pxSize = calculatePixelSize();
-//	starRenderer->faintestMag = faintest;
+	starRenderer->cpos = cam->getPosition();
+	starRenderer->pxSize = calculatePixelSize(cam);
+	starRenderer->faintestMag = faintest;
 //	starRenderer->starColors = starColors;
-//	starRenderer->startPoints();
+	starRenderer->starBuffer->startPoints();
 
-//	glEnable(GL_BLEND);
-//	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 ////	std::cout << "### Starting star renderer..." << std::endl;
 ////	stardb.findVisibleStars(starHandler, player, faintestMag);
-//	stardb.findVisibleStars(starHandler, obs, rot, fov, aspect, faintestMag);
-//	starHandler.starVertex->finish();
-//	glDisable(GL_BLEND);
+	stardb.findVisibleStars(*starRenderer, obs, rot, fov, aspect, faintest);
+	starRenderer->starBuffer->finish();
+	glDisable(GL_BLEND);
 }
-
