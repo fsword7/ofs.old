@@ -114,12 +114,18 @@ void glStarVertex::finish()
 void glScene::initStarVertex()
 {
 	StarVertex *starBuffer;
+	StarColors *starColors;
+	std::string fname = "../data/stars/bbr_color_D58.txt";
+
+	starColors = new StarColors();
+	starColors->load(fname);
 
 	starBuffer = new glStarVertex(*this, 2048);
 
 	starRenderer = new StarRenderer();
 	starRenderer->scene = this;
 	starRenderer->starBuffer = starBuffer;
+	starRenderer->starColors = starColors;
 }
 
 void glScene::renderStars(const StarDatabase &stardb, const Player &player,

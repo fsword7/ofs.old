@@ -53,7 +53,7 @@ void StarRenderer::process(const CelestialStar& star, double dist, double appMag
 	double  rdist;
 	double  objSize;
 	double  alpha, ptSize;
-	Color   color(1.0, 1.0, 1.0, 1.0);
+	Color   color;
 
 	// Calculate relative position between star and camera positions.
 	spos  = star.getPosition(0) * KM_PER_PC;
@@ -66,8 +66,8 @@ void StarRenderer::process(const CelestialStar& star, double dist, double appMag
 
 	alpha  = clamp(faintestMag - appMag);
 	ptSize = size;
-//	color  = starColors->lookup(star.getTemperature());
-//	color.setAlpha(alpha);
+	color  = starColors->lookup(star.getTemperature());
+	color.setAlpha(alpha);
 
 	// Finally, now display star
 //	std::cout << "@@@ Adding a star..." << std::endl;

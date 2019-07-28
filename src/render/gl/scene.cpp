@@ -106,7 +106,7 @@ void glScene::render(Player &player, Universe &universe)
 	glColor3f(1.0, 1.0, 1.0);
 
 	// Render visible stars
-	renderStars(universe.getStarDatabase(), player, 4.0);
+	renderStars(universe.getStarDatabase(), player, 6.0);
 
 	vobj->update(player);
 

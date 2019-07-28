@@ -9,6 +9,7 @@ set(ofs_cpp_SRCS
 	render/scene.cpp
 	render/shader.cpp
 	render/shadermgr.cpp
+	render/starcolors.cpp
 	render/stars.cpp
 	render/terrainmgr.cpp
 	render/texture.cpp
@@ -58,6 +59,7 @@ set(ofs_h_SRCS
 	render/scene.h
 	render/shader.h
 	render/shadermgr.h
+	render/starcolors.h
 	render/stars.h
 	render/terrainmgr.h
 	render/texture.h

@@ -8,7 +8,7 @@
 #pragma once
 
 #include "universe/stardb.h"
-
+#include "render/starcolors.h"
 
 class StarVertex
 {
@@ -70,6 +70,6 @@ public:
 	double  faintestMag;
 	double  size;
 
-//	StellarColors *starColors;
+	StarColors *starColors = nullptr;
 
 };

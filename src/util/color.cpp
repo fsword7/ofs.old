@@ -29,3 +29,8 @@ Color::Color(float red, float green, float blue, float alpha)
 	rgba[2] = blue * 65535;
 	rgba[3] = alpha * 65535;
 }
+
+void Color::setAlpha(float alpha)
+{
+	rgba[3] = alpha * 65535;
+}
