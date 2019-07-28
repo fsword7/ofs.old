@@ -114,28 +114,6 @@ void glStarVertex::finish()
 
 // ***********************************************************
 
-void glScene::buildGaussianStarTexture(int log2size)
-{
-//	int size = 1 << log2size;
-//
-//	Image *image = new Image(GL_LUMINANCE, size, size, log2size+1);
-//
-//	for (int mipLevel = 0; mipLevel <= log2size; mipLevel++)
-//	{
-//		float fwhm = (float)pow(2.0f, (float)(log2size - mipLevel)) * 0.3f;
-//		buildGaussianStarMipLevel(iamge->getMipLevel(mipLevel),
-//			log2size - mipLevel, fwhm,
-//			(float)pow(2.0f, (float)(log2size - mipLevel))));
-//	}
-//
-//	ImageTexture *txImage = new ImageTexture(*image,
-//		Texture::BorderClamp, Texture::DefaultMipMaps);
-//
-//	delete image;
-//
-//	return txImage;
-}
-
 void glScene::initStarVertex()
 {
 	StarVertex *starBuffer;

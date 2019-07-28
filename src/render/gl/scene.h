@@ -19,7 +19,6 @@ public:
 	~glScene();
 
 	void initStarVertex();
-	void buildGaussianStarTexture(int log2size);
 
 	ImageTexture *createTexture(Image *image);
 
