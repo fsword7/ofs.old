@@ -27,6 +27,11 @@ StarVertex::~StarVertex()
 	buffer.clear();
 }
 
+void StarVertex::setTexture(Texture *image)
+{
+	txImage = image;
+}
+
 void StarVertex::addStar(const vec3d_t &pos, const Color &color, double size)
 {
 	if (nStars == maxStars)

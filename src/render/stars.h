@@ -9,6 +9,8 @@
 
 #include "universe/stardb.h"
 #include "render/starcolors.h"
+#include "render/image.h"
+#include "render/texture.h"
 
 class StarVertex
 {
@@ -22,8 +24,8 @@ public:
 	struct starVertex
 	{
 		vec3d_t		posStar;
-		float		size;
 		uint16_t	color[4];
+		float		size;
 	};
 
 	StarVertex(const Scene &scene, int maxStars = 1000);
@@ -36,12 +38,15 @@ public:
 	virtual void finish() = 0;
 
 	void addStar(const vec3d_t &pos, const Color &color, double size);
+	void setTexture(Texture *image);
 
 protected:
 	const Scene &scene;
 	pointType type;
 	int  maxStars, nStars;
 	bool flagStarted;
+
+	Texture *txImage = nullptr;
 
 	std::vector<starVertex> buffer;
 };
