@@ -34,14 +34,14 @@ Object::~Object()
 
 string Object::name(int idx)
 {
-	if (idx >= objNames.size())
+	if (idx > objNames.size())
 		return "";
 	return objNames[idx];
 }
 
 string Object::name(int idx) const
 {
-	if (idx >= objNames.size())
+	if (idx > objNames.size())
 		return "";
 	return objNames[idx];
 }
