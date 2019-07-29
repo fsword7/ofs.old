@@ -10,6 +10,9 @@
 class StarDatabase;
 class CelestialBody;
 class CelestialStar;
+class Constellations;
+
+#include "universe/constellations.h"
 
 class Universe {
 public:
@@ -28,4 +31,5 @@ public:
 
 private:
 	StarDatabase *stardb;
+	Constellations constellations;
 };

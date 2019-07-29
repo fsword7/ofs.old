@@ -9,6 +9,7 @@
 #include "engine/object.h"
 #include "universe/astro.h"
 #include "universe/body.h"
+#include "universe/constellations.h"
 #include "universe/star.h"
 #include "universe/stardb.h"
 #include "universe/universe.h"
@@ -34,6 +35,9 @@ void Universe::init()
 
 	std::string pname = "../data/stars/xhip";
 	stardb->loadXHIPData(pname);
+
+	std::string cname = "../data/constellations/western/constellationship.fab";
+	constellations.load(cname);
 
 	string earthName = "Earth";
 //	vec3d_t earthPos = vec3d_t(0, 0, -20000.0);
