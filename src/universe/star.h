@@ -69,10 +69,14 @@ public:
 	inline double getAbsMag() const { return absMag; }
 //	inline SolarSystem *getSolarSystem() const { return system; }
 
+	inline int getHIPNumber() const { return hip; }
+
 	vec3d_t getPosition(double tjd) const;
 //	vec3d_t getPosition(double tjd);
 
 //	void setSolarSystem(SolarSystem *sys);
+
+	inline void setHIPNumber(int id) { hip = id; };
 
 	static CelestialStar *create(double ra, double dec, double plx, const char *spType,
 								 double appMag, double ci, double lum);
@@ -81,6 +85,9 @@ public:
 private:
 	// Star known flags
 	uint32_t flags;
+
+	// Star catalogue;
+	int hip;
 
 	// Star position/velocity
 	vec3d_t  lpos;    // Local position

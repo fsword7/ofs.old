@@ -45,5 +45,9 @@ protected:
 
 private:
 	vector<CelestialStar *> unsortedStars;
+
+	// Star catalogues
+	CelestialStar **hipCatalogue = nullptr;
+
 	StarTree *starTree;
 };

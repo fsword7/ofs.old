@@ -224,6 +224,8 @@ bool StarDatabase::loadXHIPData(const std::string& pname)
 		}
 
 		star = CelestialStar::create(ra, de, dist, spType, vMag, ci, lum);
+		star->setHIPNumber(hip);
+
 		unsortedStars.push_back(star);
 	}
 
@@ -260,6 +262,22 @@ void StarDatabase::finish()
 	std::cout << "Total star count: " << unsortedStars.size() << std::endl;
 
 	initStarOctreeData(unsortedStars);
+
+	// Initialize HIP star catalogue
+	int hip, maxhip = 0;
+	for (int idx = 0; idx < unsortedStars.size(); idx++) {
+		hip = unsortedStars[idx]->getHIPNumber();
+		if (hip > maxhip)
+			maxhip = hip;
+	}
+	hipCatalogue = new CelestialStar*[maxhip];
+	for (int idx = 0; idx < maxhip; idx++)
+		hipCatalogue[idx] = nullptr;
+	for (int idx = 0; idx < unsortedStars.size(); idx++) {
+		CelestialStar *star = unsortedStars[idx];
+		hip = star->getHIPNumber();
+		hipCatalogue[hip] = star;
+	}
 }
 
 CelestialStar *StarDatabase::find(const std::string& name) const

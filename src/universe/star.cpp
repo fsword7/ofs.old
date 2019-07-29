@@ -143,5 +143,7 @@ CelestialStar *CelestialStar::createSun()
 	star->flags    = knownRadius;
 	star->radius   = SOLAR_RADIUS;
 
+	star->hip      = 0;
+
 	return star;
 }
