@@ -22,6 +22,8 @@ public:
 
 	bool load(std::string fileName);
 
+	const std::vector<Asterism *> &getAsterisms() const { return asterisms; }
+
 private:
 	std::vector<Asterism *> asterisms;
 };

@@ -40,6 +40,8 @@ public:
     void findNearStars(const ofsHandler& handle, const vec3d_t& obs,
     	double radius) const;
 
+    inline CelestialStar *getHIPStar(int hip) const { return hipCatalogue[hip]; }
+
 protected:
     void initStarOctreeData(std::vector<CelestialStar*> stars);
 

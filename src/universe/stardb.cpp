@@ -225,6 +225,7 @@ bool StarDatabase::loadXHIPData(const std::string& pname)
 
 		star = CelestialStar::create(ra, de, dist, spType, vMag, ci, lum);
 		star->setHIPNumber(hip);
+		star->setName(bcells[XHIP_B_nNAME]);
 
 		unsortedStars.push_back(star);
 	}

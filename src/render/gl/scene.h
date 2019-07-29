@@ -12,6 +12,7 @@
 
 class Image;
 class ImageTexture;
+class Constellations;
 
 class glScene : public Scene {
 public:
@@ -27,6 +28,7 @@ public:
 	void render(Player &player, Universe &universe);
 
 	void renderStars(const StarDatabase &stardb, const Player &player, double faintest);
+	void renderConstellations(const Universe &universe, const Player &player);
 
 private:
 	vObject *vobj;  // test - be removed later.
