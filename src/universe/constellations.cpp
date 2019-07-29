@@ -35,6 +35,8 @@ bool Constellations::load(std::string fname)
 		std::string       cell;
 		std::vector<std::string> cells;
 
+		if (line.empty())
+			continue;
 		if (line[0] == '#')
 			continue;
 		if (line[0] != '.')
