@@ -20,15 +20,14 @@ vec3d_t astro::convertEquatorialToEcliptic(double ra, double dec, double pc)
 	double  x, y, z;
 //	double  km = convertParsecToKilometer(pc);
 	vec3d_t rot(-J2000Obliquity, 0, 0);
+	vec3d_t opos;
 
 	theta = toRadian(ra) + PI;
 	phi   = toRadian(dec - 90.0);
 
-	x = sin(phi) * cos(theta);
-	y = cos(phi);
-	z = sin(phi) * -sin(theta);
+	opos = vec3d_t(sin(phi)*cos(theta), cos(phi), sin(phi)*-sin(theta));
 
-	return glm::normalize(vec3d_t(x, y, z) * glm::dquat(rot)) * pc;
+	return glm::normalize(opos * glm::dquat(rot)) * pc;
 }
 
 
