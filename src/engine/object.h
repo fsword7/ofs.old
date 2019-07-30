@@ -33,6 +33,7 @@ public:
 	string name(int idx = 0) const;
 
 	vec3d_t position(double dt = 0) const;
+	quatd_t rotation(double dt = 0) const;
 
 	virtual string getFolder() const;
 
@@ -48,4 +49,5 @@ protected:
 	double  objAlbedo;		// Object albedo
 
 	vec3d_t objPosition;	// Object current position
+	quatd_t objRotation;	// Object orientation
 };

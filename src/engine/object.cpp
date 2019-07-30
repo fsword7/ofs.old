@@ -51,6 +51,11 @@ vec3d_t Object::position(double) const
 	return objPosition;
 }
 
+quatd_t Object::rotation(double) const
+{
+	return objRotation;
+}
+
 void Object::setName(const std::string &name)
 {
 	objNames[0] = name;
