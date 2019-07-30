@@ -24,6 +24,7 @@ set(ofs_cpp_SRCS
 	render/gl/stars.cpp
 	render/gl/texture.cpp
 	universe/astro.cpp
+	universe/asterism.cpp
 	universe/constellations.cpp
 	universe/universe.cpp
 	universe/stardb.cpp
@@ -76,6 +77,7 @@ set(ofs_h_SRCS
 	render/gl/stars.h
 	render/gl/texture.h
 	universe/astro.h
+	universe/asterism.h
 	universe/constellations.h
 	universe/universe.h
 	universe/stardb.h
