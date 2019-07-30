@@ -74,6 +74,8 @@ void glScene::render(Player &player, Universe &universe)
 	double  cfov;
 	mat4d_t crotm;
 
+	this->player = &player;
+
 	closeStars.clear();
 
 	if (vobj == nullptr) {

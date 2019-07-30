@@ -25,6 +25,9 @@ public:
 
 	ShaderManager *getShaderManager() const { return shader; }
 
+	inline double getTime() const { return 0.0; }
+	inline Player *getPlayer() const { return player; }
+
 	double calculatePixelSize(Camera *cam) const;
 
 	virtual void renderStars(const StarDatabase &stardb, const Player &player, double faintest) = 0;
@@ -38,10 +41,13 @@ protected:
 	int    width, height;
 	double aspect;
 
+	Player *player;
+
 	std::vector<const CelestialStar *> closeStars;
 
 	ShaderManager *shader = nullptr;
 	StarRenderer  *starRenderer = nullptr;
+
 };
 
 #define DIST_NEAR	0.001
