@@ -37,6 +37,7 @@ void Universe::init()
 	stardb->loadXHIPData(pname);
 
 	std::string cname = "../data/constellations/western/constellationship.fab";
+//	std::string cname = "../data/constellations/western_rey/constellationship.fab";
 	constellations.load(cname);
 
 	string earthName = "Earth";

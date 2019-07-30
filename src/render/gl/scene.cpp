@@ -108,7 +108,7 @@ void glScene::render(Player &player, Universe &universe)
 	// Render visible stars
 	renderStars(universe.getStarDatabase(), player, 6.0);
 	// Render constellation lines
-//	renderConstellations(universe, player);
+	renderConstellations(universe, player);
 
 	vobj->update(player);
 

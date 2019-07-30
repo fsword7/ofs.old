@@ -284,7 +284,6 @@ glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng,
 //            	std::cout << "No elevation data for sphere..." << std::endl;
 
             nml = vec3d_t(slat*clng, clat, slat*slng);
-//            nml = vec3d_t(slat*clng, slat*slng, clat);
 
             pos = nml * erad;
 
