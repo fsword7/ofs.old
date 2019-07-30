@@ -264,7 +264,7 @@ glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng,
 		{
 			lng  = mlng0 + (mlng1-mlng0) * ((double)x/(double)grids);
 			slng = sin(lng); clng = cos(lng);
-            tu = 1 - (tcr.tumin + tur * (double(x)/double(grids)));
+            tu   = tcr.tumin + tur * (double(x)/double(grids));
 
 //            std::cout << "X = " << x << " LNG: " << toDegrees(lng) << std::endl;
 
@@ -283,7 +283,7 @@ glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng,
 //            else
 //            	std::cout << "No elevation data for sphere..." << std::endl;
 
-            nml = vec3d_t(slat*clng, clat, slat*slng);
+            nml = vec3d_t(slat*clng, clat, slat*-slng);
 
             pos = nml * erad;
 
@@ -324,12 +324,12 @@ glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng,
     for (int y = 0; y < grids; y++) {
         for (int x = 0; x < grids; x++) {
             *pidx++ = (y+0)*(grids+1) + (x+0);
-            *pidx++ = (y+0)*(grids+1) + (x+1);
             *pidx++ = (y+1)*(grids+1) + (x+0);
+            *pidx++ = (y+0)*(grids+1) + (x+1);
 
             *pidx++ = (y+1)*(grids+1) + (x+0);
-            *pidx++ = (y+0)*(grids+1) + (x+1);
             *pidx++ = (y+1)*(grids+1) + (x+1);
+            *pidx++ = (y+0)*(grids+1) + (x+1);
 
 //            std::cout << "Index: (" << pidx[0] << "," << pidx[1] << "," << pidx[2] << ")" << std::endl;
 //            std::cout << "Index: (" << pidx[3] << "," << pidx[4] << "," << pidx[5] << ")" << std::endl;
