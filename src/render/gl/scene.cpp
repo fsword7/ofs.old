@@ -35,10 +35,10 @@ glScene::~glScene()
 {
 }
 
-ImageTexture *glScene::createTexture(Image *image)
-{
-	return new glImageTexture(image);
-}
+//Texture *glScene::createTexture(int w, int h, int lod)
+//{
+//	return new glTexture(w, h, lod);
+//}
 
 void glScene::init(int w, int h)
 {

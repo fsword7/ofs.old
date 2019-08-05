@@ -13,7 +13,7 @@ class vPlanet;
 class glMesh;
 class TerrainManager;
 class zTreeManager;
-class ImageTexture;
+class Texture;
 
 #define TILE_RENDER		0x2000
 #define TILE_ACTIVE		0x4000
@@ -29,6 +29,28 @@ struct tcRange
 
 typedef tcRange<float>  tcrf_t;
 typedef tcRange<double> tcrd_t;
+
+struct RenderParm
+{
+	int       maxLOD;
+    int       lodBias;
+
+	// Planet status parameters (in global frame)
+	mat4d_t   pwmat;     // Planet world matrix
+	mat4d_t   pwmat_tmp; // Planet world matrix temporary
+	mat3d_t   prot;      // Planet rotation matrix
+	vec3d_t   ppos;      // Planet position
+
+	// Camera status parameters (in planet frame)
+	mat3d_t   crot;  // Camera rotation matrix
+	vec3d_t   cpos;  // Camera position
+	vec3d_t   cdir;  // Camera direction from planet centre
+	double    cdist; // Camera distance from planet
+
+	double    viewap;
+	double    tanap;
+	mat4d_t   pvmat; // Projection/View matrix for frustum
+};
 
 class QuadTile : public Tree<QuadTile, QTREE_NODES>
 {
@@ -53,7 +75,7 @@ public:
 	TerrainTile(TerrainManager *mgr, int lod, int ilat, int ilng);
 	~TerrainTile();
 
-	inline ImageTexture *getTexture() { return txImage; }
+	inline Texture *getTexture() { return txImage; }
 
 	void setSubTexCoordRange(const tcrd_t &ptcr);
 
@@ -76,7 +98,7 @@ private:
 	tileState state;
 	tcrd_t txRange;
 
-	ImageTexture *txImage = nullptr;
+	Texture *txImage = nullptr;
 	bool txOwn = false;
 };
 
@@ -95,6 +117,9 @@ public:
 //	glMesh *createSpherePatch(int lod, int ilat, int ilng, int grids,
 //		tcRange2 &tcr, const int16_t *elev, double elevGlobe, double elevScale);
 	glMesh *createSpherePatch(int lod, int ilat, int ilng, int grids, tcrd_t &tcr);
+
+private:
+	void setRenderParm(RenderParm &prm);
 
 private:
 	Scene *scene;

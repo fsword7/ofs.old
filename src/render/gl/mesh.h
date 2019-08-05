@@ -9,7 +9,7 @@
 
 #include "GL/glew.h"
 
-class ImageTexture;
+class Texture;
 
 template<typename T>
 struct vtx_t {
@@ -39,7 +39,7 @@ public:
 	vtxd_t   *vtx;
 	uint16_t *idx;
 
-	ImageTexture *txImage = nullptr;
+	Texture *txImage = nullptr;
 
 private:
 	bool   isAllocated;

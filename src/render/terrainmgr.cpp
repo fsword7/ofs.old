@@ -7,8 +7,8 @@
 
 #include "main/core.h"
 #include "engine/object.h"
+#include "engine/player.h"
 #include "render/vobject.h"
-#include "render/image.h"
 #include "render/texture.h"
 #include "render/scene.h"
 #include "render/terrainmgr.h"
@@ -71,7 +71,7 @@ int TerrainTile::load()
 {
 	ddsLoader dds;
 	uint8_t  *ddsImage = nullptr;
-	Image    *image = nullptr;
+	Texture  *image;
 	uint32_t  szImage = 0;
 	int       res;
 
@@ -98,8 +98,9 @@ int TerrainTile::load()
 //    		std::cout << "Subtexture created" << std::endl;
     	}
     } else {
-        txImage = mgr->scene->createTexture(image);
-        txOwn   = true;
+//        txImage = mgr->scene->createTexture(image);
+    	txImage = image;
+    	txOwn   = true;
 //        std::cout << "Texture created" << std::endl;
     }
 
@@ -115,6 +116,8 @@ void TerrainTile::render()
 	if (mesh != nullptr)
 		mesh->paint();
 }
+
+// ************************************************************
 
 TerrainManager::TerrainManager(vPlanet *vobj)
 : scene(vobj->getScene()), vobj(vobj)
@@ -144,6 +147,55 @@ TerrainManager::~TerrainManager()
 
 }
 
+void TerrainManager::setRenderParm(RenderParm &prm)
+{
+	const Object *planet = vobj->object();
+	const Player *player = scene->getPlayer();
+
+	Camera *cam = player->getCamera(0);
+	double  jdTime = scene->getTime();
+	double  rad;
+    double  lat, lng;
+    vec3d_t cpos;
+
+	prm.maxLOD = 20;
+//    prm.lodBias = scn->getLODBias();
+//
+	prm.prot  = glm::toMat3(planet->rotation(jdTime));
+	prm.ppos  = planet->position(jdTime);
+	rad       = planet->radius();
+    cpos      = cam->getPosition();
+//
+//	// Calculate camera position in planet frame.
+	prm.cpos  = prm.ppos - cpos;
+	prm.cdir  = glm::transpose(prm.prot) * -prm.cpos;
+	prm.cdist = glm::length(prm.cdir);
+
+////	prm.viewap = acos(1.0 / std::max(1.0, (prm.cdist/rad)));
+	prm.viewap = (prm.cdist >= rad) ? acos(rad / prm.cdist) : 0;
+//	prm.tanap  = cam->getTanAp();
+//
+////	std::cout << "Tile Manger - Render Parameter" << std::endl;
+////	std::cout << "Planet Radius:    " << rad << std::endl;
+////	std::cout << "Planet Position:  (" << prm.ppos.x() << "," << prm.ppos.y() << "," << prm.ppos.z() << ")" << std::endl;
+////	std::cout << "Camera Position:  (" << prm.cpos.x() << "," << prm.cpos.y() << "," << prm.cpos.z() << ")" << std::endl;
+////	std::cout << "Camera Direction: (" << prm.cdir.x() << "," << prm.cdir.y() << "," << prm.cdir.z() << ")" << std::endl;
+////	std::cout << "Camera Distance:  " << prm.cdist << std::endl;
+////	std::cout << "Horizon View:     " << toDegrees(prm.viewap) << std::endl;
+////    std::cout << "Camera Position:  (" << cpos.x() << "," << cpos.y() << "," << cpos.z()
+////              << ") in Universe frame" << std::endl;
+//
+////    obj->getCoordinates(prm.cpos, &lat, &lng);
+////    std::cout << "Planet Position:  (" << toDegrees(lat) << "," << toDegrees(lng) << ")" << std::endl;
+//
+	prm.cdist /= rad;
+	prm.cdir = glm::normalize(prm.cdir);
+//
+////	mat4d_t vmat = cam->getRotation().matrix();
+//
+////	prm.pvmat = pmat * vmat;
+}
+
 void TerrainManager::process(TerrainTile *tile)
 {
 
@@ -151,7 +203,84 @@ void TerrainManager::process(TerrainTile *tile)
 	int nlat = 1 << tile->ilat;
 	int nlng = 2 << tile->ilng;
 
+	double trad0 = sqrt(2.0)*(PI/2);
+	double trad, alpha, adist;
+	double erad;
+	double tdist, apr;
+	int    tlod;
+	bool   split = false;
+    int    bias = 4;
+
 	tile->state = TerrainTile::Rendering;
+
+//	// Find angle between camera and tile center.
+//	trad  = trad0 / (double)nlat;
+//	alpha = acos(glm::dot(prm.cdir, tile->cnt));
+//	adist = alpha - trad;
+//
+//	// Check if tile is visible from camera position
+//	// If tile is hiding from camera position, mark
+//	// tile as invisible (LOD level 1+).
+//	if (adist >= prm.viewap) {
+////		std::cout << "Out of view: " << toDegrees(adist) << " >= " << toDegrees(prm.viewap) << std::endl;
+//        tile->state = Tile::Invisible;
+//        return;
+//	}
+//
+//	// Check if tile is visible in view
+//
+//
+//	// Check LOD level from tile distance
+//	{
+////		erad = obj->getObject()->getRadius();
+//		erad = 1.0;
+//		if (adist < 0.0) {
+//			tdist = prm.cdist - erad;
+////            std::cout << "*** Above tile (LOD " << tile->lod+4 << "," << tile->lat << "," << tile->lng << ")"
+////                      << std::endl;
+//		} else {
+//			double h = erad * sin(adist);
+//			double a = prm.cdist - (erad * cos(adist));
+//			tdist = sqrt(h*h + a*a);
+//		}
+//        bias -= 2.0 * sqrt(std::max(0.0, adist) / prm.viewap);
+//		apr = tdist * prm.tanap;
+//		if (apr > 0.000001)
+//			tlod = std::max(0, std::min(prm.maxLOD, (int)(bias - log(apr)*1.1)));
+//		else
+//			tlod = prm.maxLOD;
+//        tlod += prm.lodBias;
+//		split = (lod < tlod+1);
+//	}
+//
+////    split = false;
+//	if (split == true) {
+////        std::cout << "Tile split at LOD " << lod+4 << "(Expected LOD " << tlod+4 << ")" << std::endl;
+//        bool valid = true;
+//        // Check children that have valid flag
+//		for (int idx = 0; idx < 4; idx++) {
+//			Tile *child = tile->getChild(idx);
+//			if (child == nullptr)
+//				child = createChildNode(tile, idx);
+//			else if (child->state == Tile::Invalid)
+//				loader->queue(child);
+//            if ((child->state & TILE_VALID) == 0)
+//                valid = false;
+//		}
+//        // When all children have valid flags, process nodes in next LOD level.
+//        if (valid) {
+//            tile->state = Tile::Active;
+//            for (int idx = 0; idx < 4; idx++)
+//                processNode(tile->getChild(idx), prm);
+//        }
+//	} else {
+////		std::cout << "Tile LOD Level: " << lod+4 << " (" << tile->lat << ","
+////				  << tile->lng << ")" << std::endl;
+////		std::cout << "Alpha: " << toDegrees(alpha) << " Distance: " << toDegrees(adist)
+////				<< " Tile Distance: " << tdist << std::endl;
+////		std::cout << "Aperture: " << apr << " LOD: " << lod+4
+////				<< " Tile Center LOD: " << tlod+4 << std::endl;
+//	}
 
 }
 
@@ -172,6 +301,9 @@ void TerrainManager::render(TerrainTile *tile)
 
 void TerrainManager::render()
 {
+	RenderParm prm;
+
+	setRenderParm(prm);
 
 	// Rendering terrain area
 	for (int idx = 0; idx < 2; idx++)

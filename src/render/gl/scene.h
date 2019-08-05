@@ -13,6 +13,7 @@
 class Image;
 class ImageTexture;
 class Constellations;
+class Texture;
 
 class glScene : public Scene {
 public:
@@ -21,7 +22,7 @@ public:
 
 	void initStarVertex();
 
-	ImageTexture *createTexture(Image *image);
+//	Texture *createTexture(int w, int h);
 
 	void init(int w, int h);
 	void resize(int w, int h);
@@ -30,6 +31,14 @@ public:
 	void renderStars(const StarDatabase &stardb, const Player &player, double faintest);
 	void renderConstellations(const Universe &universe, const Player &player);
 
+protected:
+
+	Texture *buildStarTexture(int lod);
+	Texture *buildGlareTexture(int lod);
+
 private:
 	vObject *vobj;  // test - be removed later.
+
+	Texture *starTexture = nullptr;
+	Texture *glareTexture = nullptr;
 };
