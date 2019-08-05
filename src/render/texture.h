@@ -1,7 +1,7 @@
 /*
  * texture.h
  *
- *  Created on: Jul 23, 2019
+ *  Created on: Jul 28, 2019
  *      Author: Tim Stark
  */
 
@@ -10,34 +10,58 @@
 class Texture
 {
 public:
-	Texture(int w, int h, int d = 1)
-	: width(w), height(h), depth(d),
-	  format(0) {}
-	virtual ~Texture() = default;
+	Texture(int w, int h, int fmt, int mips = 1);
+	virtual ~Texture();
+
+	inline int getWidth()  { return width; }
+	inline int getHeight() { return height; }
+	inline int getDepth()  { return depth; }
+	inline int getPitch()  { return pitch; }
+	inline int getSize()   { return size; }
+
+	inline uint8_t *getData() { return data; }
+
+	inline int pad(int n) const { return (n + 3) & ~0x03; }
+
+	// MipMapping function calls
+	uint8_t *getMipData(int lod);
+	int getMipDataSize(int lod) const;
 
 	virtual void bind() = 0;
 
-protected:
-	int width, height;
-	int depth;
-	int format;
-};
+	enum AddressMode {
+		Wrap = 0,
+		BorderClamp = 1,
+		EdgeClamp = 2
+	};
 
-class ImageTexture : public Texture
-{
-public:
-	ImageTexture(Image *img)
-	: Texture(img->getWidth(), img->getHeight()),
-	  image(img), initFlag(false) {}
-	virtual ~ImageTexture()
-	{
-		if (image != nullptr)
-			delete image;
-	}
-
-	virtual void load(Image *img, int target) = 0;
+	enum MipMapMode {
+		NoMipMaps = 0,
+		FixedMipMaps = 1,
+		AutoMipMaps = 2
+	};
 
 protected:
-	Image *image;
-	bool   initFlag;
+	// Virtual function calls
+	virtual int getComponents(int format) const = 0;
+	virtual int getFormat() const = 0;
+
+	virtual int getMipSize(int fmt, int w, int h, int lod) const = 0;
+
+protected:
+	int		width, height;
+	int		depth;
+	int		pitch;
+	int		size;
+
+	int		format;
+	int		components;
+
+	bool	initFlag = false;
+
+	// MIP levels for LOD
+	int		mipLevels;
+
+	// Image data
+	uint8_t *data = nullptr;
 };

@@ -1,24 +1,29 @@
 /*
  * texture.h
  *
- *  Created on: Jul 26, 2019
+ *  Created on: Aug 5, 2019
  *      Author: Tim Stark
  */
 
-#pragma once
-
 #include <GL/glew.h>
-#include "render/image.h"
 #include "render/texture.h"
 
-class glImageTexture : public ImageTexture
+class glTexture : public Texture
 {
 public:
-	glImageTexture(Image *img) : ImageTexture(img) {}
-	~glImageTexture();
+	glTexture(int fmt, int h, int w, int mips = 1);
+//	glTexture(int fmt, int h, int w, int d, int mips = 1);
+	~glTexture();
 
-	void load(Image *img, int target);
+	void load(int target);
 	void bind();
+
+protected:
+	int getComponents(int format) const;
+	int getFormat() const;
+
+	int getMipSize(int fmt, int w, int h, int mip) const;
+
 
 private:
 	int glName = 0;

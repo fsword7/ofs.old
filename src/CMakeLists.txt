@@ -5,7 +5,6 @@ set(ofs_cpp_SRCS
 	engine/object.cpp
 	engine/engine.cpp
 	engine/player.cpp
-	render/image.cpp
 	render/scene.cpp
 	render/shader.cpp
 	render/shadermgr.cpp
@@ -13,7 +12,6 @@ set(ofs_cpp_SRCS
 	render/stars.cpp
 	render/terrainmgr.cpp
 	render/texture.cpp
-	render/texture2.cpp
 	render/vobject.cpp
 	render/vplanet.cpp
 	render/ztreemgr.cpp
@@ -58,7 +56,6 @@ set(ofs_h_SRCS
 	engine/object.h
 	engine/engine.h
 	engine/player.h
-	render/image.h
 	render/scene.h
 	render/shader.h
 	render/shadermgr.h
@@ -66,7 +63,6 @@ set(ofs_h_SRCS
 	render/stars.h
 	render/terrainmgr.h
 	render/texture.h
-	render/texture2.h
 	render/vobject.h
 	render/ztreemgr.h
 	render/gl/funcs.h
