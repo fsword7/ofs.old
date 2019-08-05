@@ -12,6 +12,7 @@
 #include "universe/star.h"
 #include "universe/stardb.h"
 #include "universe/universe.h"
+#include "render/gl/texture.h"
 #include "render/gl/scene.h"
 #include "render/gl/shader.h"
 #include "render/gl/shadermgr.h"
@@ -115,6 +116,34 @@ void glStarVertex::finish()
 }
 
 // ***********************************************************
+
+Texture *glScene::buildStarTexture(int lod)
+{
+	int size = 1 << lod;
+
+	Texture *txImage = new glTexture(GL_LUMINANCE, size, size, lod+1);
+
+	for (int mip = 0; mip < lod; mip++) {
+
+	}
+
+//	txImage->load();
+	return txImage;
+}
+
+Texture *glScene::buildGlareTexture(int lod)
+{
+	int size = 1 << lod;
+
+	Texture *txImage = new glTexture(GL_LUMINANCE, size, size, lod+1);
+
+	for (int mip = 0; mip < lod; mip++) {
+
+	}
+
+//	txImage->load();
+	return txImage;
+}
 
 void glScene::initStarVertex()
 {
