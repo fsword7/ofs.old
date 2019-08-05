@@ -15,6 +15,8 @@ public:
 //	glTexture(int h, int w, int d, int mips = 1);
 	~glTexture();
 
+	bool isCompressed() const;
+
 	bool setFormat(int fmt);
 	void load(int target);
 	void bind();

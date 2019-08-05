@@ -27,6 +27,7 @@ public:
 	uint8_t *getMipData(int lod);
 	int getMipDataSize(int lod) const;
 
+	virtual bool isCompressed() const = 0;
 	virtual bool setFormat(int fmt) = 0;
 	virtual void bind() = 0;
 
