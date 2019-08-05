@@ -71,9 +71,11 @@ Texture *ddsLoader::load(uint8_t *data, uint32_t size)
         }
     }
 
-    img = new glTexture(glFormat, hdr->dwWidth, hdr->dwHeight, std::max((int)hdr->dwMipMapCount, 1));
+    img = new glTexture(hdr->dwWidth, hdr->dwHeight, std::max((int)hdr->dwMipMapCount, 1));
     if (img == nullptr)
         return nullptr;
+
+    img->setFormat(glFormat);
     std::copy(ptr, ptr+img->getSize(), img->getData());
 
 //    std::cout << "Image: " << hdr->dwWidth << " X " << hdr->dwHeight << " Depth: " << hdr->dwDepth

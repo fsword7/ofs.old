@@ -10,7 +10,7 @@
 class Texture
 {
 public:
-	Texture(int w, int h, int fmt, int mips = 1);
+	Texture(int w, int h, int mips = 1);
 	virtual ~Texture();
 
 	inline int getWidth()  { return width; }
@@ -27,6 +27,7 @@ public:
 	uint8_t *getMipData(int lod);
 	int getMipDataSize(int lod) const;
 
+	virtual bool setFormat(int fmt) = 0;
 	virtual void bind() = 0;
 
 	enum AddressMode {
@@ -48,14 +49,15 @@ protected:
 
 	virtual int getMipSize(int fmt, int w, int h, int lod) const = 0;
 
+
 protected:
 	int		width, height;
 	int		depth;
-	int		pitch;
-	int		size;
+	int		pitch = 0;
+	int		size = 0;
 
-	int		format;
-	int		components;
+	int		format = 0;
+	int		components = 0;
 
 	bool	initFlag = false;
 

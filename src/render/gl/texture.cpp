@@ -8,8 +8,8 @@
 #include "main/core.h"
 #include "render/gl/texture.h"
 
-glTexture::glTexture(int fmt, int w, int h, int lod)
-: Texture(fmt, w, h, lod)
+glTexture::glTexture(int w, int h, int lod)
+: Texture(w, h, lod)
 {
 }
 
@@ -22,6 +22,27 @@ glTexture::~glTexture()
 int glTexture::getFormat() const
 {
 	return format;
+}
+
+bool glTexture::setFormat(int fmt)
+{
+	components = getComponents(fmt);
+	if (components == 0)
+		return false;
+	format = fmt;
+
+	if (data != nullptr)
+		delete [] data;
+
+	// Initialize image data for new format
+	size = 0;
+	for (int lod = 0; lod < mipLevels; lod++)
+		size += getMipDataSize(lod);
+
+	// Create image space
+	data = new uint8_t[size];
+
+	return true;
 }
 
 int glTexture::getComponents(int fmt) const

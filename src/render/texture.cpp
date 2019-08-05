@@ -8,18 +8,9 @@
 #include "main/core.h"
 #include "render/texture.h"
 
-Texture::Texture(int w, int h, int fmt, int mips)
-: width(w), height(h), depth(1),
-  mipLevels(mips)
+Texture::Texture(int w, int h, int mips)
+: width(w), height(h), depth(1), mipLevels(mips)
 {
-//	components = getComponents(fmt);
-
-	size = 0;
-	for (int lod = 0; lod < mips; lod++)
-		size += getMipDataSize(lod);
-
-	// Create image space
-	data = new uint8_t[size];
 }
 
 Texture::~Texture()

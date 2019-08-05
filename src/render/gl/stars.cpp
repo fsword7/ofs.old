@@ -121,7 +121,8 @@ Texture *glScene::buildStarTexture(int lod)
 {
 	int size = 1 << lod;
 
-	Texture *txImage = new glTexture(GL_LUMINANCE, size, size, lod+1);
+	Texture *txImage = new glTexture(size, size, lod+1);
+	txImage->setFormat(GL_LUMINANCE);
 
 	for (int mip = 0; mip < lod; mip++) {
 
@@ -135,7 +136,8 @@ Texture *glScene::buildGlareTexture(int lod)
 {
 	int size = 1 << lod;
 
-	Texture *txImage = new glTexture(GL_LUMINANCE, size, size, lod+1);
+	Texture *txImage = new glTexture(size, size, lod+1);
+	txImage->setFormat(GL_LUMINANCE);
 
 	for (int mip = 0; mip < lod; mip++) {
 
