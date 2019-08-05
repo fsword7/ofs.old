@@ -6,16 +6,16 @@
  */
 
 #include "main/main.h"
-#include "render/image.h"
+#include "render/gl/texture.h"
 #include "util/dds.h"
 
 #include <GL/glew.h>
 
-Image *ddsLoader::load(std::string& fname)
+Texture *ddsLoader::load(std::string& fname)
 {
 	uint8_t  *data;
 	uint32_t size;
-	Image    *img;
+	Texture  *img;
 
 	std::ifstream ddsFile(fname, std::ios::binary|std::ios::in);
 	if (!ddsFile.is_open())
@@ -34,9 +34,9 @@ Image *ddsLoader::load(std::string& fname)
 	return img;
 }
 
-Image *ddsLoader::load(uint8_t *data, uint32_t size)
+Texture *ddsLoader::load(uint8_t *data, uint32_t size)
 {
-    Image *img = nullptr;
+    Texture *img = nullptr;
     uint8_t *ptr = data;
     ddsHeader *hdr;
     int glFormat = -1;
@@ -71,7 +71,7 @@ Image *ddsLoader::load(uint8_t *data, uint32_t size)
         }
     }
 
-    img = new Image(hdr->dwWidth, hdr->dwHeight, glFormat, std::max((int)hdr->dwMipMapCount, 1));
+    img = new glTexture(glFormat, hdr->dwWidth, hdr->dwHeight, std::max((int)hdr->dwMipMapCount, 1));
     if (img == nullptr)
         return nullptr;
     std::copy(ptr, ptr+img->getSize(), img->getData());
@@ -82,6 +82,3 @@ Image *ddsLoader::load(uint8_t *data, uint32_t size)
 
     return img;
 }
-
-
-

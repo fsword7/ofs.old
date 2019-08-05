@@ -79,6 +79,6 @@ public:
     ddsLoader() = default;
     ~ddsLoader() = default;
 
-    Image *load(std::string& fname);
-    Image *load(uint8_t *data, uint32_t size);
+    Texture *load(std::string& fname);
+    Texture *load(uint8_t *data, uint32_t size);
 };
