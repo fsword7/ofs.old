@@ -100,7 +100,25 @@ int glTexture::getMipSize(int fmt, int w, int h, int mip) const
             return ((w + 3) /4 ) * ((h + 3) / 4) * 16;
 
         default:
-            return h * pad(w * getComponents(fmt));
+            return h * pad(w * components);
+    }
+}
+
+int glTexture::getMipDataSize2(int lod) const
+{
+    int w = std::max(width >> lod, 1);
+    int h = std::max(height >> lod, 1);
+
+    switch (format) {
+        case GL_COMPRESSED_RGBA_S3TC_DXT1_EXT:
+            return ((w + 3) /4 ) * ((h + 3) / 4) * 8;
+
+        case GL_COMPRESSED_RGBA_S3TC_DXT3_EXT:
+        case GL_COMPRESSED_RGBA_S3TC_DXT5_EXT:
+            return ((w + 3) /4 ) * ((h + 3) / 4) * 16;
+
+        default:
+            return h * pad(w * components);
     }
 }
 

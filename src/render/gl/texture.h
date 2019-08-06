@@ -26,6 +26,7 @@ protected:
 	int getFormat() const;
 
 	int getMipSize(int fmt, int w, int h, int mip) const;
+	int getMipDataSize2(int lod) const;
 
 private:
 	int glName = 0;

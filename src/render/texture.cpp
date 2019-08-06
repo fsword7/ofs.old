@@ -23,16 +23,16 @@ int Texture::getMipDataSize(int lod) const
 {
 	if (lod >= mipLevels)
 		return 0;
-	return getMipSize(format, width, height, lod);
+	return getMipDataSize2(lod);
 }
 
-uint8_t *Texture::getMipData(int lod)
+uint8_t *Texture::getMipData(int mip)
 {
-	if (lod >= mipLevels)
+	if (mip >= mipLevels)
 		return nullptr;
 
 	int ofs = 0;
-	for (int lod = 0; lod < mipLevels; lod++)
+	for (int lod = 0; lod < mip; lod++)
 		ofs += getMipDataSize(lod);
 
 	return data + ofs;

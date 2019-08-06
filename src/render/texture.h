@@ -49,7 +49,7 @@ protected:
 	virtual int getFormat() const = 0;
 
 	virtual int getMipSize(int fmt, int w, int h, int lod) const = 0;
-
+	virtual int getMipDataSize2(int lod) const = 0;
 
 protected:
 	int		width, height;

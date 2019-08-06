@@ -71,7 +71,7 @@ int TerrainTile::load()
 {
 	ddsLoader dds;
 	uint8_t  *ddsImage = nullptr;
-	Texture  *image;
+	Texture  *image = nullptr;
 	uint32_t  szImage = 0;
 	int       res;
 
