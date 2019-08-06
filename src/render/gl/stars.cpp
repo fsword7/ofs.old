@@ -59,7 +59,8 @@ void glStarVertex::startSprites()
 		return;
 
 	pkg->use();
-	pkg->pointScale = 1.0;
+//	pkg->pointScale = 1.0;
+	pkg->setSamplerParam("starTex") = 0;
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
@@ -233,7 +234,8 @@ void glScene::renderStars(const StarDatabase &stardb, const Player &player,
 	starRenderer->pxSize = calculatePixelSize(cam);
 	starRenderer->faintestMag = faintest;
 //	starRenderer->starColors = starColors;
-	starRenderer->starBuffer->startPoints();
+//	starRenderer->starBuffer->startPoints();
+	starRenderer->starBuffer->startSprites();
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
