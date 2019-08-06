@@ -24,9 +24,12 @@ public:
 protected:
 	int getComponents(int format) const;
 	int getFormat() const;
+	int getBorderAddress() const;
 
 	int getMipSize(int fmt, int w, int h, int mip) const;
 	int getMipDataSize2(int lod) const;
+
+	void loadMipData(int target);
 
 private:
 	int glName = 0;

@@ -10,6 +10,18 @@
 class Texture
 {
 public:
+	enum AddressMode {
+		Wrap = 0,
+		BorderClamp = 1,
+		EdgeClamp = 2
+	};
+
+	enum MipMapMode {
+		NoMipMaps = 0,
+		FixedMipMaps = 1,
+		AutoMipMaps = 2
+	};
+
 	Texture(int w, int h, int mips = 1);
 	virtual ~Texture();
 
@@ -27,21 +39,12 @@ public:
 	uint8_t *getMipData(int lod);
 	int getMipDataSize(int lod) const;
 
+	void setMipMode(MipMapMode mode)     { mipMode = mode; }
+	void setBorderMode(AddressMode mode) { borderMode = mode; }
+
 	virtual bool isCompressed() const = 0;
 	virtual bool setFormat(int fmt) = 0;
 	virtual void bind() = 0;
-
-	enum AddressMode {
-		Wrap = 0,
-		BorderClamp = 1,
-		EdgeClamp = 2
-	};
-
-	enum MipMapMode {
-		NoMipMaps = 0,
-		FixedMipMaps = 1,
-		AutoMipMaps = 2
-	};
 
 protected:
 	// Virtual function calls
@@ -63,7 +66,9 @@ protected:
 	bool	initFlag = false;
 
 	// MIP levels for LOD
-	int		mipLevels;
+	int		    mipLevels;
+	MipMapMode  mipMode;
+	AddressMode borderMode;
 
 	// Image data
 	uint8_t *data = nullptr;

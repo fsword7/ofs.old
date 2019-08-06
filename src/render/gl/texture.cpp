@@ -19,6 +19,19 @@ glTexture::~glTexture()
 		glDeleteTextures(1, (GLuint *)&glName);
 }
 
+int glTexture::getBorderAddress() const
+{
+	switch (borderMode) {
+	case Wrap:
+		return GL_REPEAT;
+	case EdgeClamp:
+		return GL_CLAMP_TO_EDGE;
+	case BorderClamp:
+		return GL_CLAMP;
+	}
+	return 0;
+}
+
 int glTexture::getFormat() const
 {
 	return format;
@@ -122,18 +135,37 @@ int glTexture::getMipDataSize2(int lod) const
     }
 }
 
+void glTexture::loadMipData(int target)
+{
+
+	for (int lod = 0; lod < mipLevels; lod++) {
+		int w = std::max(width >> lod, 1);
+		int h = std::max(height >> lod, 1);
+
+		glTexImage2D(target, lod, 0, w, h, 0, format,
+			GL_UNSIGNED_BYTE, getMipData(lod));
+	}
+}
+
 void glTexture::load(int target)
 {
+	bool mipFlag = mipMode != NoMipMaps;
+	int  borderFlag = getBorderAddress();
+
     glGenTextures(1, (GLuint *)&glName);
     glBindTexture(GL_TEXTURE_2D, glName);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(target, GL_TEXTURE_WRAP_S, borderFlag);
+    glTexParameteri(target, GL_TEXTURE_WRAP_T, borderFlag);
+    glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(target, GL_TEXTURE_MIN_FILTER,
+    	mipFlag ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
 
-    glCompressedTexImage2DARB((GLenum)target, 0, format,
-        width, height, 0, getMipDataSize(0), getMipData(0));
+    if (mipFlag == true)
+    	loadMipData(target);
+    else
+    	glCompressedTexImage2DARB((GLenum)target, 0, format,
+    		width, height, 0, getMipDataSize(0), getMipData(0));
 }
 
 void glTexture::bind()

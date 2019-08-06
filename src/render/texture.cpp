@@ -9,7 +9,8 @@
 #include "render/texture.h"
 
 Texture::Texture(int w, int h, int mips)
-: width(w), height(h), depth(1), mipLevels(mips)
+: width(w), height(h), depth(1), mipLevels(mips),
+  mipMode(NoMipMaps), borderMode(EdgeClamp)
 {
 }
 

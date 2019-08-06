@@ -33,8 +33,11 @@ public:
 
 protected:
 
-	Texture *buildStarTexture(int lod);
-	Texture *buildGlareTexture(int lod);
+	void createStarTexture(uint8_t *data, int mip, int scale);
+	void createGlareTexture(uint8_t *data, int mip, int scale);
+
+	Texture *createStarTexture(int lod);
+	Texture *createGlareTexture(int lod);
 
 private:
 	vObject *vobj;  // test - be removed later.

@@ -117,33 +117,85 @@ void glStarVertex::finish()
 
 // ***********************************************************
 
-Texture *glScene::buildStarTexture(int lod)
+void glScene::createStarTexture(uint8_t *data, int mip, int scale)
 {
-	int size = 1 << lod;
+	int size = 1 << mip;
+	float fwhm = (float)scale * 0.3f;
+	float sigma = fwhm / 2.3548f;
+	float isig2 = 1.0f / (2.0f * sigma * sigma);
+	float s = 1.0f / (sigma * (float)sqrt(2.0 * 3.14159));
 
-	Texture *txImage = new glTexture(size, size, lod+1);
+//	printf("FWHM: %f\n", fwhm);
+//	printf("Sigma: %f\n", sigma);
+//	printf("isig2: %f\n", isig2);
+//	printf("s: %f\n", s);
+
+	for (int i = 0; i < size; i++) {
+		float y = (float)i - size/2.0;
+		for (int j = 0; j < size; j++) {
+			float x = (float)j - size/2.0;
+			float r2 = x * x + y * y;
+			float f = s * (float)exp(-r2 * isig2) * (float)scale;
+
+			data[i * size + j] = std::min(f, 1.0f) * 255.99;
+//			printf("%03d ", (unsigned int)(std::min(f, 1.0f) * 255.99));
+		}
+//		printf("\n");
+	}
+//	printf("\n");
+}
+
+void glScene::createGlareTexture(uint8_t *data, int mip, int scale)
+{
+	int size = 1 << mip;
+	float s = 25.0f / (float)scale;
+	float base = 0.66f;
+
+	for (int i = 0; i < size; i++) {
+		float y = (float)i - size/2.0;
+		for (int j = 0; j < size; j++) {
+			float x = (float)j - size/2.0;
+
+			float r = sqrt(x * x + y * y);
+			float f = pow(base, r * s);
+
+			data[i * size + j] = std::min(f, 1.0f) * 255.99;
+//			printf("%03d ", (unsigned int)(std::min(f, 1.0f) * 255.99));
+		}
+//		printf("\n");
+	}
+//	printf("\n");
+}
+
+Texture *glScene::createStarTexture(int mip)
+{
+	int size = 1 << mip;
+
+	Texture *txImage = new glTexture(size, size, mip+1);
+	txImage->setMipMode(Texture::FixedMipMaps);
 	txImage->setFormat(GL_LUMINANCE);
 
-	for (int mip = 0; mip < lod; mip++) {
-
+	for (int lod = 0; lod < mip; lod++) {
+		int scale = pow(2.0, mip - lod);
+		createStarTexture(txImage->getMipData(lod), mip - lod, scale);
 	}
 
-//	txImage->load();
 	return txImage;
 }
 
-Texture *glScene::buildGlareTexture(int lod)
+Texture *glScene::createGlareTexture(int mip)
 {
-	int size = 1 << lod;
+	int size = 1 << mip;
 
-	Texture *txImage = new glTexture(size, size, lod+1);
+	Texture *txImage = new glTexture(size, size, mip+1);
+	txImage->setMipMode(Texture::FixedMipMaps);
 	txImage->setFormat(GL_LUMINANCE);
 
-	for (int mip = 0; mip < lod; mip++) {
-
+	for (int lod = 0; lod < mip; lod++) {
+		int scale = pow(2.0, mip - lod);
+		createGlareTexture(txImage->getMipData(lod), mip - lod, scale);
 	}
 
-//	txImage->load();
 	return txImage;
 }
 
@@ -155,6 +207,10 @@ void glScene::initStarVertex()
 
 	starColors = new StarColors();
 	starColors->load(fname);
+
+	// Create Gaussian star/glare texture mapping
+	starTexture = createStarTexture(8);
+	glareTexture = createGlareTexture(8);
 
 	starBuffer = new glStarVertex(*this, 2048);
 
