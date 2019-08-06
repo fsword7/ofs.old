@@ -159,6 +159,12 @@ void glShaderProgram::use()
 	glUseProgram(id);
 }
 
+ShaderIntegerParameter &glShaderIntegerParameter::operator = (int v)
+{
+	if (slot != -1)
+		glUniform1i(slot, v);
+	return *this;
+}
 
 ShaderFloatParameter &glShaderFloatParameter::operator = (float v)
 {

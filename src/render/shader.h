@@ -43,9 +43,18 @@ public:
 	virtual ~ShaderProgram();
 
 	// Virtual function calls
+	virtual int  getID() const = 0;
 	virtual void use() = 0;
 };
 
+class ShaderIntegerParameter
+{
+public:
+	ShaderIntegerParameter() = default;
+	virtual ~ShaderIntegerParameter() = default;
+
+	virtual ShaderIntegerParameter &operator = (int v) = 0;
+};
 
 class ShaderFloatParameter
 {

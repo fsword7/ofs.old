@@ -16,7 +16,7 @@ public:
 	glShader(ShaderType type);
 	~glShader();
 
-	inline GLuint getID() const { return id; }
+	GLuint getID() const { return id; }
 
 	ShaderStatus compile(const vector<string>& source);
 
@@ -35,7 +35,7 @@ public:
 	glShaderProgram();
 	~glShaderProgram();
 
-	inline GLuint getID() const { return id; }
+	int getID() const { return id; }
 
 	void attach(const glShader &shader);
 	ShaderStatus link(ostream &out);
@@ -49,6 +49,20 @@ private:
 	GLuint id;
 };
 
+class glShaderIntegerParameter : public ShaderIntegerParameter
+{
+public:
+	glShaderIntegerParameter() = default;
+	glShaderIntegerParameter(GLuint obj, const char *name)
+	{
+		slot = glGetUniformLocation(obj, name);
+	}
+
+	ShaderIntegerParameter &operator = (int v);
+
+private:
+	int slot = -1;
+};
 
 class glShaderFloatParameter : public ShaderFloatParameter
 {

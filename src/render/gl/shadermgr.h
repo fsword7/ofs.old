@@ -45,7 +45,9 @@ public:
 	~glShaderPackage() = default;
 
 	glShaderFloatParameter pointSize;
-	glShaderFloatParameter pointScale;
+//	glShaderFloatParameter pointScale;
 	glShaderVec4FParameter color;
 
+	glShaderIntegerParameter setIntegerParam(const std::string &);
+	glShaderIntegerParameter setSamplerParam(const std::string &);
 };

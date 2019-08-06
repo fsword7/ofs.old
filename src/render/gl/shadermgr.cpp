@@ -89,7 +89,7 @@ Shader *glShaderManager::buildStarVertexShader(const ShaderProperties &shp)
 
 	if (shp.type == ShaderProperties::shrPointStar)
 	{
-		source += declareUniform("pointScale", shrFloat);
+//		source += declareUniform("pointScale", shrFloat);
 		source += declareAttribute("pointSize", shrFloat);
 	}
 	source += declareVarying("color", shrVector4);
@@ -118,11 +118,12 @@ Shader *glShaderManager::buildStarFragmentShader(const ShaderProperties &shp)
 {
 	string source(glslVersionHeader);
 
+	source += declareUniform("starTex", shrSampler2D);
 	source += declareVarying("color", shrVector4);
 
 	// Begin main() function
 	source += "\nvoid main(void)\n{\n";
-	source += "   gl_FragColor = color;\n";
+	source += "   gl_FragColor = texture2D(starTex, gl_PointCoord) * color;\n";
 	source += "}\n";
 
 	dumpFragmentSource(cout, source);
@@ -206,4 +207,17 @@ ShaderStatus glShaderManager::createProgram(ostream &out, const ShaderProperties
 ShaderPackage *glShaderManager::createPackage(ShaderProgram &pgm, const ShaderProperties &shp)
 {
 	return new glShaderPackage(pgm, shp);
+}
+
+// ***************************************************************
+
+glShaderIntegerParameter glShaderPackage::setIntegerParam(const std::string &name)
+{
+	return glShaderIntegerParameter(program.getID(), name.c_str());
+}
+
+glShaderIntegerParameter glShaderPackage::setSamplerParam(const std::string &name)
+{
+	return glShaderIntegerParameter(program.getID(), name.c_str());
+
 }
