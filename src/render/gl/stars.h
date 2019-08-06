@@ -20,4 +20,7 @@ public:
 	void startSprites() override;
 	void render() override;
 	void finish() override;
+
+private:
+	glShaderPackage *pkg;
 };
