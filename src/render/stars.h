@@ -9,7 +9,6 @@
 
 #include "universe/stardb.h"
 #include "render/starcolors.h"
-#include "render/image.h"
 #include "render/texture.h"
 
 class StarVertex
