@@ -77,6 +77,19 @@ ShaderPackage *ShaderManager::buildPrograms(const ShaderProperties &shp)
 	return createPackage(*pgm, shp);
 }
 
+ShaderPackage *ShaderManager::buildPrograms(const std::string &vs, const std::string &fs)
+{
+//	Shader *vs = nullptr; // Vertex shader program
+//	Shader *fs = nullptr; // Fragment shader program
+
+	ShaderProgram *pgm;
+	ShaderStatus st;
+
+	if (pgm == nullptr)
+		return nullptr;
+	return nullptr; /* createPackage(*pgm, shp); */
+}
+
 ShaderPackage *ShaderManager::createShader(const ShaderProperties &shp)
 {
 	ShaderPackage *pkg = buildPrograms(shp);
@@ -85,3 +98,10 @@ ShaderPackage *ShaderManager::createShader(const ShaderProperties &shp)
 	return pkg;
 }
 
+ShaderPackage *ShaderManager::createShader(const std::string &name,
+		const std::string &vs, const std::string &fs)
+{
+	ShaderPackage *pkg = buildPrograms(vs, fs);;
+
+	return pkg;
+}
