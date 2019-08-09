@@ -9,6 +9,13 @@
 #include "render/shader.h"
 #include "render/shadermgr.h"
 
+#include <fmt/printf.h>
+
+ShaderPackage::ShaderPackage(ShaderProgram &pgm)
+: program(pgm)
+{
+}
+
 ShaderPackage::ShaderPackage(ShaderProgram &pgm, const ShaderProperties &shp)
 : program(pgm), properties(shp)
 {
@@ -85,15 +92,61 @@ ShaderPackage *ShaderManager::buildPrograms(const std::string &vs, const std::st
 	ShaderProgram *pgm;
 	ShaderStatus st;
 
-	if (pgm == nullptr)
+	dumpVertexSource(cout, vs);
+	dumpFragmentSource(cout, fs);
+
+	st = createProgram(cout, vs, fs, &pgm);
+
+	if (st != shrSuccessful || pgm == nullptr)
 		return nullptr;
-	return nullptr; /* createPackage(*pgm, shp); */
+	return createPackage(*pgm);
 }
 
 ShaderPackage *ShaderManager::createShader(const ShaderProperties &shp)
 {
 	ShaderPackage *pkg = buildPrograms(shp);
 //	shaders.push_back(pgm);
+
+	return pkg;
+}
+
+ShaderPackage *ShaderManager::createShader(const std::string &name)
+{
+	struct stat st;
+
+	auto vsName = fmt::sprintf("shaders/%s-vert.glsl", name);
+	auto fsName = fmt::sprintf("shaders/%s-frag.glsl", name);
+
+	if (stat(vsName.c_str(), &st) == -1){
+		fmt::fprintf(cout, "Failed to stat %s: %s\n", vsName, std::strerror(errno));
+		return nullptr;
+	}
+	auto vsSize = st.st_size;
+
+	if (stat(fsName.c_str(), &st) == -1) {
+		fmt::fprintf(cout, "Failed to stat %s: %s\n", fsName, std::strerror(errno));
+		return nullptr;
+	}
+	auto fsSize = st.st_size;
+
+	ifstream vsf(vsName);
+	if (!vsf.good()) {
+		fmt::fprintf(cout, "Failed to open %s: %s\n", vsName, std::strerror(errno));
+		return nullptr;
+	}
+
+	ifstream fsf(fsName);
+	if (!fsf.good()) {
+		fmt::fprintf(cout, "Failed to open %s: %s\n", fsName, std::strerror(errno));
+		return nullptr;
+	}
+
+	std::string vs(vsSize, '\0');
+	std::string fs(fsSize, '\0');
+	vsf.read(&vs[0], vsSize);
+	fsf.read(&fs[0], fsSize);
+
+	ShaderPackage *pkg = buildPrograms(vs, fs);;
 
 	return pkg;
 }

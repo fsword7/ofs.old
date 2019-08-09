@@ -10,24 +10,7 @@
 #include <GL/glew.h>
 #include "render/shader.h"
 
-class glShader : public Shader
-{
-public:
-	glShader(ShaderType type);
-	~glShader();
-
-	GLuint getID() const { return id; }
-
-	ShaderStatus compile(const vector<string>& source);
-
-	const string getLogInfo();
-
-	static ShaderStatus create(ostream &out, ShaderType type,
-		const vector<string>& source, glShader **shader);
-
-private:
-	GLuint id;
-};
+class glShader;
 
 class glShaderProgram : public ShaderProgram
 {
@@ -48,6 +31,27 @@ public:
 private:
 	GLuint id;
 };
+
+
+class glShader : public Shader
+{
+public:
+	glShader(ShaderType type);
+	~glShader();
+
+	GLuint getID() const { return id; }
+
+	ShaderStatus compile(const vector<string>& source);
+
+	const string getLogInfo();
+
+	static ShaderStatus create(ostream &out, ShaderType type,
+		const vector<string>& source, glShader **shader);
+
+private:
+	GLuint id;
+};
+
 
 class glShaderIntegerParameter : public ShaderIntegerParameter
 {
@@ -109,6 +113,36 @@ private:
 	int slot = -1;
 };
 
+class glShaderMat3FParameter : public ShaderMat3FParameter
+{
+public:
+	glShaderMat3FParameter() = default;
+	glShaderMat3FParameter(GLuint obj, const char *name)
+	{
+		slot = glGetUniformLocation(obj, name);
+	}
+
+	ShaderMat3FParameter &operator = (const mat3f_t &v);
+
+private:
+	int slot = -1;
+};
+
+class glShaderMat4FParameter : public ShaderMat4FParameter
+{
+public:
+	glShaderMat4FParameter() = default;
+	glShaderMat4FParameter(GLuint obj, const char *name)
+	{
+		slot = glGetUniformLocation(obj, name);
+	}
+
+	ShaderMat4FParameter &operator = (const mat4f_t &v);
+
+private:
+	int slot = -1;
+};
+
 class glShaderDoubleParameter : public ShaderDoubleParameter
 {
 public:
@@ -149,6 +183,36 @@ public:
 	}
 
 	ShaderVec4DParameter &operator = (const vec4d_t &v);
+
+private:
+	int slot = -1;
+};
+
+class glShaderMat3DParameter : public ShaderMat3DParameter
+{
+public:
+	glShaderMat3DParameter() = default;
+	glShaderMat3DParameter(GLuint obj, const char *name)
+	{
+		slot = glGetUniformLocation(obj, name);
+	}
+
+	ShaderMat3DParameter &operator = (const mat3d_t &v);
+
+private:
+	int slot = -1;
+};
+
+class glShaderMat4DParameter : public ShaderMat4DParameter
+{
+public:
+	glShaderMat4DParameter() = default;
+	glShaderMat4DParameter(GLuint obj, const char *name)
+	{
+		slot = glGetUniformLocation(obj, name);
+	}
+
+	ShaderMat4DParameter &operator = (const mat4d_t &v);
 
 private:
 	int slot = -1;

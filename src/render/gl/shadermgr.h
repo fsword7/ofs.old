@@ -24,7 +24,11 @@ protected:
 
 	ShaderStatus createProgram(ostream &out, const ShaderProperties &shp,
 			Shader &fs, Shader &vs, ShaderProgram **pgm) override;
+	ShaderStatus createProgram(ostream &out, const std::string &vs, const std::string &fs,
+		ShaderProgram **pgm) override;
+
 	ShaderPackage *createPackage(ShaderProgram &pgm, const ShaderProperties &shp) override;
+	ShaderPackage *createPackage(ShaderProgram &pgm) override;
 
 	Shader *buildStarVertexShader(const ShaderProperties &shp) override;
 	Shader *buildStarFragmentShader(const ShaderProperties &shp) override;
@@ -40,6 +44,8 @@ public:
 		PointSizeAttributeIndex = 7
 	};
 
+	glShaderPackage(ShaderProgram &pgm)
+	: ShaderPackage(pgm) {};
 	glShaderPackage(ShaderProgram &pgm, const ShaderProperties &shp)
 	: ShaderPackage(pgm, shp) {};
 	~glShaderPackage() = default;

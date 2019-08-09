@@ -55,7 +55,7 @@ void glStarVertex::startSprites()
 	prop.type = ShaderProperties::shrPointStar;
 
 	if (pkg == nullptr) {
-		pkg = dynamic_cast<glShaderPackage*>(scene.getShaderManager()->createShader(prop));
+		pkg = dynamic_cast<glShaderPackage*>(scene.getShaderManager()->createShader("star"));
 	}
 	pkg->use();
 //	pkg->pointScale = 1.0;

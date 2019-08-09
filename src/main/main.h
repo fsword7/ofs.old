@@ -28,6 +28,8 @@
 #include <cerrno>
 #include <cstring>
 
+#include <sys/stat.h>
+
 using namespace std;
 
 // Four CC values for magic codes

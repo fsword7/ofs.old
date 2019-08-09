@@ -204,9 +204,43 @@ ShaderStatus glShaderManager::createProgram(ostream &out, const ShaderProperties
 	return st;
 }
 
+ShaderStatus glShaderManager::createProgram(ostream &out, const std::string &vsSource,
+		const std::string &fsSource, ShaderProgram **pgm)
+{
+	std::vector<std::string> vsSourcev;
+	std::vector<std::string> fsSourcev;
+
+	vsSourcev.push_back(vsSource);
+	fsSourcev.push_back(fsSource);
+
+	glShader *vs, *fs;
+	ShaderStatus st;
+
+	st = glShader::create(out, shrVertexProcessor, vsSourcev, &vs);
+	st = glShader::create(out, shrFragmentProcessor, fsSourcev, &fs);
+
+	glShaderProgram *npgm = new glShaderProgram();
+
+	npgm->attach(*vs);
+	npgm->attach(*fs);
+
+	glBindAttribLocation(npgm->getID(), 7, "pointSize");
+
+	st = npgm->link(out);
+	if (st == shrSuccessful)
+		*pgm = npgm;
+
+	return shrSuccessful;
+}
+
 ShaderPackage *glShaderManager::createPackage(ShaderProgram &pgm, const ShaderProperties &shp)
 {
 	return new glShaderPackage(pgm, shp);
+}
+
+ShaderPackage *glShaderManager::createPackage(ShaderProgram &pgm)
+{
+	return new glShaderPackage(pgm);
 }
 
 // ***************************************************************

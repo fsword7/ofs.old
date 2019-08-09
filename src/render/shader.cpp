@@ -8,21 +8,22 @@
 #include "main/core.h"
 #include "render/shader.h"
 
-Shader::Shader(ShaderType _type)
-: type(_type)
-{
-}
-
-Shader::~Shader()
-{
-}
-
-// ******************************
 
 ShaderProgram::ShaderProgram()
 {
 }
 
 ShaderProgram::~ShaderProgram()
+{
+}
+
+// ******************************
+
+Shader::Shader(ShaderType _type)
+: type(_type)
+{
+}
+
+Shader::~Shader()
 {
 }

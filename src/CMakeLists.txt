@@ -101,6 +101,7 @@ include_directories(
 	${SDL2_TTF_INCLUDE_DIRS}
 	${OPENGL_INCLUDE_DIRS}
 	${GLEW_INCLUDE_DIRS}
+#	${fmt_INCLUDE_DIRS}
 )
 
 #add_executable(ofs ${ofs_cpp_SRCS} ${ofs_qt_cpp_SRCS} ${ofs_h_SRCS} ${ofs_qt_h_SRCS})
@@ -114,4 +115,6 @@ target_link_libraries(ofs
 	${OPENGL_LIBRARIES}
 	${GLEW_LIBRARIES}
 	${ZLIB_LIBRARIES}
+#	${fmt_LIBRARIES}
+	-lfmt
 )

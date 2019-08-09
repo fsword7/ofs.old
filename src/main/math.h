@@ -12,6 +12,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/quaternion.hpp>
 
 #include "main/plane.h"
@@ -21,6 +22,9 @@
 typedef glm::tvec3<float> vec3f_t;
 typedef glm::tvec4<float> vec4f_t;
 typedef glm::tquat<float> quatf_t;
+
+typedef glm::fmat3 mat3f_t;
+typedef glm::fmat4 mat4f_t;
 
 typedef glm::tvec3<double> vec3d_t;
 typedef glm::tvec4<double> vec4d_t;

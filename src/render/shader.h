@@ -21,6 +21,19 @@ enum ShaderStatus {
 	shrEmptyProgram
 };
 
+
+class ShaderProgram
+{
+public:
+	ShaderProgram();
+	virtual ~ShaderProgram();
+
+	// Virtual function calls
+	virtual int  getID() const = 0;
+	virtual void use() = 0;
+};
+
+
 class Shader
 {
 public:
@@ -36,16 +49,6 @@ private:
 	ShaderType type;
 };
 
-class ShaderProgram
-{
-public:
-	ShaderProgram();
-	virtual ~ShaderProgram();
-
-	// Virtual function calls
-	virtual int  getID() const = 0;
-	virtual void use() = 0;
-};
 
 class ShaderIntegerParameter
 {
@@ -83,6 +86,25 @@ public:
 	virtual ShaderVec4FParameter &operator = (const vec4f_t &v) = 0;
 };
 
+class ShaderMat3FParameter
+{
+public:
+	ShaderMat3FParameter() = default;
+	virtual ~ShaderMat3FParameter() = default;
+
+	virtual ShaderMat3FParameter &operator = (const mat3f_t &v) = 0;
+};
+
+class ShaderMat4FParameter
+{
+public:
+	ShaderMat4FParameter() = default;
+	virtual ~ShaderMat4FParameter() = default;
+
+	virtual ShaderMat4FParameter &operator = (const mat4f_t &v) = 0;
+};
+
+
 class ShaderDoubleParameter
 {
 public:
@@ -108,4 +130,22 @@ public:
 	virtual ~ShaderVec4DParameter() = default;
 
 	virtual ShaderVec4DParameter &operator = (const vec4d_t &v) = 0;
+};
+
+class ShaderMat3DParameter
+{
+public:
+	ShaderMat3DParameter() = default;
+	virtual ~ShaderMat3DParameter() = default;
+
+	virtual ShaderMat3DParameter &operator = (const mat3d_t &v) = 0;
+};
+
+class ShaderMat4DParameter
+{
+public:
+	ShaderMat4DParameter() = default;
+	virtual ~ShaderMat4DParameter() = default;
+
+	virtual ShaderMat4DParameter &operator = (const mat4d_t &v) = 0;
 };

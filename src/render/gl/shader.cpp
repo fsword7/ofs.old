@@ -187,6 +187,20 @@ ShaderVec4FParameter &glShaderVec4FParameter::operator = (const vec4f_t &v)
 	return *this;
 }
 
+ShaderMat3FParameter &glShaderMat3FParameter::operator = (const mat3f_t &m)
+{
+	if (slot != -1)
+		glUniformMatrix3fv(slot, 1, GL_FALSE, glm::value_ptr(m));
+	return *this;
+}
+
+ShaderMat4FParameter &glShaderMat4FParameter::operator = (const mat4f_t &m)
+{
+	if (slot != -1)
+		glUniformMatrix4fv(slot, 1, GL_FALSE, glm::value_ptr(m));
+	return *this;
+}
+
 ShaderDoubleParameter &glShaderDoubleParameter::operator = (double v)
 {
 	if (slot != -1)
@@ -205,5 +219,19 @@ ShaderVec4DParameter &glShaderVec4DParameter::operator = (const vec4d_t &v)
 {
 	if (slot != -1)
 		glUniform4d(slot, v.x, v.y, v.z, v.w);
+	return *this;
+}
+
+ShaderMat3DParameter &glShaderMat3DParameter::operator = (const mat3d_t &m)
+{
+	if (slot != -1)
+		glUniformMatrix3dv(slot, 1, GL_FALSE, glm::value_ptr(m));
+	return *this;
+}
+
+ShaderMat4DParameter &glShaderMat4DParameter::operator = (const mat4d_t &m)
+{
+	if (slot != -1)
+		glUniformMatrix4dv(slot, 1, GL_FALSE, glm::value_ptr(m));
 	return *this;
 }
