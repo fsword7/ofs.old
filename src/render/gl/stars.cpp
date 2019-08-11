@@ -238,8 +238,8 @@ void glScene::renderStars(const StarDatabase &stardb, const Player &player,
 	starRenderer->pxSize = calculatePixelSize(cam);
 	starRenderer->faintestMag = faintest;
 //	starRenderer->starColors = starColors;
-//	starRenderer->starBuffer->startPoints();
-	starRenderer->starBuffer->startSprites();
+	starRenderer->starBuffer->startPoints();
+//	starRenderer->starBuffer->startSprites();
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
@@ -263,7 +263,7 @@ void glScene::renderConstellations(const Universe &universe, const Player &playe
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_DOUBLE, 0, &buffer[0]);
-	glColor4f(0.7, 0.7, 0.7, 1.0);
+	glColor4f(0.2, 0.2, 0.2, 1.0);
 
 	for (int idx = 0; idx < asterisms.size(); idx++) {
 		Asterism *aster = asterisms[idx];

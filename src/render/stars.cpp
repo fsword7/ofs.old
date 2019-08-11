@@ -70,7 +70,7 @@ void StarRenderer::process(const CelestialStar& star, double dist, double appMag
 	objSize = (srad / dist) / pxSize;
 
 	alpha  = clamp(faintestMag - appMag);
-	ptSize = objSize;
+	ptSize = objSize * 5.0;
 	color  = starColors->lookup(star.getTemperature());
 	color.setAlpha(alpha);
 
