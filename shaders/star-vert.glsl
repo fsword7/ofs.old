@@ -1,4 +1,5 @@
 #version 120
+
 attribute float pointSize;
 varying vec4 color;
 
