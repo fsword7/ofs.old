@@ -8,6 +8,8 @@
 #include "main/core.h"
 #include "engine/object.h"
 #include "render/vobject.h"
+#include "render/gl/context.h"
+#include "render/gl/shadermgr.h"
 #include "render/terrainmgr.h"
 #include "render/gl/funcs.h"
 
@@ -23,10 +25,10 @@ vPlanet::~vPlanet()
 		delete terrain;
 }
 
-void vPlanet::render()
+void vPlanet::render(const mat4f_t &mvp)
 {
 	glTranslate(cpos);
 
 	if (terrain != nullptr)
-		terrain->render();
+		terrain->render(mvp);
 }

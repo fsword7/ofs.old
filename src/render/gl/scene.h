@@ -8,6 +8,7 @@
 #pragma once
 
 #include "GL/glew.h"
+#include "render/gl/context.h"
 #include "render/scene.h"
 
 class Image;
@@ -31,6 +32,8 @@ public:
 	void renderStars(const StarDatabase &stardb, const Player &player, double faintest);
 	void renderConstellations(const Universe &universe, const Player &player);
 
+	inline const glContext *getContext() const { return &gl; }
+
 protected:
 
 	void createStarTexture(uint8_t *data, int mip, int scale);
@@ -41,6 +44,8 @@ protected:
 
 private:
 	vObject *vobj;  // test - be removed later.
+
+	glContext gl;
 
 	Texture *starTexture = nullptr;
 	Texture *glareTexture = nullptr;

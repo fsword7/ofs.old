@@ -255,3 +255,8 @@ glShaderIntegerParameter glShaderPackage::setSamplerParam(const std::string &nam
 	return glShaderIntegerParameter(program.getID(), name.c_str());
 
 }
+
+void glShaderPackage::initParams()
+{
+	mvp = glShaderMat4FParameter(program.getID(), "mvp");
+}

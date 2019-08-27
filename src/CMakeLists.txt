@@ -15,6 +15,7 @@ set(ofs_cpp_SRCS
 	render/vobject.cpp
 	render/vplanet.cpp
 	render/ztreemgr.cpp
+	render/gl/context.cpp
 	render/gl/mesh.cpp
 	render/gl/scene.cpp
 	render/gl/shader.cpp
@@ -65,6 +66,7 @@ set(ofs_h_SRCS
 	render/texture.h
 	render/vobject.h
 	render/ztreemgr.h
+	render/gl/context.h
 	render/gl/funcs.h
 	render/gl/mesh.h
 	render/gl/scene.h

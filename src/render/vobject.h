@@ -22,7 +22,7 @@ public:
 
 	void update(Player &player);
 
-	virtual void render() = 0;
+	virtual void render(const mat4f_t &mvp) = 0;
 
 protected:
 	Object *obj;
@@ -54,7 +54,7 @@ public:
 	vPlanet(Object *obj, Scene *scene);
 	~vPlanet();
 
-	void render();
+	void render(const mat4f_t &mvp);
 
 private:
 	TerrainManager *terrain;

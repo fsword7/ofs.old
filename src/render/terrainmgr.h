@@ -11,6 +11,7 @@
 
 class vPlanet;
 class glMesh;
+class glScene;
 class TerrainManager;
 class zTreeManager;
 class Texture;
@@ -50,6 +51,8 @@ struct RenderParm
 	double    viewap;
 	double    tanap;
 	mat4d_t   pvmat; // Projection/View matrix for frustum
+
+	glShaderPackage *pkg;
 };
 
 class QuadTile : public Tree<QuadTile, QTREE_NODES>
@@ -58,7 +61,7 @@ public:
 	QuadTile(TerrainManager *mgr, int lod, int ilat, int ilng);
 	virtual ~QuadTile();
 
-	virtual int load();
+	virtual int load() = 0;
 
 protected:
 	TerrainManager *mgr;
@@ -79,8 +82,10 @@ public:
 
 	void setSubTexCoordRange(const tcrd_t &ptcr);
 
+	vec3d_t center() const;
+
 	int  load();
-	void render();
+	void render(RenderParm &prm);
 
 	enum tileState {
 		Invalid		= 0x0000,
@@ -94,6 +99,7 @@ public:
 
 private:
 	glMesh *mesh;
+	glScene *scene;
 
 	tileState state;
 	tcrd_t txRange;
@@ -110,19 +116,20 @@ public:
 	~TerrainManager();
 
 	// Rendering terrain area
-	void process(TerrainTile *tile);
-	void render(TerrainTile *tile);
-	void render();
+	void process(TerrainTile *tile, RenderParm &prm);
+	void render(TerrainTile *tile, RenderParm &prm);
+	void render(const mat4f_t &mvp);
 
 //	glMesh *createSpherePatch(int lod, int ilat, int ilng, int grids,
 //		tcRange2 &tcr, const int16_t *elev, double elevGlobe, double elevScale);
 	glMesh *createSpherePatch(int lod, int ilat, int ilng, int grids, tcrd_t &tcr);
 
 private:
-	void setRenderParm(RenderParm &prm);
+	void setRenderParm(RenderParm &prm, const mat4f_t &mvp);
 
 private:
 	Scene *scene;
+	glShaderPackage *pkg;
 	vPlanet *vobj;
 
 	zTreeManager *ztree[5];

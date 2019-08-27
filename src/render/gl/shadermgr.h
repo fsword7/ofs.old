@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "render/gl/shader.h"
 #include "render/shadermgr.h"
 
 class glShaderManager : public ShaderManager
@@ -50,10 +51,14 @@ public:
 	: ShaderPackage(pgm, shp) {};
 	~glShaderPackage() = default;
 
+	glShaderMat4FParameter mvp;
+
 	glShaderFloatParameter pointSize;
 //	glShaderFloatParameter pointScale;
 	glShaderVec4FParameter color;
 
 	glShaderIntegerParameter setIntegerParam(const std::string &);
 	glShaderIntegerParameter setSamplerParam(const std::string &);
+
+	void initParams();
 };
