@@ -10,10 +10,12 @@
 #include "engine/player.h"
 #include "render/vobject.h"
 #include "render/texture.h"
-#include "render/scene.h"
+#include "render/gl/context.h"
+#include "render/gl/mesh.h"
+#include "render/gl/scene.h"
+#include "render/gl/shadermgr.h"
 #include "render/terrainmgr.h"
 #include "render/ztreemgr.h"
-#include "render/gl/mesh.h"
 #include "util/dds.h"
 
 static tcrd_t fullRange = { 0.0, 1.0, 0.0, 1.0 };
@@ -27,17 +29,12 @@ QuadTile::~QuadTile()
 {
 }
 
-int QuadTile::load()
-{
-	return 0;
-}
-
 
 TerrainTile::TerrainTile(TerrainManager *mgr, int lod, int ilat, int ilng)
 : QuadTile(mgr, lod, ilat, ilng),
-  mesh(nullptr), state(Invalid), txRange(fullRange)
+  mesh(nullptr), scene(dynamic_cast<glScene *>(mgr->scene)),
+  state(Invalid), txRange(fullRange)
 {
-
 }
 
 TerrainTile::~TerrainTile()
@@ -46,6 +43,27 @@ TerrainTile::~TerrainTile()
 		delete mesh;
 	if (txImage != nullptr && txOwn == true)
 		delete txImage;
+}
+
+vec3d_t TerrainTile::center() const
+{
+	int nlat = 1 << lod;
+	int nlng = 2 << lod;
+
+	double latc = (PI/2) - PI * ((double(ilat)+0.5) / double(nlat));
+	double lngc = (PI*2) * ((double(nlng/2 - ilng-1)+0.5) / double(nlng)) - PI;
+    if (lngc < PI*2)
+        lngc += PI*2;
+
+	double slat = sin(latc), clat = cos(latc);
+	double slng = sin(lngc), clng = cos(lngc);
+
+	//	std::cout << "Index:  (" << lat << "," << lng << ") of (" << nlat << "," << nlng
+	//              << ") at LOD " << lod+4 << std::endl;
+	//	std::cout << "Center: (" << toDegrees(latc)
+	//			  << "," << toDegrees(lngc) << ")" << std::endl;
+
+	return vec3d_t(clat*clng, slat, clat*-slng);
 }
 
 void TerrainTile::setSubTexCoordRange(const tcrd_t &ptcr)
@@ -111,10 +129,10 @@ int TerrainTile::load()
 	return 0;
 }
 
-void TerrainTile::render()
+void TerrainTile::render(RenderParm &prm)
 {
 	if (mesh != nullptr)
-		mesh->paint();
+		mesh->paint(scene->getContext());
 }
 
 // ************************************************************
@@ -130,6 +148,10 @@ TerrainManager::TerrainManager(vPlanet *vobj)
 	for (int idx = 0; idx < 4; idx++)
 		ztree[idx] = nullptr;
 	ztree[0] = zTreeManager::create(pname, "surf");
+
+	pkg = dynamic_cast<glShaderPackage *>(scene->getShaderManager()->createShader("planet"));
+	if (pkg != nullptr)
+		pkg->initParams();
 
 	// Initialize root of terrain tiles
 	for (int idx = 0; idx < 2; idx++) {
@@ -147,7 +169,7 @@ TerrainManager::~TerrainManager()
 
 }
 
-void TerrainManager::setRenderParm(RenderParm &prm)
+void TerrainManager::setRenderParm(RenderParm &prm, const mat4f_t &mvp)
 {
 	const Object *planet = vobj->object();
 	const Player *player = scene->getPlayer();
@@ -194,9 +216,11 @@ void TerrainManager::setRenderParm(RenderParm &prm)
 ////	mat4d_t vmat = cam->getRotation().matrix();
 //
 ////	prm.pvmat = pmat * vmat;
+
+	prm.pkg = pkg;
 }
 
-void TerrainManager::process(TerrainTile *tile)
+void TerrainManager::process(TerrainTile *tile, RenderParm &prm)
 {
 
 	int lod  = tile->lod;
@@ -284,11 +308,11 @@ void TerrainManager::process(TerrainTile *tile)
 
 }
 
-void TerrainManager::render(TerrainTile *tile)
+void TerrainManager::render(TerrainTile *tile, RenderParm &prm)
 {
 
 	if (tile->state == TerrainTile::Rendering)
-		tile->render();
+		tile->render(prm);
 //	else if (tile->state == TerrainTfile::Active)
 //	{
 //		for (int idx = 0; idx < 4; idx++) {
@@ -299,17 +323,21 @@ void TerrainManager::render(TerrainTile *tile)
 //	}
 }
 
-void TerrainManager::render()
+void TerrainManager::render(const mat4f_t &mvp)
 {
 	RenderParm prm;
 
-	setRenderParm(prm);
+	setRenderParm(prm, mvp);
+
+	pkg->use();
+	pkg->mvp = mvp;
+	pkg->setSamplerParam("tex") = 0;
 
 	// Rendering terrain area
 	for (int idx = 0; idx < 2; idx++)
-		process(terrain[idx]);
+		process(terrain[idx], prm);
 	for (int idx = 0; idx < 2; idx++)
-		render(terrain[idx]);
+		render(terrain[idx], prm);
 }
 
 // Create spherical patch/hemisphere for LOD level 0+
@@ -321,32 +349,32 @@ glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng,
 	int nlat = 1 << lod;
 	int nlng = 2 << lod;
 
-	double mlat0 = PI * double(ilat) / double(nlat);
-	double mlat1 = PI * double(ilat+1) / double(nlat);
-    double mlng0 = PI*2 * (double(nlng/2 - ilng-1) / double(nlng)) - PI;
-    double mlng1 = PI*2 * (double(nlng/2 - ilng) / double(nlng)) - PI;
+	float mlat0 = PI * float(ilat) / float(nlat);
+	float mlat1 = PI * float(ilat+1) / float(nlat);
+    float mlng0 = PI*2 * (float(nlng/2 - ilng-1) / float(nlng)) - PI;
+    float mlng1 = PI*2 * (float(nlng/2 - ilng) / float(nlng)) - PI;
 
 //    vObject *vobj = mgr->getVisualObject();
-//	double   rad = vobj->getObject()->getRadius();
-	double   rad, erad;
+//	float   rad = vobj->getObject()->getRadius();
+	float   rad, erad;
 
-    double slng, clng;
-    double slat, clat;
-	double lng, lat;
-    double tu, tv, du, dv;
-    double tur, tvr;
-    vec3d_t pos, nml;
+    float slng, clng;
+    float slat, clat;
+	float lng, lat;
+    float tu, tv, du, dv;
+    float tur, tvr;
+    vec3f_t pos, nml;
 
     int      vidx;
     int      nVertices;
     int      nIndices, nIndices1;
 
-    vtxd_t   *vtx;
+    vtxf_t   *vtx;
     uint16_t *idx, *pidx;
 
     nVertices = (grids+1)*(grids+1);
     nIndices  = 6 * (grids*grids);
-    vtx       = new vtxd_t[nVertices];
+    vtx       = new vtxf_t[nVertices];
     idx       = new uint16_t[nIndices];
 
 //    int      nTexCoords;
@@ -386,17 +414,17 @@ glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng,
     vidx = 0;
 	for (int y = 0; y <= grids; y++)
 	{
-		lat  = mlat0 + (mlat1-mlat0) * ((double)y/(double)grids);
+		lat  = mlat0 + (mlat1-mlat0) * (float(y)/float(grids));
 		slat = sin(lat); clat = cos(lat);
-        tv = tcr.tvmin + tvr * (double(y)/double(grids));
+        tv = tcr.tvmin + tvr * (float(y)/float(grids));
 
 //        std::cout << "Y = " << y << " LAT: " << toDegrees(lat) << std::endl;
 
 		for (int x = 0; x <= grids; x++)
 		{
-			lng  = mlng0 + (mlng1-mlng0) * ((double)x/(double)grids);
+			lng  = mlng0 + (mlng1-mlng0) * (float(x)/float(grids));
 			slng = sin(lng); clng = cos(lng);
-            tu   = tcr.tumin + tur * (double(x)/double(grids));
+            tu   = tcr.tumin + tur * (float(x)/float(grids));
 
 //            std::cout << "X = " << x << " LNG: " << toDegrees(lng) << std::endl;
 
@@ -415,7 +443,7 @@ glMesh *TerrainManager::createSpherePatch(int lod, int ilat, int ilng,
 //            else
 //            	std::cout << "No elevation data for sphere..." << std::endl;
 
-            nml = vec3d_t(slat*clng, clat, slat*-slng);
+            nml = vec3f_t(slat*clng, clat, slat*-slng);
 
             pos = nml * erad;
 

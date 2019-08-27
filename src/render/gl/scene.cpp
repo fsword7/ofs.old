@@ -29,6 +29,7 @@ Scene::~Scene()
 glScene::glScene()
 : Scene(), vobj(nullptr)
 {
+	gl.init();
 }
 
 glScene::~glScene()
@@ -74,6 +75,11 @@ void glScene::render(Player &player, Universe &universe)
 	double  cfov;
 	mat4d_t crotm;
 
+	mat4f_t model;
+	mat4f_t mproj;
+	mat4f_t mview;
+	mat4f_t mvp;
+
 	this->player = &player;
 
 	closeStars.clear();
@@ -90,8 +96,11 @@ void glScene::render(Player &player, Universe &universe)
 	cfov  = cam->getFOV();
 	crotm = glm::mat4_cast(crot);
 
+
 	// Find closest stars within desired local distance
 	universe.findCloseStars(cpos, 1.0, closeStars);
+
+	gl.start();
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -105,17 +114,26 @@ void glScene::render(Player &player, Universe &universe)
 	glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
 //	glEnable(GL_DEPTH_TEST);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
-	glColor3f(1.0, 1.0, 1.0);
+//	glColor3f(1.0, 1.0, 1.0);
 
-	// Render visible stars
-	renderStars(universe.getStarDatabase(), player, 6.0);
-	// Render constellation lines
-	renderConstellations(universe, player);
+	// Calculate current projection/view/model matrix.
+	mproj = glm::perspective(cfov, aspect, DIST_NEAR, DIST_FAR);
+	mview = glm::translate(mat4f_t(1.0f), vec3f_t(cpos));
+	model = glm::mat4_cast(crot);
+	mvp   = model * mproj * mview;
+
+//	// Render visible stars
+//	renderStars(universe.getStarDatabase(), player, 6.0);
+//	// Render constellation lines
+//	renderConstellations(universe, player);
 
 	vobj->update(player);
 
+	glColor3f(1.0, 1.0, 1.0);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	vobj->render();
+	vobj->render(mvp);
 	glDisable(GL_CULL_FACE);
+
+	gl.finish();
 }
